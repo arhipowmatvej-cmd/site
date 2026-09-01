@@ -86,7 +86,7 @@ async function loadReviews() {
             document.createElement("div");
 
         reviewElement.className =
-            "review scroll-animate";
+            "review";
 
 
         const mark =
@@ -152,8 +152,9 @@ async function loadReviews() {
 
 
     // После добавления отзывов
-    // подключаем анимацию появления
-    initScrollAnimations();
+    // подключаем для них анимацию
+
+    setupRevealAnimations();
 
 }
 
@@ -633,11 +634,11 @@ async function submitContactMessage(event) {
 // МИКРОАНИМАЦИИ ПРИ ПРОКРУТКЕ
 // =========================================
 
-function initScrollAnimations() {
+function setupRevealAnimations() {
 
     const elements =
         document.querySelectorAll(
-            ".section, .contact-section, .blog-post, .project-card, .skill, .reviews-header, .contact-form-wrapper"
+            ".section, .contact-section, .blog-section, .skill, .review, .project-card, .blog-post, .contact-form-wrapper"
         );
 
 
@@ -648,12 +649,17 @@ function initScrollAnimations() {
 
     // Если браузер не поддерживает
     // IntersectionObserver —
-    // просто показываем элементы.
+    // просто показываем всё.
 
     if (!("IntersectionObserver" in window)) {
 
         elements.forEach(element => {
-            element.classList.add("visible");
+
+            element.classList.add(
+                "reveal",
+                "is-visible"
+            );
+
         });
 
         return;
@@ -666,28 +672,20 @@ function initScrollAnimations() {
 
                 entries.forEach(entry => {
 
-                    if (entry.isIntersecting) {
-
-                        entry.target.classList.add(
-                            "scroll-animate"
-                        );
-
-                        requestAnimationFrame(
-                            function () {
-
-                                entry.target.classList.add(
-                                    "visible"
-                                );
-
-                            }
-                        );
-
-
-                        observer.unobserve(
-                            entry.target
-                        );
-
+                    if (!entry.isIntersecting) {
+                        return;
                     }
+
+
+                    entry.target.classList.add(
+                        "reveal",
+                        "is-visible"
+                    );
+
+
+                    observer.unobserve(
+                        entry.target
+                    );
 
                 });
 
@@ -701,19 +699,29 @@ function initScrollAnimations() {
         );
 
 
-    elements.forEach(
-        element => {
+    elements.forEach((element, index) => {
 
-            element.classList.add(
-                "scroll-animate"
-            );
+        element.classList.add("reveal");
 
-            observer.observe(
-                element
-            );
+
+        // Небольшая задержка для
+        // карточек одного блока
+
+        if (
+            element.classList.contains("skill") ||
+            element.classList.contains("review") ||
+            element.classList.contains("project-card")
+        ) {
+
+            element.style.transitionDelay =
+                `${Math.min(index * 0.05, 0.25)}s`;
 
         }
-    );
+
+
+        observer.observe(element);
+
+    });
 
 }
 
@@ -802,7 +810,7 @@ document.addEventListener(
         // МИКРОАНИМАЦИИ
         // =====================================
 
-        initScrollAnimations();
+        setupRevealAnimations();
 
     }
 );
