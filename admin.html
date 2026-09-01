@@ -29,7 +29,9 @@
 
 </head>
 
+
 <body>
+
 
 <header class="site-header">
 
@@ -39,11 +41,14 @@
             href="index.html"
             class="logo"
         >
+
             <img
                 src="ChatGPT%20Image%202%20сент.%202026%20г.%2C%2001_43_15.png"
                 alt="Матвей Архипов"
             >
+
         </a>
+
 
         <nav class="nav">
 
@@ -64,6 +69,7 @@
     </div>
 
 </header>
+
 
 
 <main class="admin-page">
@@ -96,6 +102,7 @@
         </section>
 
 
+
         <!-- ========================= -->
         <!-- ВХОД -->
         <!-- ========================= -->
@@ -115,7 +122,9 @@
                     Войдите, чтобы управлять содержимым сайта.
                 </p>
 
+
                 <form id="loginForm">
+
 
                     <label for="email">
                         Email
@@ -148,16 +157,20 @@
                         Войти
                     </button>
 
+
                 </form>
+
 
                 <p
                     id="loginMessage"
                     class="admin-message"
                 ></p>
 
+
             </div>
 
         </section>
+
 
 
         <!-- ========================= -->
@@ -184,6 +197,7 @@
 
                 </div>
 
+
                 <button
                     id="logoutButton"
                     class="admin-button admin-button-secondary"
@@ -195,11 +209,13 @@
             </div>
 
 
+
             <!-- ========================= -->
             <!-- ПРОЕКТЫ -->
             <!-- ========================= -->
 
             <section class="admin-section">
+
 
                 <div class="admin-section-title">
 
@@ -210,7 +226,7 @@
                         </div>
 
                         <h2>
-                            Создание проекта
+                            Добавить проект
                         </h2>
 
                     </div>
@@ -218,9 +234,20 @@
                 </div>
 
 
+
                 <div class="admin-card admin-blog">
 
+
+                    <p class="admin-description">
+                        Заполни информацию о проекте.
+                        После публикации он появится на странице «Проекты».
+                    </p>
+
+
                     <form id="projectForm">
+
+
+                        <!-- НАЗВАНИЕ -->
 
                         <label for="projectTitle">
                             Название проекта
@@ -234,6 +261,8 @@
                         >
 
 
+                        <!-- КАТЕГОРИЯ -->
+
                         <label for="projectCategory">
                             Категория
                         </label>
@@ -245,6 +274,8 @@
                         >
 
 
+                        <!-- КРАТКОЕ ОПИСАНИЕ -->
+
                         <label for="projectShortDescription">
                             Краткое описание
                         </label>
@@ -252,9 +283,11 @@
                         <textarea
                             id="projectShortDescription"
                             rows="4"
-                            placeholder="Кратко опишите проект..."
+                            placeholder="1–2 предложения о проекте. Этот текст будет виден прямо на карточке."
                         ></textarea>
 
+
+                        <!-- ПОДРОБНОЕ ОПИСАНИЕ -->
 
                         <label for="projectDescription">
                             Подробное описание
@@ -263,12 +296,17 @@
                         <textarea
                             id="projectDescription"
                             rows="10"
-                            placeholder="Расскажите подробнее о проекте..."
+                            placeholder="Расскажи подробнее: цель проекта, что было сделано, какие задачи решались, какой получился результат."
                         ></textarea>
 
 
+                        <!-- ССЫЛКА -->
+
                         <label for="projectUrl">
                             Ссылка на проект
+                            <span style="opacity: 0.5;">
+                                — необязательно
+                            </span>
                         </label>
 
                         <input
@@ -278,18 +316,29 @@
                         >
 
 
-                        <label for="projectImage">
-                            Ссылка на изображение
-                        </label>
+                        <!-- ИЗОБРАЖЕНИЕ -->
+                        <!-- Пока не используем, но оставляем поле,
+                             потому что admin.js его ожидает. -->
 
-                        <input
-                            type="url"
-                            id="projectImage"
-                            placeholder="https://..."
-                        >
+                        <div style="display: none;">
 
+                            <label for="projectImage">
+                                Ссылка на изображение
+                            </label>
+
+                            <input
+                                type="url"
+                                id="projectImage"
+                                value=""
+                            >
+
+                        </div>
+
+
+                        <!-- ОПУБЛИКОВАТЬ -->
 
                         <div class="blog-form-options">
+
 
                             <label class="checkbox-label">
 
@@ -304,6 +353,7 @@
 
                             </label>
 
+
                             <button
                                 type="submit"
                                 class="admin-button"
@@ -311,7 +361,9 @@
                                 Создать проект
                             </button>
 
+
                         </div>
+
 
                     </form>
 
@@ -321,9 +373,12 @@
                         class="admin-message"
                     ></p>
 
+
                 </div>
 
+
             </section>
+
 
 
             <!-- ========================= -->
@@ -331,6 +386,7 @@
             <!-- ========================= -->
 
             <section class="admin-section">
+
 
                 <div class="admin-section-title">
 
@@ -360,7 +416,9 @@
 
                 </div>
 
+
             </section>
+
 
 
             <!-- ========================= -->
@@ -368,6 +426,7 @@
             <!-- ========================= -->
 
             <section class="admin-section">
+
 
                 <div class="admin-section-title">
 
@@ -386,9 +445,12 @@
                 </div>
 
 
+
                 <div class="admin-card admin-blog">
 
+
                     <form id="blogForm">
+
 
                         <label for="blogTitle">
                             Заголовок
@@ -416,6 +478,7 @@
 
                         <div class="blog-form-options">
 
+
                             <label class="checkbox-label">
 
                                 <input
@@ -429,6 +492,7 @@
 
                             </label>
 
+
                             <button
                                 type="submit"
                                 class="admin-button"
@@ -436,7 +500,9 @@
                                 Создать публикацию
                             </button>
 
+
                         </div>
+
 
                     </form>
 
@@ -446,9 +512,12 @@
                         class="admin-message"
                     ></p>
 
+
                 </div>
 
+
             </section>
+
 
 
             <!-- ========================= -->
@@ -456,6 +525,7 @@
             <!-- ========================= -->
 
             <section class="admin-section">
+
 
                 <div class="admin-section-title">
 
@@ -485,7 +555,9 @@
 
                 </div>
 
+
             </section>
+
 
 
             <!-- ========================= -->
@@ -493,6 +565,7 @@
             <!-- ========================= -->
 
             <section class="admin-section">
+
 
                 <div class="admin-section-title">
 
@@ -522,14 +595,17 @@
 
                 </div>
 
+
             </section>
 
 
         </div>
 
+
     </div>
 
 </main>
+
 
 
 <footer class="site-footer">
@@ -543,6 +619,7 @@
     </div>
 
 </footer>
+
 
 </body>
 
