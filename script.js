@@ -13,153 +13,110 @@ const supabaseClient =
 
 
 // =========================================================
-// ЦВЕТ ТЕМЫ
+// ТЕМА САЙТА
 // =========================================================
 
-const DEFAULT_THEME_COLOR =
-    "#2e9f6e";
+const DEFAULT_THEME =
+    "dark";
 
 
-function hexToRgba(hex, alpha) {
+function applyTheme(theme) {
 
-    const cleanHex =
-        hex.replace("#", "");
-
-    const r =
-        parseInt(
-            cleanHex.substring(0, 2),
-            16
-        );
-
-    const g =
-        parseInt(
-            cleanHex.substring(2, 4),
-            16
-        );
-
-    const b =
-        parseInt(
-            cleanHex.substring(4, 6),
-            16
-        );
-
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
-
-
-function applyThemeColor(color) {
-
-    if (!color) {
-        color =
-            DEFAULT_THEME_COLOR;
+    if (
+        theme !== "light" &&
+        theme !== "dark"
+    ) {
+        theme =
+            DEFAULT_THEME;
     }
 
 
-    document.documentElement.style
-        .setProperty(
-            "--accent",
-            color
+    document.documentElement
+        .setAttribute(
+            "data-theme",
+            theme
         );
-
-
-    document.documentElement.style
-        .setProperty(
-            "--accent-light",
-            hexToRgba(color, 0.10)
-        );
-
-
-    document.documentElement.style
-        .setProperty(
-            "--accent-soft",
-            hexToRgba(color, 0.10)
-        );
-
-
-    document.documentElement.style
-        .setProperty(
-            "--accent-border",
-            hexToRgba(color, 0.28)
-        );
-
-
-    document.documentElement.style
-        .setProperty(
-            "--accent-shadow",
-            hexToRgba(color, 0.20)
-        );
-
-
-    const currentColor =
-        document.querySelector(
-            "#themeCurrentColor"
-        );
-
-
-    if (currentColor) {
-
-        currentColor.style.background =
-            color;
-
-    }
-
-
-    const customColor =
-        document.querySelector(
-            "#customThemeColor"
-        );
-
-
-    if (customColor) {
-
-        customColor.value =
-            color;
-
-    }
-
-
-    const themeButtons =
-        document.querySelectorAll(
-            ".theme-color"
-        );
-
-
-    themeButtons.forEach(
-        button => {
-
-            const buttonColor =
-                button.dataset.themeColor;
-
-
-            button.classList.toggle(
-                "active",
-                buttonColor.toLowerCase() ===
-                    color.toLowerCase()
-            );
-
-        }
-    );
 
 
     localStorage.setItem(
-        "siteThemeColor",
-        color
+        "siteTheme",
+        theme
+    );
+
+
+    updateThemeButton(
+        theme
     );
 
 }
 
 
-function loadThemeColor() {
+function loadTheme() {
 
-    const savedColor =
+    const savedTheme =
         localStorage.getItem(
-            "siteThemeColor"
+            "siteTheme"
         );
 
 
-    applyThemeColor(
-        savedColor ||
-        DEFAULT_THEME_COLOR
+    applyTheme(
+        savedTheme ||
+        DEFAULT_THEME
+    );
+
+}
+
+
+function updateThemeButton(theme) {
+
+    const button =
+        document.querySelector(
+            "#themePickerButton"
+        );
+
+
+    if (!button) {
+        return;
+    }
+
+
+    const text =
+        button.querySelector(
+            ".theme-picker-text"
+        );
+
+
+    const arrow =
+        button.querySelector(
+            ".theme-picker-arrow"
+        );
+
+
+    if (text) {
+
+        text.textContent =
+            theme === "dark"
+                ? "Тёмная тема"
+                : "Светлая тема";
+
+    }
+
+
+    if (arrow) {
+
+        arrow.textContent =
+            theme === "dark"
+                ? "☀"
+                : "☾";
+
+    }
+
+
+    button.setAttribute(
+        "aria-label",
+        theme === "dark"
+            ? "Переключить на светлую тему"
+            : "Переключить на тёмную тему"
     );
 
 }
@@ -190,9 +147,54 @@ function setupThemePicker() {
         !pickerButton ||
         !menu
     ) {
+
+        loadTheme();
+
         return;
+
     }
 
+
+    // =====================================================
+    // СОЗДАЁМ НОВОЕ МЕНЮ ИЗ ДВУХ ТЕМ
+    // =====================================================
+
+    menu.innerHTML = `
+        <div class="theme-menu-title">
+            Тема оформления
+        </div>
+
+        <button
+            type="button"
+            class="theme-option"
+            data-theme="dark"
+        >
+            <span class="theme-option-icon">☾</span>
+
+            <span class="theme-option-content">
+                <strong>Тёмная</strong>
+                <small>Тёмный фон и зелёные акценты</small>
+            </span>
+        </button>
+
+        <button
+            type="button"
+            class="theme-option"
+            data-theme="light"
+        >
+            <span class="theme-option-icon">☀</span>
+
+            <span class="theme-option-content">
+                <strong>Светлая</strong>
+                <small>Светлый фон и зелёные акценты</small>
+            </span>
+        </button>
+    `;
+
+
+    // =====================================================
+    // ОТКРЫТИЕ МЕНЮ
+    // =====================================================
 
     pickerButton.addEventListener(
         "click",
@@ -222,25 +224,40 @@ function setupThemePicker() {
     );
 
 
-    const colorButtons =
-        document.querySelectorAll(
-            ".theme-color"
+    // =====================================================
+    // ВЫБОР ТЕМЫ
+    // =====================================================
+
+    const themeButtons =
+        menu.querySelectorAll(
+            ".theme-option"
         );
 
 
-    colorButtons.forEach(
+    themeButtons.forEach(
         button => {
 
             button.addEventListener(
                 "click",
                 function () {
 
-                    const color =
-                        button.dataset.themeColor;
+                    const theme =
+                        button.dataset.theme;
 
 
-                    applyThemeColor(
-                        color
+                    applyTheme(
+                        theme
+                    );
+
+
+                    picker.classList.remove(
+                        "open"
+                    );
+
+
+                    pickerButton.setAttribute(
+                        "aria-expanded",
+                        "false"
                     );
 
                 }
@@ -250,34 +267,18 @@ function setupThemePicker() {
     );
 
 
-    const customColor =
-        document.querySelector(
-            "#customThemeColor"
-        );
-
-
-    if (customColor) {
-
-        customColor.addEventListener(
-            "input",
-            function () {
-
-                applyThemeColor(
-                    customColor.value
-                );
-
-            }
-        );
-
-    }
-
+    // =====================================================
+    // ЗАКРЫТИЕ ПРИ КЛИКЕ СНАРУЖИ
+    // =====================================================
 
     document.addEventListener(
         "click",
         function (event) {
 
             if (
-                !picker.contains(event.target)
+                !picker.contains(
+                    event.target
+                )
             ) {
 
                 picker.classList.remove(
@@ -295,6 +296,10 @@ function setupThemePicker() {
         }
     );
 
+
+    // =====================================================
+    // ESCAPE
+    // =====================================================
 
     document.addEventListener(
         "keydown",
@@ -320,7 +325,7 @@ function setupThemePicker() {
     );
 
 
-    loadThemeColor();
+    loadTheme();
 
 }
 
@@ -1282,9 +1287,8 @@ document.addEventListener(
     "DOMContentLoaded",
     function () {
 
-
         // =================================================
-        // ЦВЕТ
+        // ТЕМА
         // =================================================
 
         setupThemePicker();
