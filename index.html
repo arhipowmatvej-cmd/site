@@ -10,7 +10,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-    <title>vibecoding</title>
+    <title>Матвей Архипов — студент-гидролог</title>
 
     <link
         rel="stylesheet"
@@ -37,6 +37,7 @@
             alt="Матвей Архипов">
 
     </a>
+
 
     <nav>
 
@@ -65,6 +66,124 @@
         </a>
 
     </nav>
+
+
+    <!-- =========================
+         ВЫБОР ЦВЕТА
+    ========================== -->
+
+    <div class="theme-picker">
+
+        <button
+            type="button"
+            class="theme-picker-button"
+            id="themePickerButton"
+            aria-label="Выбрать цвет сайта"
+            aria-expanded="false">
+
+            <span
+                class="theme-current-color"
+                id="themeCurrentColor">
+            </span>
+
+            <span class="theme-picker-text">
+                Цвет
+            </span>
+
+            <span class="theme-picker-arrow">
+                ▾
+            </span>
+
+        </button>
+
+
+        <div
+            class="theme-menu"
+            id="themeMenu">
+
+
+            <div class="theme-menu-title">
+                Цвет акцента
+            </div>
+
+
+            <div class="theme-colors">
+
+
+                <button
+                    type="button"
+                    class="theme-color"
+                    data-theme-color="#2e9f6e"
+                    style="--swatch: #2e9f6e"
+                    aria-label="Зелёный">
+                </button>
+
+
+                <button
+                    type="button"
+                    class="theme-color"
+                    data-theme-color="#3284d6"
+                    style="--swatch: #3284d6"
+                    aria-label="Синий">
+                </button>
+
+
+                <button
+                    type="button"
+                    class="theme-color"
+                    data-theme-color="#7657d9"
+                    style="--swatch: #7657d9"
+                    aria-label="Фиолетовый">
+                </button>
+
+
+                <button
+                    type="button"
+                    class="theme-color"
+                    data-theme-color="#d88932"
+                    style="--swatch: #d88932"
+                    aria-label="Оранжевый">
+                </button>
+
+
+                <button
+                    type="button"
+                    class="theme-color"
+                    data-theme-color="#d65353"
+                    style="--swatch: #d65353"
+                    aria-label="Красный">
+                </button>
+
+
+                <button
+                    type="button"
+                    class="theme-color"
+                    data-theme-color="#168f91"
+                    style="--swatch: #168f91"
+                    aria-label="Бирюзовый">
+                </button>
+
+
+            </div>
+
+
+            <div class="theme-custom">
+
+                <label for="customThemeColor">
+                    Свой цвет
+                </label>
+
+                <input
+                    type="color"
+                    id="customThemeColor"
+                    value="#2e9f6e">
+
+            </div>
+
+
+        </div>
+
+    </div>
 
 </header>
 
@@ -623,7 +742,6 @@
 ========================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 
 <script src="script.js"></script>
 
