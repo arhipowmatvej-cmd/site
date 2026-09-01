@@ -7,182 +7,385 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0">
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Админ-панель — Матвей Архипов</title>
+    <title>Админ-панель</title>
 
     <link
         rel="stylesheet"
-        href="style.css">
+        href="style.css"
+    >
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+        defer
+    ></script>
+
+    <script
+        src="admin.js"
+        defer
+    ></script>
 
 </head>
 
 <body>
 
-<header>
+<header class="site-header">
 
-    <div class="logo">
-        Модерация
+    <div class="container nav-container">
+
+        <a
+            href="index.html"
+            class="logo"
+        >
+            Матвей Архипов
+        </a>
+
+        <nav class="nav">
+
+            <a href="index.html">
+                На сайт
+            </a>
+
+            <a href="projects.html">
+                Проекты
+            </a>
+
+            <a href="blog.html">
+                Блог
+            </a>
+
+        </nav>
+
     </div>
-
-    <nav>
-
-        <a href="./index.html">
-            На сайт
-        </a>
-
-        <a href="./blog.html">
-            Блог
-        </a>
-
-    </nav>
 
 </header>
 
 
-<main>
+<main class="admin-page">
 
-    <section class="admin-section">
-
-        <div class="section-label">
-            ПАНЕЛЬ АДМИНИСТРАТОРА
-        </div>
+    <div class="container">
 
 
-        <div class="admin-content">
+        <!-- ========================= -->
+        <!-- ЗАГОЛОВОК -->
+        <!-- ========================= -->
 
+        <section class="admin-header">
 
-            <!-- =========================
-                 ВХОД
-            ========================== -->
+            <div>
 
-            <div
-                id="loginBlock"
-                class="admin-card">
+                <div class="section-label">
+                    УПРАВЛЕНИЕ САЙТОМ
+                </div>
 
                 <h1>
-                    Вход в админ-панель
+                    Админ-панель
                 </h1>
 
-                <p class="admin-description">
-                    Войдите с помощью аккаунта администратора,
-                    чтобы управлять отзывами и публикациями.
+                <p>
+                    Управление проектами, публикациями и отзывами.
                 </p>
 
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- ВХОД -->
+        <!-- ========================= -->
+
+        <section
+            class="admin-section"
+            id="loginSection"
+        >
+
+            <div class="admin-card">
+
+                <h2>
+                    Вход
+                </h2>
+
+                <p class="admin-description">
+                    Войдите, чтобы управлять содержимым сайта.
+                </p>
 
                 <form id="loginForm">
 
-                    <label for="adminEmail">
+                    <label for="email">
                         Email
                     </label>
 
                     <input
                         type="email"
-                        id="adminEmail"
-                        placeholder="Ваш email"
-                        required>
+                        id="email"
+                        placeholder="Введите email"
+                        required
+                    >
 
 
-                    <label for="adminPassword">
+                    <label for="password">
                         Пароль
                     </label>
 
                     <input
                         type="password"
-                        id="adminPassword"
-                        placeholder="Ваш пароль"
-                        required>
+                        id="password"
+                        placeholder="Введите пароль"
+                        required
+                    >
 
 
                     <button
                         type="submit"
-                        class="admin-button">
-
+                        class="admin-button"
+                    >
                         Войти
-
                     </button>
 
-
-                    <p
-                        id="loginMessage"
-                        class="admin-message">
-                    </p>
-
                 </form>
+
+                <p
+                    id="loginMessage"
+                    class="admin-message"
+                ></p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- ОСНОВНАЯ АДМИНКА -->
+        <!-- ========================= -->
+
+        <div
+            id="adminContent"
+            style="display: none;"
+        >
+
+
+            <!-- ========================= -->
+            <!-- ВЫХОД -->
+            <!-- ========================= -->
+
+            <div class="admin-toolbar">
+
+                <div>
+
+                    <strong>
+                        Вы вошли в систему
+                    </strong>
+
+                </div>
+
+                <button
+                    id="logoutButton"
+                    class="admin-button admin-button-secondary"
+                    type="button"
+                >
+                    Выйти
+                </button>
 
             </div>
 
 
+            <!-- ========================= -->
+            <!-- ПРОЕКТЫ -->
+            <!-- ========================= -->
 
-            <!-- =========================
-                 АДМИН-ПАНЕЛЬ
-            ========================== -->
+            <section class="admin-section">
 
-            <div
-                id="moderationBlock"
-                class="moderation-block"
-                style="display: none;">
-
-
-                <div class="moderation-header">
+                <div class="admin-section-title">
 
                     <div>
 
-                        <h1>
-                            Админ-панель
-                        </h1>
+                        <div class="section-label">
+                            ПРОЕКТЫ
+                        </div>
 
-                        <p class="admin-description">
-                            Управление отзывами и публикациями.
-                        </p>
+                        <h2>
+                            Создание проекта
+                        </h2>
 
                     </div>
-
-
-                    <button
-                        type="button"
-                        id="logoutButton"
-                        class="logout-button">
-
-                        Выйти
-
-                    </button>
 
                 </div>
 
 
+                <div class="admin-card admin-blog">
 
-                <!-- =========================
-                     БЛОГ — НОВАЯ ПУБЛИКАЦИЯ
-                ========================== -->
+                    <form id="projectForm">
 
-                <div class="admin-blog">
+                        <label for="projectTitle">
+                            Название проекта
+                        </label>
 
-                    <div class="admin-block-title">
+                        <input
+                            type="text"
+                            id="projectTitle"
+                            placeholder="Например: Кривые обеспеченности"
+                            required
+                        >
 
-                        <div>
 
-                            <div class="section-label">
-                                БЛОГ
-                            </div>
+                        <label for="projectCategory">
+                            Категория
+                        </label>
 
-                            <h2>
-                                Новая публикация
-                            </h2>
+                        <input
+                            type="text"
+                            id="projectCategory"
+                            placeholder="Например: Гидрология"
+                        >
 
-                            <p class="admin-description">
-                                Создайте запись и решите,
-                                публиковать её сразу или сохранить
-                                как черновик.
-                            </p>
+
+                        <label for="projectShortDescription">
+                            Краткое описание
+                        </label>
+
+                        <textarea
+                            id="projectShortDescription"
+                            rows="4"
+                            placeholder="Кратко опишите проект..."
+                        ></textarea>
+
+
+                        <label for="projectDescription">
+                            Подробное описание
+                        </label>
+
+                        <textarea
+                            id="projectDescription"
+                            rows="10"
+                            placeholder="Расскажите подробнее о проекте..."
+                        ></textarea>
+
+
+                        <label for="projectUrl">
+                            Ссылка на проект
+                        </label>
+
+                        <input
+                            type="url"
+                            id="projectUrl"
+                            placeholder="https://..."
+                        >
+
+
+                        <label for="projectImage">
+                            Ссылка на изображение
+                        </label>
+
+                        <input
+                            type="url"
+                            id="projectImage"
+                            placeholder="https://..."
+                        >
+
+
+                        <div class="blog-form-options">
+
+                            <label class="checkbox-label">
+
+                                <input
+                                    type="checkbox"
+                                    id="projectPublished"
+                                >
+
+                                <span>
+                                    Опубликовать проект сразу
+                                </span>
+
+                            </label>
+
+                            <button
+                                type="submit"
+                                class="admin-button"
+                            >
+                                Создать проект
+                            </button>
 
                         </div>
 
+                    </form>
+
+
+                    <p
+                        id="projectMessage"
+                        class="admin-message"
+                    ></p>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================= -->
+            <!-- СПИСОК ПРОЕКТОВ -->
+            <!-- ========================= -->
+
+            <section class="admin-section">
+
+                <div class="admin-section-title">
+
+                    <div>
+
+                        <div class="section-label">
+                            УПРАВЛЕНИЕ
+                        </div>
+
+                        <h2>
+                            Мои проекты
+                        </h2>
+
                     </div>
 
+                </div>
+
+
+                <div
+                    id="projectsList"
+                    class="admin-list"
+                >
+
+                    <p class="reviews-message">
+                        Загружаем проекты...
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================= -->
+            <!-- БЛОГ -->
+            <!-- ========================= -->
+
+            <section class="admin-section">
+
+                <div class="admin-section-title">
+
+                    <div>
+
+                        <div class="section-label">
+                            БЛОГ
+                        </div>
+
+                        <h2>
+                            Создание публикации
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="admin-card admin-blog">
 
                     <form id="blogForm">
-
 
                         <label for="blogTitle">
                             Заголовок
@@ -191,9 +394,9 @@
                         <input
                             type="text"
                             id="blogTitle"
-                            placeholder="Введите заголовок публикации"
-                            maxlength="200"
-                            required>
+                            placeholder="Название публикации"
+                            required
+                        >
 
 
                         <label for="blogContent">
@@ -203,17 +406,19 @@
                         <textarea
                             id="blogContent"
                             rows="12"
-                            placeholder="Введите текст публикации..."
-                            required></textarea>
+                            placeholder="Текст публикации..."
+                            required
+                        ></textarea>
 
 
                         <div class="blog-form-options">
 
-                            <label class="publish-checkbox">
+                            <label class="checkbox-label">
 
                                 <input
                                     type="checkbox"
-                                    id="blogPublished">
+                                    id="blogPublished"
+                                >
 
                                 <span>
                                     Опубликовать сразу
@@ -221,126 +426,120 @@
 
                             </label>
 
-
                             <button
                                 type="submit"
-                                class="admin-button">
-
-                                Добавить публикацию
-
+                                class="admin-button"
+                            >
+                                Создать публикацию
                             </button>
 
                         </div>
 
-
-                        <p
-                            id="blogMessage"
-                            class="admin-message">
-                        </p>
-
                     </form>
 
+
+                    <p
+                        id="blogMessage"
+                        class="admin-message"
+                    ></p>
+
                 </div>
 
+            </section>
 
 
-                <!-- =========================
-                     СПИСОК ПУБЛИКАЦИЙ
-                ========================== -->
+            <!-- ========================= -->
+            <!-- СПИСОК ПУБЛИКАЦИЙ -->
+            <!-- ========================= -->
 
-                <div class="admin-blog-list">
+            <section class="admin-section">
 
-                    <div class="admin-block-title">
+                <div class="admin-section-title">
 
-                        <div>
+                    <div>
 
-                            <div class="section-label">
-                                УПРАВЛЕНИЕ
-                            </div>
-
-                            <h2>
-                                Публикации
-                            </h2>
-
+                        <div class="section-label">
+                            ПУБЛИКАЦИИ
                         </div>
 
-                    </div>
-
-
-                    <div id="adminBlogPosts">
-
-                        <p class="reviews-message">
-                            Загружаем публикации...
-                        </p>
+                        <h2>
+                            Управление блогом
+                        </h2>
 
                     </div>
 
                 </div>
 
 
+                <div
+                    id="blogList"
+                    class="admin-list"
+                >
 
-                <!-- =========================
-                     ОТЗЫВЫ
-                ========================== -->
+                    <p class="reviews-message">
+                        Загружаем публикации...
+                    </p>
 
-                <div class="admin-reviews">
+                </div>
 
-                    <div class="admin-block-title">
+            </section>
 
-                        <div>
 
-                            <div class="section-label">
-                                ОТЗЫВЫ
-                            </div>
+            <!-- ========================= -->
+            <!-- ОТЗЫВЫ -->
+            <!-- ========================= -->
 
-                            <h2>
-                                Отзывы
-                            </h2>
+            <section class="admin-section">
 
-                            <p class="admin-description">
-                                Здесь находятся отзывы,
-                                которые ожидают проверки.
-                            </p>
+                <div class="admin-section-title">
 
+                    <div>
+
+                        <div class="section-label">
+                            ОТЗЫВЫ
                         </div>
 
-                    </div>
-
-
-                    <div id="pendingReviews">
-
-                        <p class="reviews-message">
-                            Загружаем отзывы...
-                        </p>
+                        <h2>
+                            Модерация отзывов
+                        </h2>
 
                     </div>
 
                 </div>
 
 
-            </div>
+                <div
+                    id="reviewsList"
+                    class="admin-list"
+                >
+
+                    <p class="reviews-message">
+                        Загружаем отзывы...
+                    </p>
+
+                </div>
+
+            </section>
+
 
         </div>
 
-    </section>
+    </div>
 
 </main>
 
 
-<footer>
+<footer class="site-footer">
 
-    <p>
-        © 2026 Матвей Архипов
-    </p>
+    <div class="container">
+
+        <p>
+            © 2026 Матвей Архипов
+        </p>
+
+    </div>
 
 </footer>
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script src="admin.js"></script>
-
 
 </body>
 
