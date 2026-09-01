@@ -27,6 +27,7 @@ body::before {
     filter: blur(140px);
     opacity: 0.28;
     pointer-events: none;
+    z-index: 0;
 }
 
 body::after {
@@ -40,6 +41,7 @@ body::after {
     filter: blur(140px);
     opacity: 0.18;
     pointer-events: none;
+    z-index: 0;
 }
 
 
@@ -75,6 +77,23 @@ header {
     animation: headerAppear 0.7s ease both;
 }
 
+@keyframes headerAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================
+   ЛОГОТИП
+========================= */
+
 .logo {
     display: flex;
     align-items: center;
@@ -101,11 +120,18 @@ header {
 }
 
 .logo:hover img {
-    transform: scale(1.08) rotate(-2deg);
+    transform: scale(1.08) rotate(2deg);
 
     filter:
-        drop-shadow(0 0 12px rgba(99, 213, 162, 0.25));
+        drop-shadow(
+            0 0 12px rgba(99, 213, 162, 0.35)
+        );
 }
+
+
+/* =========================
+   НАВИГАЦИЯ
+========================= */
 
 nav {
     display: flex;
@@ -113,11 +139,13 @@ nav {
 }
 
 nav a {
-    color: #a8b6af;
-    text-decoration: none;
-    font-size: 14px;
-
     position: relative;
+
+    color: #a8b6af;
+
+    text-decoration: none;
+
+    font-size: 14px;
 
     transition:
         color 0.25s ease,
@@ -132,16 +160,12 @@ nav a::after {
     left: 0;
     bottom: -7px;
 
-    width: 100%;
+    width: 0;
     height: 1px;
 
     background: #63d5a2;
 
-    transform: scaleX(0);
-    transform-origin: center;
-
-    transition:
-        transform 0.25s ease;
+    transition: width 0.25s ease;
 }
 
 nav a:hover {
@@ -151,7 +175,7 @@ nav a:hover {
 }
 
 nav a:hover::after {
-    transform: scaleX(1);
+    width: 100%;
 }
 
 
@@ -189,11 +213,67 @@ nav a:hover::after {
     padding: 65px 0;
 }
 
+
+/* =========================
+   АНИМАЦИЯ ГЕРОЯ
+========================= */
+
+.hero .eyebrow {
+    animation:
+        heroTextAppear 0.7s ease 0.1s both;
+}
+
+.hero h1 {
+    animation:
+        heroTextAppear 0.7s ease 0.2s both;
+}
+
+.hero-description {
+    animation:
+        heroTextAppear 0.7s ease 0.3s both;
+}
+
+.hero .button {
+    animation:
+        heroTextAppear 0.7s ease 0.4s both;
+}
+
+.hero-photo {
+    animation:
+        heroPhotoAppear 0.9s ease 0.25s both;
+}
+
+@keyframes heroTextAppear {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroPhotoAppear {
+    from {
+        opacity: 0;
+        transform: translateX(35px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+
+/* =========================
+   ТЕКСТ
+========================= */
+
 .hero-text {
     min-width: 0;
-
-    animation:
-        heroTextAppear 0.8s ease 0.15s both;
 }
 
 .eyebrow {
@@ -252,7 +332,8 @@ h1 {
 
     transition:
         transform 0.25s ease,
-        box-shadow 0.25s ease;
+        box-shadow 0.25s ease,
+        background 0.25s ease;
 }
 
 .button:hover {
@@ -260,11 +341,7 @@ h1 {
 
     box-shadow:
         0 12px 30px rgba(99, 213, 162, 0.18),
-        0 0 25px rgba(99, 213, 162, 0.08);
-}
-
-.button:active {
-    transform: translateY(-1px) scale(0.98);
+        0 0 25px rgba(99, 213, 162, 0.12);
 }
 
 
@@ -289,23 +366,20 @@ h1 {
         0 30px 80px rgba(0, 0, 0, 0.45),
         0 0 50px rgba(50, 170, 115, 0.08);
 
-    animation:
-        heroPhotoAppear 0.9s ease 0.25s both;
-
     transition:
-        transform 0.5s ease,
-        box-shadow 0.5s ease,
-        border-color 0.5s ease;
+        transform 0.45s ease,
+        box-shadow 0.45s ease,
+        border-color 0.45s ease;
 }
 
 .hero-photo:hover {
-    transform: translateY(-5px) scale(1.01);
+    transform: translateY(-6px);
 
-    border-color: rgba(99, 213, 162, 0.85);
+    border-color: rgba(99, 213, 162, 0.9);
 
     box-shadow:
         0 35px 90px rgba(0, 0, 0, 0.5),
-        0 0 55px rgba(50, 170, 115, 0.13);
+        0 0 55px rgba(50, 170, 115, 0.15);
 }
 
 .hero-photo img {
@@ -317,14 +391,11 @@ h1 {
     object-fit: cover;
 
     transition:
-        transform 0.8s ease,
-        filter 0.8s ease;
+        transform 0.7s ease;
 }
 
 .hero-photo:hover img {
     transform: scale(1.025);
-
-    filter: brightness(1.03);
 }
 
 
@@ -350,9 +421,6 @@ h1 {
     position: relative;
 
     z-index: 1;
-
-    animation:
-        sectionAppear 0.7s ease both;
 }
 
 .section-label {
@@ -388,6 +456,27 @@ h2 {
 
 
 /* =========================
+   МИКРОАНИМАЦИЯ СЕКЦИЙ
+========================= */
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(25px);
+
+    transition:
+        opacity 0.75s ease,
+        transform 0.75s ease;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* =========================
    НАВЫКИ
 ========================= */
 
@@ -413,10 +502,10 @@ h2 {
     background: rgba(255, 255, 255, 0.025);
 
     transition:
-        transform 0.35s ease,
-        border-color 0.35s ease,
-        background 0.35s ease,
-        box-shadow 0.35s ease;
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .skill:hover {
@@ -442,11 +531,11 @@ h2 {
     margin-bottom: 20px;
 
     transition:
-        transform 0.35s ease;
+        transform 0.3s ease;
 }
 
 .skill:hover span {
-    transform: translateY(-2px) scale(1.05);
+    transform: translateY(-3px) scale(1.05);
 }
 
 .skill h3 {
@@ -530,12 +619,7 @@ h2 {
     transform: translateY(-2px);
 
     box-shadow:
-        0 12px 30px rgba(99, 213, 162, 0.15),
-        0 0 25px rgba(99, 213, 162, 0.06);
-}
-
-.review-button:active {
-    transform: translateY(0) scale(0.98);
+        0 12px 30px rgba(99, 213, 162, 0.15);
 }
 
 .reviews {
@@ -562,10 +646,10 @@ h2 {
     background: rgba(255, 255, 255, 0.025);
 
     transition:
-        transform 0.35s ease,
-        border-color 0.35s ease,
-        background 0.35s ease,
-        box-shadow 0.35s ease;
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .review:hover {
@@ -589,13 +673,6 @@ h2 {
     height: 45px;
 
     font-family: Georgia, serif;
-
-    transition:
-        transform 0.35s ease;
-}
-
-.review:hover .review-mark {
-    transform: translateY(-3px);
 }
 
 .review-text {
@@ -791,7 +868,8 @@ h2 {
     transition:
         border-color 0.25s ease,
         background 0.25s ease,
-        box-shadow 0.25s ease;
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
 }
 
 .review-form input::placeholder,
@@ -838,19 +916,15 @@ h2 {
 
     transition:
         transform 0.25s ease,
-        box-shadow 0.25s ease;
+        box-shadow 0.25s ease,
+        opacity 0.25s ease;
 }
 
 .review-submit:hover {
     transform: translateY(-2px);
 
     box-shadow:
-        0 12px 30px rgba(99, 213, 162, 0.18),
-        0 0 25px rgba(99, 213, 162, 0.07);
-}
-
-.review-submit:active {
-    transform: translateY(0) scale(0.99);
+        0 12px 30px rgba(99, 213, 162, 0.18);
 }
 
 .review-submit:disabled {
@@ -938,6 +1012,213 @@ h2 {
 
 
 /* =========================
+   ФОРМА ОБРАТНОЙ СВЯЗИ
+========================= */
+
+.contact-form-wrapper {
+    margin-top: 45px;
+
+    max-width: 760px;
+
+    padding: 35px;
+
+    border: 1px solid rgba(99, 213, 162, 0.22);
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(99, 213, 162, 0.055),
+            rgba(255, 255, 255, 0.018)
+        );
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.22);
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+}
+
+.contact-form-wrapper:hover {
+    border-color: rgba(99, 213, 162, 0.32);
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.28);
+}
+
+.contact-form-header {
+    margin-bottom: 25px;
+}
+
+.contact-form-header h3 {
+    color: #edf7f1;
+
+    font-size: 25px;
+
+    line-height: 1.2;
+
+    letter-spacing: -0.5px;
+
+    margin-bottom: 8px;
+}
+
+.contact-form-header p {
+    color: #7f8d86;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin: 0;
+}
+
+.contact-form {
+    width: 100%;
+}
+
+.contact-form-row {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+.contact-form-field {
+    margin-bottom: 20px;
+}
+
+.contact-form-field label {
+    display: block;
+
+    color: #c9d5cf;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+.contact-form-field input,
+.contact-form-field textarea {
+    width: 100%;
+
+    display: block;
+
+    padding: 14px 16px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius: 9px;
+
+    outline: none;
+
+    background: rgba(0, 0, 0, 0.22);
+
+    color: #edf7f1;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+.contact-form-field input::placeholder,
+.contact-form-field textarea::placeholder {
+    color: #5f6c65;
+}
+
+.contact-form-field input:focus,
+.contact-form-field textarea:focus {
+    border-color: #63d5a2;
+
+    background: rgba(99, 213, 162, 0.035);
+
+    box-shadow:
+        0 0 0 3px rgba(99, 213, 162, 0.08);
+}
+
+.contact-form-field textarea {
+    min-height: 155px;
+
+    resize: vertical;
+
+    line-height: 1.6;
+}
+
+.contact-submit {
+    width: 100%;
+
+    padding: 15px 22px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #63d5a2;
+
+    color: #06100b;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        opacity 0.25s ease;
+}
+
+.contact-submit:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 35px rgba(99, 213, 162, 0.2),
+        0 0 25px rgba(99, 213, 162, 0.08);
+}
+
+.contact-submit:disabled {
+    opacity: 0.55;
+
+    cursor: wait;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+.contact-form-message {
+    min-height: 24px;
+
+    margin-top: 15px;
+
+    color: #d47b7b;
+
+    font-size: 14px;
+
+    text-align: center;
+}
+
+.contact-form-message.success {
+    color: #63d5a2;
+}
+
+
+/* =========================
    FOOTER
 ========================= */
 
@@ -965,6 +1246,11 @@ footer {
     padding-bottom: 80px;
 }
 
+
+/* =========================
+   ЗАГОЛОВОК АДМИНКИ
+========================= */
+
 .admin-header {
     width: 100%;
 
@@ -991,6 +1277,11 @@ footer {
     font-size: 17px;
 }
 
+
+/* =========================
+   ВХОД
+========================= */
+
 #loginSection {
     width: 100%;
 
@@ -1011,9 +1302,19 @@ footer {
     margin: 0 auto;
 }
 
+
+/* =========================
+   ОСНОВНОЕ СОДЕРЖИМОЕ
+========================= */
+
 #adminContent {
     width: 100%;
 }
+
+
+/* =========================
+   ПАНЕЛЬ ВЫХОДА
+========================= */
 
 .admin-toolbar {
     width: 100%;
@@ -1053,6 +1354,11 @@ footer {
     padding: 11px 20px;
 }
 
+
+/* =========================
+   СЕКЦИИ АДМИНКИ
+========================= */
+
 .admin-section {
     width: 100%;
 
@@ -1079,6 +1385,11 @@ footer {
     border-bottom: none;
 }
 
+
+/* =========================
+   ЗАГОЛОВОК СЕКЦИИ
+========================= */
+
 .admin-section-title {
     min-width: 0;
 }
@@ -1096,6 +1407,11 @@ footer {
 
     margin-bottom: 0;
 }
+
+
+/* =========================
+   КАРТОЧКА АДМИНКИ
+========================= */
 
 .admin-card {
     width: 100%;
@@ -1119,6 +1435,11 @@ footer {
         0 25px 70px rgba(0, 0, 0, 0.25);
 }
 
+
+/* =========================
+   ОПИСАНИЕ
+========================= */
+
 .admin-description {
     color: #8f9d96;
 
@@ -1128,6 +1449,11 @@ footer {
 
     margin-bottom: 25px;
 }
+
+
+/* =========================
+   ПОЛЯ АДМИНКИ
+========================= */
 
 .admin-card label {
     display: block;
@@ -1197,6 +1523,11 @@ footer {
     line-height: 1.6;
 }
 
+
+/* =========================
+   КНОПКИ АДМИНКИ
+========================= */
+
 .admin-button {
     width: 100%;
 
@@ -1220,7 +1551,8 @@ footer {
 
     transition:
         transform 0.25s ease,
-        box-shadow 0.25s ease;
+        box-shadow 0.25s ease,
+        background 0.25s ease;
 }
 
 .admin-button:hover {
@@ -1228,10 +1560,6 @@ footer {
 
     box-shadow:
         0 12px 30px rgba(99, 213, 162, 0.18);
-}
-
-.admin-button:active {
-    transform: translateY(0) scale(0.99);
 }
 
 .admin-button-secondary {
@@ -1266,6 +1594,11 @@ footer {
     box-shadow: none;
 }
 
+
+/* =========================
+   СООБЩЕНИЯ
+========================= */
+
 .admin-message {
     min-height: 24px;
 
@@ -1277,6 +1610,11 @@ footer {
 
     text-align: center;
 }
+
+
+/* =========================
+   ОПЦИИ ФОРМЫ
+========================= */
 
 .blog-form-options {
     display: flex;
@@ -1356,6 +1694,11 @@ footer {
     max-width: 850px;
 }
 
+
+/* =========================
+   КАРТОЧКА ЭЛЕМЕНТА
+========================= */
+
 .admin-list-item {
     width: 100%;
 
@@ -1372,10 +1715,9 @@ footer {
     background: rgba(255, 255, 255, 0.025);
 
     transition:
-        transform 0.3s ease,
-        border-color 0.3s ease,
-        background 0.3s ease,
-        box-shadow 0.3s ease;
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
 }
 
 .admin-list-item:hover {
@@ -1384,9 +1726,6 @@ footer {
     background: rgba(99, 213, 162, 0.03);
 
     transform: translateY(-2px);
-
-    box-shadow:
-        0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 .admin-list-item h3 {
@@ -1425,6 +1764,11 @@ footer {
     letter-spacing: 0.5px;
 }
 
+
+/* =========================
+   КНОПКИ ВНУТРИ КАРТОЧКИ
+========================= */
+
 .admin-list-actions {
     width: 100%;
 
@@ -1448,10 +1792,18 @@ footer {
     white-space: normal;
 }
 
+
+/* Если кнопок две */
+
 .admin-list-actions:has(.admin-button:nth-child(2)):not(:has(.admin-button:nth-child(3))) {
     grid-template-columns:
         repeat(2, minmax(0, 1fr));
 }
+
+
+/* =========================
+   ПУСТЫЕ СПИСКИ
+========================= */
 
 .empty-blog {
     width: 100%;
@@ -1566,10 +1918,10 @@ footer {
     background: rgba(255, 255, 255, 0.025);
 
     transition:
-        transform 0.35s ease,
-        border-color 0.35s ease,
-        background 0.35s ease,
-        box-shadow 0.35s ease;
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .blog-post:hover {
@@ -1664,23 +2016,16 @@ footer {
         );
 
     transition:
-        transform 0.35s ease,
-        border-color 0.35s ease,
-        box-shadow 0.35s ease,
-        background 0.35s ease;
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
 }
 
 .project-card:hover {
     transform: translateY(-6px);
 
     border-color: rgba(99, 213, 162, 0.45);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(99, 213, 162, 0.065),
-            rgba(255, 255, 255, 0.025)
-        );
 
     box-shadow:
         0 25px 60px rgba(0, 0, 0, 0.28);
@@ -1702,7 +2047,7 @@ footer {
 }
 
 .project-card:hover .project-image {
-    transform: scale(1.02);
+    transform: scale(1.025);
 }
 
 .project-card-content {
@@ -1769,78 +2114,6 @@ footer {
 
 .project-card:not(:has(.project-image)) {
     min-height: 280px;
-}
-
-
-/* ==================================================
-   АНИМАЦИИ ПОЯВЛЕНИЯ
-================================================== */
-
-@keyframes headerAppear {
-    from {
-        opacity: 0;
-        transform: translateY(-12px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes heroTextAppear {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes heroPhotoAppear {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.985);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes sectionAppear {
-    from {
-        opacity: 0;
-        transform: translateY(18px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* Элементы, которые JS будет показывать при прокрутке */
-
-.scroll-animate {
-    opacity: 0;
-
-    transform: translateY(24px);
-
-    transition:
-        opacity 0.7s ease,
-        transform 0.7s ease;
-}
-
-.scroll-animate.visible {
-    opacity: 1;
-
-    transform: translateY(0);
 }
 
 
@@ -1919,6 +2192,11 @@ footer {
         width: calc(100% - 30px);
     }
 
+
+    /* =========================
+       ГЛАВНЫЙ ЭКРАН
+    ========================= */
+
     .hero {
         min-height: auto;
     }
@@ -1943,6 +2221,11 @@ footer {
         letter-spacing: -2px;
     }
 
+
+    /* =========================
+       СЕКЦИИ
+    ========================= */
+
     .section,
     .contact-section {
         width: calc(100% - 30px);
@@ -1958,6 +2241,11 @@ footer {
         grid-template-columns: 1fr;
     }
 
+
+    /* =========================
+       ОТЗЫВЫ
+    ========================= */
+
     .reviews-header {
         align-items: flex-start;
 
@@ -1971,6 +2259,32 @@ footer {
     .review-form {
         padding: 25px;
     }
+
+
+    /* =========================
+       КОНТАКТНАЯ ФОРМА
+    ========================= */
+
+    .contact-form-wrapper {
+        margin-top: 35px;
+
+        padding: 25px;
+    }
+
+    .contact-form-row {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+    .contact-form-header h3 {
+        font-size: 22px;
+    }
+
+
+    /* =========================
+       АДМИНКА
+    ========================= */
 
     .admin-header {
         padding: 60px 0 25px;
@@ -2044,6 +2358,11 @@ footer {
         min-width: 0;
     }
 
+
+    /* =========================
+       БЛОГ
+    ========================= */
+
     .blog-section {
         width: calc(100% - 30px);
 
@@ -2065,6 +2384,11 @@ footer {
     .blog-post-content {
         font-size: 15px;
     }
+
+
+    /* =========================
+       ПРОЕКТЫ
+    ========================= */
 
     .projects-page-list {
         grid-template-columns: 1fr;
@@ -2136,6 +2460,10 @@ footer {
         font-size: 21px;
     }
 
+    .contact-form-wrapper {
+        padding: 20px;
+    }
+
     .admin-header h1 {
         font-size: 36px;
     }
@@ -2151,7 +2479,7 @@ footer {
 
 
 /* ==================================================
-   УМЕНЬШЕНИЕ АНИМАЦИЙ
+   УМЕНЬШЕНИЕ АНИМАЦИЙ ЕСЛИ ПОЛЬЗОВАТЕЛЬ ЭТО ВКЛЮЧИЛ
 ================================================== */
 
 @media (prefers-reduced-motion: reduce) {
@@ -2168,7 +2496,7 @@ footer {
         transition-duration: 0.01ms !important;
     }
 
-    .scroll-animate {
+    .reveal {
         opacity: 1;
 
         transform: none;
