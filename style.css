@@ -71,10 +71,9 @@ header {
 
     position: relative;
     z-index: 10;
+
+    animation: headerAppear 0.7s ease both;
 }
-
-
-/* ЛОГОТИП */
 
 .logo {
     display: flex;
@@ -96,13 +95,17 @@ header {
 
     object-fit: contain;
 
-    transition: 0.25s ease;
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease;
 }
 
 .logo:hover img {
-    transform: scale(1.08);
-}
+    transform: scale(1.08) rotate(-2deg);
 
+    filter:
+        drop-shadow(0 0 12px rgba(99, 213, 162, 0.25));
+}
 
 nav {
     display: flex;
@@ -113,11 +116,42 @@ nav a {
     color: #a8b6af;
     text-decoration: none;
     font-size: 14px;
-    transition: 0.25s ease;
+
+    position: relative;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+nav a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -7px;
+
+    width: 100%;
+    height: 1px;
+
+    background: #63d5a2;
+
+    transform: scaleX(0);
+    transform-origin: center;
+
+    transition:
+        transform 0.25s ease;
 }
 
 nav a:hover {
     color: #63d5a2;
+
+    transform: translateY(-1px);
+}
+
+nav a:hover::after {
+    transform: scaleX(1);
 }
 
 
@@ -155,13 +189,11 @@ nav a:hover {
     padding: 65px 0;
 }
 
-
-/* =========================
-   ТЕКСТ
-========================= */
-
 .hero-text {
     min-width: 0;
+
+    animation:
+        heroTextAppear 0.8s ease 0.15s both;
 }
 
 .eyebrow {
@@ -218,14 +250,21 @@ h1 {
     font-size: 14px;
     font-weight: 700;
 
-    transition: 0.25s ease;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .button:hover {
     transform: translateY(-3px);
 
     box-shadow:
-        0 12px 30px rgba(99, 213, 162, 0.18);
+        0 12px 30px rgba(99, 213, 162, 0.18),
+        0 0 25px rgba(99, 213, 162, 0.08);
+}
+
+.button:active {
+    transform: translateY(-1px) scale(0.98);
 }
 
 
@@ -249,6 +288,24 @@ h1 {
     box-shadow:
         0 30px 80px rgba(0, 0, 0, 0.45),
         0 0 50px rgba(50, 170, 115, 0.08);
+
+    animation:
+        heroPhotoAppear 0.9s ease 0.25s both;
+
+    transition:
+        transform 0.5s ease,
+        box-shadow 0.5s ease,
+        border-color 0.5s ease;
+}
+
+.hero-photo:hover {
+    transform: translateY(-5px) scale(1.01);
+
+    border-color: rgba(99, 213, 162, 0.85);
+
+    box-shadow:
+        0 35px 90px rgba(0, 0, 0, 0.5),
+        0 0 55px rgba(50, 170, 115, 0.13);
 }
 
 .hero-photo img {
@@ -258,6 +315,16 @@ h1 {
     display: block;
 
     object-fit: cover;
+
+    transition:
+        transform 0.8s ease,
+        filter 0.8s ease;
+}
+
+.hero-photo:hover img {
+    transform: scale(1.025);
+
+    filter: brightness(1.03);
 }
 
 
@@ -283,6 +350,9 @@ h1 {
     position: relative;
 
     z-index: 1;
+
+    animation:
+        sectionAppear 0.7s ease both;
 }
 
 .section-label {
@@ -342,7 +412,11 @@ h2 {
 
     background: rgba(255, 255, 255, 0.025);
 
-    transition: 0.3s ease;
+    transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        background 0.35s ease,
+        box-shadow 0.35s ease;
 }
 
 .skill:hover {
@@ -351,6 +425,9 @@ h2 {
     border-color: rgba(99, 213, 162, 0.4);
 
     background: rgba(99, 213, 162, 0.035);
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.18);
 }
 
 .skill span {
@@ -363,6 +440,13 @@ h2 {
     line-height: 1;
 
     margin-bottom: 20px;
+
+    transition:
+        transform 0.35s ease;
+}
+
+.skill:hover span {
+    transform: translateY(-2px) scale(1.05);
 }
 
 .skill h3 {
@@ -431,7 +515,11 @@ h2 {
 
     cursor: pointer;
 
-    transition: 0.25s ease;
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .review-button:hover {
@@ -442,7 +530,12 @@ h2 {
     transform: translateY(-2px);
 
     box-shadow:
-        0 12px 30px rgba(99, 213, 162, 0.15);
+        0 12px 30px rgba(99, 213, 162, 0.15),
+        0 0 25px rgba(99, 213, 162, 0.06);
+}
+
+.review-button:active {
+    transform: translateY(0) scale(0.98);
 }
 
 .reviews {
@@ -468,7 +561,11 @@ h2 {
 
     background: rgba(255, 255, 255, 0.025);
 
-    transition: 0.3s ease;
+    transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        background 0.35s ease,
+        box-shadow 0.35s ease;
 }
 
 .review:hover {
@@ -492,6 +589,13 @@ h2 {
     height: 45px;
 
     font-family: Georgia, serif;
+
+    transition:
+        transform 0.35s ease;
+}
+
+.review:hover .review-mark {
+    transform: translateY(-3px);
 }
 
 .review-text {
@@ -554,7 +658,6 @@ h2 {
 }
 
 @keyframes reviewFormAppear {
-
     from {
         opacity: 0;
         transform: translateY(-10px);
@@ -564,7 +667,6 @@ h2 {
         opacity: 1;
         transform: translateY(0);
     }
-
 }
 
 .review-form {
@@ -626,7 +728,10 @@ h2 {
 
     cursor: pointer;
 
-    transition: 0.25s ease;
+    transition:
+        color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.3s ease;
 }
 
 .review-close:hover {
@@ -683,7 +788,10 @@ h2 {
 
     font-size: 15px;
 
-    transition: 0.25s ease;
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .review-form input::placeholder,
@@ -728,14 +836,21 @@ h2 {
 
     cursor: pointer;
 
-    transition: 0.25s ease;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .review-submit:hover {
     transform: translateY(-2px);
 
     box-shadow:
-        0 12px 30px rgba(99, 213, 162, 0.18);
+        0 12px 30px rgba(99, 213, 162, 0.18),
+        0 0 25px rgba(99, 213, 162, 0.07);
+}
+
+.review-submit:active {
+    transform: translateY(0) scale(0.99);
 }
 
 .review-submit:disabled {
@@ -810,11 +925,15 @@ h2 {
 
     padding-bottom: 3px;
 
-    transition: 0.25s ease;
+    transition:
+        color 0.25s ease,
+        border-color 0.25s ease;
 }
 
 .contact-link:hover {
     color: #8de5bd;
+
+    border-color: #8de5bd;
 }
 
 
@@ -846,11 +965,6 @@ footer {
     padding-bottom: 80px;
 }
 
-
-/* =========================
-   ЗАГОЛОВОК АДМИНКИ
-========================= */
-
 .admin-header {
     width: 100%;
 
@@ -877,11 +991,6 @@ footer {
     font-size: 17px;
 }
 
-
-/* =========================
-   ВХОД
-========================= */
-
 #loginSection {
     width: 100%;
 
@@ -902,19 +1011,9 @@ footer {
     margin: 0 auto;
 }
 
-
-/* =========================
-   ОСНОВНОЕ СОДЕРЖИМОЕ
-========================= */
-
 #adminContent {
     width: 100%;
 }
-
-
-/* =========================
-   ПАНЕЛЬ ВЫХОДА
-========================= */
 
 .admin-toolbar {
     width: 100%;
@@ -954,11 +1053,6 @@ footer {
     padding: 11px 20px;
 }
 
-
-/* =========================
-   СЕКЦИИ АДМИНКИ
-========================= */
-
 .admin-section {
     width: 100%;
 
@@ -985,11 +1079,6 @@ footer {
     border-bottom: none;
 }
 
-
-/* =========================
-   ЗАГОЛОВОК СЕКЦИИ
-========================= */
-
 .admin-section-title {
     min-width: 0;
 }
@@ -1007,11 +1096,6 @@ footer {
 
     margin-bottom: 0;
 }
-
-
-/* =========================
-   КАРТОЧКА АДМИНКИ
-========================= */
 
 .admin-card {
     width: 100%;
@@ -1044,11 +1128,6 @@ footer {
 
     margin-bottom: 25px;
 }
-
-
-/* =========================
-   ПОЛЯ АДМИНКИ
-========================= */
 
 .admin-card label {
     display: block;
@@ -1089,7 +1168,10 @@ footer {
 
     font-size: 15px;
 
-    transition: 0.25s ease;
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .admin-card input::placeholder,
@@ -1115,11 +1197,6 @@ footer {
     line-height: 1.6;
 }
 
-
-/* =========================
-   КНОПКИ АДМИНКИ
-========================= */
-
 .admin-button {
     width: 100%;
 
@@ -1141,7 +1218,9 @@ footer {
 
     cursor: pointer;
 
-    transition: 0.25s ease;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .admin-button:hover {
@@ -1149,6 +1228,10 @@ footer {
 
     box-shadow:
         0 12px 30px rgba(99, 213, 162, 0.18);
+}
+
+.admin-button:active {
+    transform: translateY(0) scale(0.99);
 }
 
 .admin-button-secondary {
@@ -1183,11 +1266,6 @@ footer {
     box-shadow: none;
 }
 
-
-/* =========================
-   СООБЩЕНИЯ
-========================= */
-
 .admin-message {
     min-height: 24px;
 
@@ -1199,11 +1277,6 @@ footer {
 
     text-align: center;
 }
-
-
-/* =========================
-   ОПЦИИ ФОРМЫ
-========================= */
 
 .blog-form-options {
     display: flex;
@@ -1271,13 +1344,6 @@ footer {
     min-width: 0;
 }
 
-
-/*
-   ВАЖНО:
-   Проекты в админке всегда идут одной колонкой.
-   Это исправляет проблему с узкими карточками.
-*/
-
 .admin-list#projectsList {
     display: flex;
 
@@ -1289,9 +1355,6 @@ footer {
 
     max-width: 850px;
 }
-
-
-/* Карточка элемента */
 
 .admin-list-item {
     width: 100%;
@@ -1309,9 +1372,10 @@ footer {
     background: rgba(255, 255, 255, 0.025);
 
     transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        background 0.25s ease;
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .admin-list-item:hover {
@@ -1320,6 +1384,9 @@ footer {
     background: rgba(99, 213, 162, 0.03);
 
     transform: translateY(-2px);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 .admin-list-item h3 {
@@ -1358,11 +1425,6 @@ footer {
     letter-spacing: 0.5px;
 }
 
-
-/* =========================
-   КНОПКИ ВНУТРИ КАРТОЧКИ
-========================= */
-
 .admin-list-actions {
     width: 100%;
 
@@ -1386,18 +1448,10 @@ footer {
     white-space: normal;
 }
 
-
-/* Если кнопок две */
-
 .admin-list-actions:has(.admin-button:nth-child(2)):not(:has(.admin-button:nth-child(3))) {
     grid-template-columns:
         repeat(2, minmax(0, 1fr));
 }
-
-
-/* =========================
-   ПУСТЫЕ СПИСКИ
-========================= */
 
 .empty-blog {
     width: 100%;
@@ -1511,7 +1565,11 @@ footer {
 
     background: rgba(255, 255, 255, 0.025);
 
-    transition: 0.3s ease;
+    transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        background 0.35s ease,
+        box-shadow 0.35s ease;
 }
 
 .blog-post:hover {
@@ -1569,15 +1627,8 @@ footer {
 
 
 /* ==================================================
-   КАРТОЧКИ ПРОЕКТОВ НА СТРАНИЦЕ ПРОЕКТОВ
+   КАРТОЧКИ ПРОЕКТОВ
 ================================================== */
-
-/*
-   Здесь специально используется класс,
-   а не #projectsList.
-
-   Поэтому этот стиль НЕ влияет на админку.
-*/
 
 .projects-page-list {
     display: grid;
@@ -1613,9 +1664,10 @@ footer {
         );
 
     transition:
-        transform 0.3s ease,
-        border-color 0.3s ease,
-        box-shadow 0.3s ease;
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease,
+        background 0.35s ease;
 }
 
 .project-card:hover {
@@ -1623,14 +1675,16 @@ footer {
 
     border-color: rgba(99, 213, 162, 0.45);
 
+    background:
+        linear-gradient(
+            145deg,
+            rgba(99, 213, 162, 0.065),
+            rgba(255, 255, 255, 0.025)
+        );
+
     box-shadow:
         0 25px 60px rgba(0, 0, 0, 0.28);
 }
-
-
-/* =========================
-   ИЗОБРАЖЕНИЕ ПРОЕКТА
-========================= */
 
 .project-image {
     width: 100%;
@@ -1642,12 +1696,14 @@ footer {
     object-fit: cover;
 
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    transition:
+        transform 0.6s ease;
 }
 
-
-/* =========================
-   СОДЕРЖИМОЕ КАРТОЧКИ
-========================= */
+.project-card:hover .project-image {
+    transform: scale(1.02);
+}
 
 .project-card-content {
     display: flex;
@@ -1660,11 +1716,6 @@ footer {
 
     padding: 30px;
 }
-
-
-/* =========================
-   КАТЕГОРИЯ
-========================= */
 
 .project-category {
     margin-bottom: 13px;
@@ -1680,11 +1731,6 @@ footer {
     text-transform: uppercase;
 }
 
-
-/* =========================
-   НАЗВАНИЕ
-========================= */
-
 .project-card h3 {
     margin-bottom: 13px;
 
@@ -1697,11 +1743,6 @@ footer {
     letter-spacing: -0.8px;
 }
 
-
-/* =========================
-   КРАТКОЕ ОПИСАНИЕ
-========================= */
-
 .project-short-description {
     margin-bottom: 12px;
 
@@ -1711,11 +1752,6 @@ footer {
 
     line-height: 1.65;
 }
-
-
-/* =========================
-   ПОЛНОЕ ОПИСАНИЕ
-========================= */
 
 .project-description {
     margin-bottom: 25px;
@@ -1727,22 +1763,84 @@ footer {
     line-height: 1.7;
 }
 
-
-/* =========================
-   КНОПКА ПРОЕКТА
-========================= */
-
 .project-button {
     margin-top: auto;
 }
 
-
-/* =========================
-   ЕСЛИ У ПРОЕКТА НЕТ КАРТИНКИ
-========================= */
-
 .project-card:not(:has(.project-image)) {
     min-height: 280px;
+}
+
+
+/* ==================================================
+   АНИМАЦИИ ПОЯВЛЕНИЯ
+================================================== */
+
+@keyframes headerAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroTextAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroPhotoAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes sectionAppear {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Элементы, которые JS будет показывать при прокрутке */
+
+.scroll-animate {
+    opacity: 0;
+
+    transform: translateY(24px);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+}
+
+.scroll-animate.visible {
+    opacity: 1;
+
+    transform: translateY(0);
 }
 
 
@@ -1821,11 +1919,6 @@ footer {
         width: calc(100% - 30px);
     }
 
-
-    /* =========================
-       ГЛАВНЫЙ ЭКРАН
-    ========================= */
-
     .hero {
         min-height: auto;
     }
@@ -1850,11 +1943,6 @@ footer {
         letter-spacing: -2px;
     }
 
-
-    /* =========================
-       СЕКЦИИ
-    ========================= */
-
     .section,
     .contact-section {
         width: calc(100% - 30px);
@@ -1870,11 +1958,6 @@ footer {
         grid-template-columns: 1fr;
     }
 
-
-    /* =========================
-       ОТЗЫВЫ
-    ========================= */
-
     .reviews-header {
         align-items: flex-start;
 
@@ -1888,11 +1971,6 @@ footer {
     .review-form {
         padding: 25px;
     }
-
-
-    /* =========================
-       АДМИНКА
-    ========================= */
 
     .admin-header {
         padding: 60px 0 25px;
@@ -1952,12 +2030,6 @@ footer {
         min-width: 0;
     }
 
-
-    /*
-       На телефоне кнопки проекта
-       идут друг под другом.
-    */
-
     .admin-list-actions {
         display: flex;
 
@@ -1971,11 +2043,6 @@ footer {
 
         min-width: 0;
     }
-
-
-    /* =========================
-       БЛОГ
-    ========================= */
 
     .blog-section {
         width: calc(100% - 30px);
@@ -1998,11 +2065,6 @@ footer {
     .blog-post-content {
         font-size: 15px;
     }
-
-
-    /* =========================
-       ПРОЕКТЫ
-    ========================= */
 
     .projects-page-list {
         grid-template-columns: 1fr;
@@ -2084,5 +2146,31 @@ footer {
 
     .admin-list-item {
         padding: 22px;
+    }
+}
+
+
+/* ==================================================
+   УМЕНЬШЕНИЕ АНИМАЦИЙ
+================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .scroll-animate {
+        opacity: 1;
+
+        transform: none;
     }
 }
