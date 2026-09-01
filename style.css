@@ -1,0 +1,731 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  }
+
+html {
+scroll-behavior: smooth;
+}
+
+body {
+font-family: Arial, sans-serif;
+background: #06110d;
+color: #edf7f1;
+line-height: 1.6;
+overflow-x: hidden;
+}
+
+/* =========================
+ФОН
+========================= */
+
+body::before {
+content: "";
+position: fixed;
+width: 700px;
+height: 700px;
+top: -250px;
+right: -200px;
+background: #164d37;
+border-radius: 50%;
+filter: blur(140px);
+opacity: 0.28;
+pointer-events: none;
+z-index: -1;
+}
+
+body::after {
+content: "";
+position: fixed;
+width: 500px;
+height: 500px;
+bottom: -200px;
+left: -180px;
+background: #0d3929;
+border-radius: 50%;
+filter: blur(130px);
+opacity: 0.25;
+pointer-events: none;
+z-index: -1;
+}
+
+/* =========================
+ШАПКА
+========================= */
+
+header {
+position: sticky;
+top: 18px;
+z-index: 1000;
+
+```
+width: 90%;
+max-width: 1200px;
+height: 70px;
+
+margin: 18px auto 0;
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+padding: 0 28px;
+
+background: rgba(11, 29, 21, 0.78);
+
+border: 1px solid rgba(117, 169, 139, 0.18);
+
+border-radius: 18px;
+
+backdrop-filter: blur(18px);
+
+box-shadow:
+    0 15px 50px rgba(0, 0, 0, 0.25);
+```
+
+}
+
+.logo {
+font-size: 17px;
+font-weight: 700;
+letter-spacing: 4px;
+color: #f0f7f2;
+}
+
+nav {
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+nav a {
+color: #91aa9c;
+text-decoration: none;
+
+```
+font-size: 14px;
+
+padding: 10px 15px;
+
+border-radius: 10px;
+
+transition: 0.3s;
+```
+
+}
+
+nav a:hover {
+color: #f0f7f2;
+background: rgba(123, 174, 145, 0.10);
+}
+
+/* =========================
+ГЛАВНЫЙ ЭКРАН
+========================= */
+
+.hero {
+min-height: calc(100vh - 90px);
+
+```
+max-width: 1200px;
+
+margin: auto;
+
+display: flex;
+align-items: center;
+
+padding: 100px 7%;
+
+position: relative;
+```
+
+}
+
+.hero-content {
+position: relative;
+z-index: 2;
+max-width: 900px;
+}
+
+/* маленькая надпись */
+
+.eyebrow {
+display: inline-flex;
+
+```
+align-items: center;
+
+gap: 10px;
+
+color: #8ec7a8;
+
+font-size: 12px;
+
+letter-spacing: 4px;
+
+font-weight: 700;
+
+margin-bottom: 28px;
+```
+
+}
+
+.eyebrow::before {
+content: "";
+
+```
+width: 28px;
+height: 1px;
+
+background: #72b18f;
+```
+
+}
+
+/* заголовок */
+
+.hero h1 {
+font-size: clamp(55px, 9vw, 105px);
+
+```
+line-height: 0.98;
+
+letter-spacing: -5px;
+
+font-weight: 700;
+
+max-width: 900px;
+
+margin-bottom: 35px;
+```
+
+}
+
+.hero h1::selection,
+.hero p::selection {
+background: #8ec7a8;
+color: #06110d;
+}
+
+.hero-description {
+max-width: 620px;
+
+```
+color: #91aa9c;
+
+font-size: 19px;
+
+line-height: 1.8;
+
+margin-bottom: 42px;
+```
+
+}
+
+/* =========================
+КНОПКА
+========================= */
+
+.button {
+display: inline-flex;
+
+```
+align-items: center;
+
+gap: 15px;
+
+padding: 15px 21px 15px 24px;
+
+background: #dcebe1;
+
+color: #07130e;
+
+text-decoration: none;
+
+font-size: 14px;
+
+font-weight: 700;
+
+border-radius: 12px;
+
+transition: 0.3s;
+```
+
+}
+
+.button::after {
+content: "→";
+
+```
+font-size: 18px;
+
+transition: 0.3s;
+```
+
+}
+
+.button:hover {
+background: #ffffff;
+
+```
+transform: translateY(-4px);
+
+box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.3);
+```
+
+}
+
+.button:hover::after {
+transform: translateX(5px);
+}
+
+/* =========================
+ДЕКОРАТИВНЫЙ ЭЛЕМЕНТ
+========================= */
+
+.hero::after {
+content: "";
+
+```
+position: absolute;
+
+width: 320px;
+height: 320px;
+
+right: 2%;
+bottom: 12%;
+
+border-radius: 50%;
+
+border: 1px solid rgba(120, 177, 145, 0.14);
+
+box-shadow:
+    0 0 0 50px rgba(120, 177, 145, 0.025),
+    0 0 0 100px rgba(120, 177, 145, 0.018);
+
+pointer-events: none;
+```
+
+}
+
+/* =========================
+СЕКЦИИ
+========================= */
+
+.section {
+max-width: 1200px;
+
+```
+margin: auto;
+
+padding: 130px 7%;
+
+display: grid;
+
+grid-template-columns: 180px 1fr;
+
+gap: 80px;
+
+border-top: 1px solid rgba(117, 169, 139, 0.14);
+```
+
+}
+
+.section-label {
+color: #72b18f;
+
+```
+font-size: 11px;
+
+letter-spacing: 2px;
+
+font-weight: 700;
+
+padding-top: 8px;
+```
+
+}
+
+.section-content {
+max-width: 780px;
+}
+
+.section h2 {
+font-size: clamp(38px, 5vw, 58px);
+
+```
+line-height: 1.05;
+
+letter-spacing: -2px;
+
+margin-bottom: 35px;
+```
+
+}
+
+.section-content > p {
+color: #8da79a;
+
+```
+font-size: 18px;
+
+line-height: 1.9;
+
+margin-bottom: 20px;
+```
+
+}
+
+/* =========================
+НАВЫКИ
+========================= */
+
+.skills {
+display: grid;
+
+```
+grid-template-columns: repeat(3, 1fr);
+
+gap: 15px;
+
+margin-top: 45px;
+```
+
+}
+
+.skill {
+min-height: 230px;
+
+```
+padding: 28px;
+
+display: flex;
+
+flex-direction: column;
+
+justify-content: space-between;
+
+background:
+    linear-gradient(
+        145deg,
+        rgba(22, 57, 42, 0.72),
+        rgba(9, 27, 19, 0.72)
+    );
+
+border: 1px solid rgba(117, 169, 139, 0.16);
+
+border-radius: 20px;
+
+transition: 0.4s;
+
+position: relative;
+
+overflow: hidden;
+```
+
+}
+
+.skill::before {
+content: "";
+
+```
+position: absolute;
+
+width: 120px;
+height: 120px;
+
+right: -50px;
+top: -50px;
+
+border-radius: 50%;
+
+background: #326d51;
+
+filter: blur(45px);
+
+opacity: 0.15;
+```
+
+}
+
+.skill:hover {
+transform: translateY(-8px);
+
+```
+border-color: rgba(142, 199, 168, 0.35);
+
+background:
+    linear-gradient(
+        145deg,
+        rgba(27, 69, 50, 0.85),
+        rgba(9, 27, 19, 0.85)
+    );
+
+box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.25);
+```
+
+}
+
+.skill span {
+color: #72b18f;
+
+```
+font-size: 12px;
+
+letter-spacing: 2px;
+```
+
+}
+
+.skill h3 {
+font-size: 22px;
+
+```
+margin-top: auto;
+
+margin-bottom: 8px;
+```
+
+}
+
+.skill p {
+color: #80998c;
+
+```
+font-size: 14px;
+```
+
+}
+
+/* =========================
+КОНТАКТЫ
+========================= */
+
+.contact-section {
+max-width: 1200px;
+
+```
+margin: auto;
+
+padding: 140px 7%;
+
+border-top: 1px solid rgba(117, 169, 139, 0.14);
+```
+
+}
+
+.contact-content {
+margin-top: 55px;
+
+```
+max-width: 900px;
+```
+
+}
+
+.contact-content h2 {
+font-size: clamp(48px, 7vw, 85px);
+
+```
+line-height: 0.98;
+
+letter-spacing: -4px;
+
+margin-bottom: 30px;
+```
+
+}
+
+.contact-content p {
+color: #8da79a;
+
+```
+font-size: 18px;
+
+max-width: 600px;
+
+margin-bottom: 35px;
+```
+
+}
+
+.contact-link {
+display: inline-block;
+
+```
+color: #dcebe1;
+
+font-size: 19px;
+
+text-decoration: none;
+
+padding-bottom: 8px;
+
+border-bottom: 1px solid #72b18f;
+
+transition: 0.3s;
+```
+
+}
+
+.contact-link:hover {
+color: #8ec7a8;
+
+```
+border-color: #8ec7a8;
+
+transform: translateX(5px);
+```
+
+}
+
+/* =========================
+FOOTER
+========================= */
+
+footer {
+max-width: 1200px;
+
+```
+margin: auto;
+
+padding: 35px 7%;
+
+border-top: 1px solid rgba(117, 169, 139, 0.14);
+
+color: #597267;
+
+font-size: 13px;
+```
+
+}
+
+/* =========================
+МОБИЛЬНАЯ ВЕРСИЯ
+========================= */
+
+@media (max-width: 850px) {
+
+```
+header {
+    width: 94%;
+
+    height: auto;
+
+    padding: 18px 20px;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+
+nav {
+    gap: 3px;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+}
+
+
+nav a {
+    padding: 8px 10px;
+
+    font-size: 13px;
+}
+
+
+.hero {
+    min-height: calc(100vh - 120px);
+
+    padding: 80px 6%;
+}
+
+
+.hero h1 {
+    letter-spacing: -3px;
+}
+
+
+.hero::after {
+    width: 220px;
+
+    height: 220px;
+
+    right: -70px;
+
+    bottom: 10%;
+}
+
+
+.section {
+    grid-template-columns: 1fr;
+
+    gap: 25px;
+
+    padding: 90px 6%;
+}
+
+
+.section h2 {
+    letter-spacing: -1.5px;
+}
+
+
+.skills {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+}
+
+
+.skill {
+    min-height: 190px;
+}
+
+
+.contact-section {
+    padding: 90px 6%;
+}
+
+
+.contact-content h2 {
+    letter-spacing: -2px;
+}
+
+
+footer {
+    padding: 30px 6%;
+}
+```
+
+}
+
+@media (max-width: 500px) {
+
+```
+.hero h1 {
+    font-size: 48px;
+}
+
+
+.hero-description {
+    font-size: 17px;
+}
+
+
+.section h2 {
+    font-size: 38px;
+}
+
+
+.contact-content h2 {
+    font-size: 48px;
+}
+```
+
+}
