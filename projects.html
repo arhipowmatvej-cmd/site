@@ -2,7 +2,6 @@
 <html lang="ru">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -16,31 +15,38 @@
         rel="stylesheet"
         href="style.css"
     >
-
 </head>
-
 
 <body>
 
-
 <header>
 
-    <div class="logo">
-
-        <a
-            href="index.html"
-            aria-label="На главную"
+    <a
+        href="index.html"
+        class="logo"
+    >
+        <img
+            src="ChatGPT%20Image%202%20сент.%202026%20г.%2C%2001_43_15.png"
+            alt="Матвей Архипов"
         >
-            Матвей Архипов
-        </a>
-
-    </div>
-
+    </a>
 
     <nav>
 
-        <a href="index.html">
-            Главная
+        <a href="index.html#about">
+            Обо мне
+        </a>
+
+        <a href="index.html#skills">
+            Навыки
+        </a>
+
+        <a href="index.html#reviews">
+            Отзывы
+        </a>
+
+        <a href="index.html#contacts">
+            Контакты
         </a>
 
         <a href="projects.html">
@@ -56,12 +62,9 @@
 </header>
 
 
-
 <main>
 
-
     <section class="blog-section">
-
 
         <div class="section-label">
             ПРОЕКТЫ
@@ -70,7 +73,6 @@
 
         <div class="blog-content">
 
-
             <div class="blog-header">
 
                 <div>
@@ -78,7 +80,6 @@
                     <h1>
                         Проекты
                     </h1>
-
 
                     <p class="blog-subtitle">
                         Здесь представлены мои проекты,
@@ -90,35 +91,22 @@
             </div>
 
 
-
             <div
                 id="projectsList"
-                class="projects-grid"
+                class="blog-posts"
             >
 
-                <div class="projects-loading">
-
-                    <div class="projects-loading-icon">
-                        ✦
-                    </div>
-
-                    <p>
-                        Загружаем проекты...
-                    </p>
-
-                </div>
+                <p class="reviews-message">
+                    Загружаем проекты...
+                </p>
 
             </div>
 
-
         </div>
-
 
     </section>
 
-
 </main>
-
 
 
 <footer>
@@ -130,11 +118,14 @@
 </footer>
 
 
+<!-- Supabase -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script src="projects.js"></script>
 
+<!-- Логика проектов -->
+
+<script src="project.js"></script>
 
 </body>
 
