@@ -1,22 +1,25 @@
-const SUPABASE_URL = "https://cqhhshrabncntkcnkrym.supabase.co";
+const SUPABASE_URL =
+    "https://cqhhshrabncntkcnkrym.supabase.co";
 
-const SUPABASE_KEY = "sb_publishable_jC2L087LA9OKoEslfgEH8Q_4WjciDSW";
+const SUPABASE_KEY =
+    "sb_publishable_jC2L087LA9OKoEslfgEH8Q_4WjciDSW";
 
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
-/* =========================
-   ЭЛЕМЕНТЫ СТРАНИЦЫ
-========================= */
+// ==================================================
+// ЭЛЕМЕНТЫ
+// ==================================================
 
-const loginBlock =
-    document.querySelector("#loginBlock");
+const loginSection =
+    document.querySelector("#loginSection");
 
-const moderationBlock =
-    document.querySelector("#moderationBlock");
+const adminContent =
+    document.querySelector("#adminContent");
 
 const loginForm =
     document.querySelector("#loginForm");
@@ -24,48 +27,32 @@ const loginForm =
 const loginMessage =
     document.querySelector("#loginMessage");
 
-const pendingReviews =
-    document.querySelector("#pendingReviews");
-
 const logoutButton =
     document.querySelector("#logoutButton");
 
 
-const blogForm =
-    document.querySelector("#blogForm");
+// ==================================================
+// ПРОВЕРКА АВТОРИЗАЦИИ
+// ==================================================
 
-const blogTitle =
-    document.querySelector("#blogTitle");
-
-const blogContent =
-    document.querySelector("#blogContent");
-
-const blogPublished =
-    document.querySelector("#blogPublished");
-
-const blogMessage =
-    document.querySelector("#blogMessage");
-
-const adminBlogPosts =
-    document.querySelector("#adminBlogPosts");
-
-
-/* =========================
-   ПРОВЕРКА АВТОРИЗАЦИИ
-========================= */
-
-async function checkUser() {
+async function checkSession() {
 
     const {
-        data: {
-            session
-        }
+        data,
+        error
     } = await supabaseClient.auth.getSession();
 
+    if (error) {
 
-    if (session) {
+        console.error(error);
 
-        showModeration();
+        return;
+
+    }
+
+    if (data.session) {
+
+        showAdmin();
 
     } else {
 
@@ -76,192 +63,276 @@ async function checkUser() {
 }
 
 
-/* =========================
-   ПОКАЗ ЭКРАНОВ
-========================= */
+// ==================================================
+// ПОКАЗАТЬ ВХОД
+// ==================================================
 
 function showLogin() {
 
-    loginBlock.style.display = "block";
+    if (loginSection) {
 
-    moderationBlock.style.display = "none";
+        loginSection.style.display =
+            "block";
+
+    }
+
+    if (adminContent) {
+
+        adminContent.style.display =
+            "none";
+
+    }
 
 }
 
 
-function showModeration() {
+// ==================================================
+// ПОКАЗАТЬ АДМИНКУ
+// ==================================================
 
-    loginBlock.style.display = "none";
+function showAdmin() {
 
-    moderationBlock.style.display = "block";
+    if (loginSection) {
 
+        loginSection.style.display =
+            "none";
 
-    loadPendingReviews();
+    }
 
+    if (adminContent) {
+
+        adminContent.style.display =
+            "block";
+
+    }
+
+    loadProjects();
     loadBlogPosts();
+    loadReviews();
 
 }
 
 
-/* =========================
-   ВХОД
-========================= */
+// ==================================================
+// ВХОД
+// ==================================================
 
-async function login(event) {
+if (loginForm) {
 
-    event.preventDefault();
+    loginForm.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+            const email =
+                document.querySelector("#email").value.trim();
+
+            const password =
+                document.querySelector("#password").value;
+
+            loginMessage.textContent =
+                "Выполняется вход...";
+
+            const {
+                error
+            } =
+                await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+            if (error) {
+
+                console.error(error);
+
+                loginMessage.textContent =
+                    "Ошибка входа: " +
+                    error.message;
+
+                return;
+
+            }
+
+            loginMessage.textContent =
+                "";
+
+            showAdmin();
+
+        }
+    );
+
+}
 
 
-    const email =
-        document
-            .querySelector("#adminEmail")
-            .value
-            .trim();
+// ==================================================
+// ВЫХОД
+// ==================================================
+
+if (logoutButton) {
+
+    logoutButton.addEventListener(
+        "click",
+        async function() {
+
+            await supabaseClient.auth.signOut();
+
+            showLogin();
+
+        }
+    );
+
+}
 
 
-    const password =
-        document
-            .querySelector("#adminPassword")
-            .value;
+// ==================================================
+// ПРОЕКТЫ
+// ==================================================
+
+const projectForm =
+    document.querySelector("#projectForm");
+
+const projectMessage =
+    document.querySelector("#projectMessage");
+
+const projectsList =
+    document.querySelector("#projectsList");
 
 
-    loginMessage.textContent =
-        "Выполняем вход...";
+// ==================================================
+// СОЗДАНИЕ ПРОЕКТА
+// ==================================================
+
+if (projectForm) {
+
+    projectForm.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+            projectMessage.textContent =
+                "Создаём проект...";
 
 
-    const {
-        error
-    } =
-        await supabaseClient.auth.signInWithPassword({
-
-            email: email,
-
-            password: password
-
-        });
+            const title =
+                document
+                    .querySelector("#projectTitle")
+                    .value
+                    .trim();
 
 
-    if (error) {
+            const category =
+                document
+                    .querySelector("#projectCategory")
+                    .value
+                    .trim();
 
-        console.error(error);
 
-        loginMessage.textContent =
-            "Неверный email или пароль.";
+            const shortDescription =
+                document
+                    .querySelector("#projectShortDescription")
+                    .value
+                    .trim();
+
+
+            const description =
+                document
+                    .querySelector("#projectDescription")
+                    .value
+                    .trim();
+
+
+            const projectUrl =
+                document
+                    .querySelector("#projectUrl")
+                    .value
+                    .trim();
+
+
+            const imageUrl =
+                document
+                    .querySelector("#projectImage")
+                    .value
+                    .trim();
+
+
+            const published =
+                document
+                    .querySelector("#projectPublished")
+                    .checked;
+
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient
+                    .from("projects")
+                    .insert([
+                        {
+                            title: title,
+                            category: category,
+                            short_description:
+                                shortDescription,
+                            description:
+                                description,
+                            project_url:
+                                projectUrl || null,
+                            image_url:
+                                imageUrl || null,
+                            published:
+                                published
+                        }
+                    ])
+                    .select();
+
+
+            if (error) {
+
+                console.error(error);
+
+                projectMessage.textContent =
+                    "Не удалось создать проект: " +
+                    error.message;
+
+                return;
+
+            }
+
+
+            projectMessage.textContent =
+                "Проект успешно создан.";
+
+
+            projectForm.reset();
+
+
+            loadProjects();
+
+        }
+    );
+
+}
+
+
+// ==================================================
+// ЗАГРУЗКА ПРОЕКТОВ
+// ==================================================
+
+async function loadProjects() {
+
+    if (!projectsList) {
 
         return;
 
     }
 
 
-    loginMessage.textContent = "";
-
-    showModeration();
-
-}
-
-
-/* =========================
-   ВЫХОД
-========================= */
-
-async function logout() {
-
-    await supabaseClient.auth.signOut();
-
-    showLogin();
-
-}
-
-
-/* =========================
-   СОЗДАНИЕ ПОСТА
-========================= */
-
-async function createBlogPost(event) {
-
-    event.preventDefault();
-
-
-    const title =
-        blogTitle.value.trim();
-
-
-    const content =
-        blogContent.value.trim();
-
-
-    const published =
-        blogPublished.checked;
-
-
-    if (!title || !content) {
-
-        blogMessage.textContent =
-            "Заполните заголовок и текст публикации.";
-
-        return;
-
-    }
-
-
-    blogMessage.textContent =
-        "Сохраняем публикацию...";
-
-
-    const {
-        error
-    } =
-        await supabaseClient
-            .from("blog_posts")
-            .insert({
-
-                title: title,
-
-                content: content,
-
-                published: published
-
-            });
-
-
-    if (error) {
-
-        console.error(error);
-
-        blogMessage.textContent =
-            "Не удалось сохранить публикацию.";
-
-        return;
-
-    }
-
-
-    blogForm.reset();
-
-
-    blogMessage.textContent =
-        published
-            ? "Публикация опубликована."
-            : "Публикация сохранена как черновик.";
-
-
-    loadBlogPosts();
-
-}
-
-
-/* =========================
-   ЗАГРУЗКА ПОСТОВ
-========================= */
-
-async function loadBlogPosts() {
-
-    adminBlogPosts.innerHTML = `
-
+    projectsList.innerHTML = `
         <p class="reviews-message">
-            Загружаем публикации...
+            Загружаем проекты...
         </p>
-
     `;
 
 
@@ -270,9 +341,9 @@ async function loadBlogPosts() {
         error
     } =
         await supabaseClient
-            .from("blog_posts")
+            .from("projects")
             .select(
-                "id, title, content, created_at, published"
+                "id, created_at, title, category, short_description, description, project_url, image_url, published"
             )
             .order(
                 "created_at",
@@ -286,12 +357,10 @@ async function loadBlogPosts() {
 
         console.error(error);
 
-        adminBlogPosts.innerHTML = `
-
-            <p class="admin-message">
-                Не удалось загрузить публикации.
+        projectsList.innerHTML = `
+            <p class="reviews-message">
+                Не удалось загрузить проекты.
             </p>
-
         `;
 
         return;
@@ -301,24 +370,22 @@ async function loadBlogPosts() {
 
     if (!data || data.length === 0) {
 
-        adminBlogPosts.innerHTML = `
+        projectsList.innerHTML = `
+            <div class="empty-blog">
 
-            <div class="empty-reviews">
-
-                <div class="empty-icon">
-                    ✓
+                <div class="empty-blog-icon">
+                    ✦
                 </div>
 
                 <h3>
-                    Публикаций пока нет
+                    Пока нет проектов
                 </h3>
 
                 <p>
-                    Создайте первую запись в блоге.
+                    Создай первый проект выше.
                 </p>
 
             </div>
-
         `;
 
         return;
@@ -326,25 +393,475 @@ async function loadBlogPosts() {
     }
 
 
-    adminBlogPosts.innerHTML = "";
+    projectsList.innerHTML = "";
+
+
+    data.forEach(project => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "admin-list-item";
+
+
+        // ------------------------------------------
+        // Заголовок
+        // ------------------------------------------
+
+        const title =
+            document.createElement("h3");
+
+        title.textContent =
+            project.title;
+
+
+        // ------------------------------------------
+        // Категория
+        // ------------------------------------------
+
+        const category =
+            document.createElement("div");
+
+        category.className =
+            "admin-list-meta";
+
+        category.textContent =
+            project.category ||
+            "Без категории";
+
+
+        // ------------------------------------------
+        // Статус
+        // ------------------------------------------
+
+        const status =
+            document.createElement("div");
+
+        status.className =
+            "admin-list-meta";
+
+
+        if (project.published) {
+
+            status.textContent =
+                "Опубликован";
+
+        } else {
+
+            status.textContent =
+                "Черновик";
+
+        }
+
+
+        // ------------------------------------------
+        // Описание
+        // ------------------------------------------
+
+        const description =
+            document.createElement("p");
+
+        description.textContent =
+            project.short_description ||
+            "";
+
+
+        // ------------------------------------------
+        // Кнопки
+        // ------------------------------------------
+
+        const buttons =
+            document.createElement("div");
+
+        buttons.className =
+            "admin-list-actions";
+
+
+        const publishButton =
+            document.createElement("button");
+
+        publishButton.type =
+            "button";
+
+        publishButton.className =
+            "admin-button";
+
+
+        if (project.published) {
+
+            publishButton.textContent =
+                "Снять с публикации";
+
+        } else {
+
+            publishButton.textContent =
+                "Опубликовать";
+
+        }
+
+
+        publishButton.addEventListener(
+            "click",
+            function() {
+
+                toggleProjectPublished(
+                    project.id,
+                    !project.published
+                );
+
+            }
+        );
+
+
+        const deleteButton =
+            document.createElement("button");
+
+        deleteButton.type =
+            "button";
+
+        deleteButton.className =
+            "admin-button admin-button-danger";
+
+        deleteButton.textContent =
+            "Удалить";
+
+
+        deleteButton.addEventListener(
+            "click",
+            function() {
+
+                deleteProject(
+                    project.id,
+                    project.title
+                );
+
+            }
+        );
+
+
+        buttons.appendChild(
+            publishButton
+        );
+
+        buttons.appendChild(
+            deleteButton
+        );
+
+
+        // ------------------------------------------
+        // Собираем карточку
+        // ------------------------------------------
+
+        item.appendChild(title);
+
+        item.appendChild(category);
+
+        item.appendChild(status);
+
+        item.appendChild(description);
+
+        item.appendChild(buttons);
+
+
+        projectsList.appendChild(item);
+
+    });
+
+}
+
+
+// ==================================================
+// ПУБЛИКАЦИЯ / СНЯТИЕ С ПУБЛИКАЦИИ
+// ==================================================
+
+async function toggleProjectPublished(
+    projectId,
+    published
+) {
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("projects")
+            .update({
+                published: published
+            })
+            .eq(
+                "id",
+                projectId
+            );
+
+
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            "Не удалось изменить статус проекта: " +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    loadProjects();
+
+}
+
+
+// ==================================================
+// УДАЛЕНИЕ ПРОЕКТА
+// ==================================================
+
+async function deleteProject(
+    projectId,
+    projectTitle
+) {
+
+    const confirmed =
+        confirm(
+            'Удалить проект "' +
+            projectTitle +
+            '"?'
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("projects")
+            .delete()
+            .eq(
+                "id",
+                projectId
+            );
+
+
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            "Не удалось удалить проект: " +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    loadProjects();
+
+}
+
+
+// ==================================================
+// БЛОГ
+// ==================================================
+
+const blogForm =
+    document.querySelector("#blogForm");
+
+const blogMessage =
+    document.querySelector("#blogMessage");
+
+const blogList =
+    document.querySelector("#blogList");
+
+
+// ==================================================
+// СОЗДАНИЕ ПУБЛИКАЦИИ
+// ==================================================
+
+if (blogForm) {
+
+    blogForm.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            blogMessage.textContent =
+                "Создаём публикацию...";
+
+
+            const title =
+                document
+                    .querySelector("#blogTitle")
+                    .value
+                    .trim();
+
+
+            const content =
+                document
+                    .querySelector("#blogContent")
+                    .value
+                    .trim();
+
+
+            const published =
+                document
+                    .querySelector("#blogPublished")
+                    .checked;
+
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("blog_posts")
+                    .insert([
+                        {
+                            title: title,
+                            content: content,
+                            published: published
+                        }
+                    ]);
+
+
+            if (error) {
+
+                console.error(error);
+
+                blogMessage.textContent =
+                    "Не удалось создать публикацию: " +
+                    error.message;
+
+                return;
+
+            }
+
+
+            blogMessage.textContent =
+                "Публикация успешно создана.";
+
+
+            blogForm.reset();
+
+
+            loadBlogPosts();
+
+        }
+    );
+
+}
+
+
+// ==================================================
+// ЗАГРУЗКА ПУБЛИКАЦИЙ
+// ==================================================
+
+async function loadBlogPosts() {
+
+    if (!blogList) {
+
+        return;
+
+    }
+
+
+    blogList.innerHTML = `
+        <p class="reviews-message">
+            Загружаем публикации...
+        </p>
+    `;
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("blog_posts")
+            .select(
+                "id, created_at, title, content, published"
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
+
+    if (error) {
+
+        console.error(error);
+
+        blogList.innerHTML = `
+            <p class="reviews-message">
+                Не удалось загрузить публикации.
+            </p>
+        `;
+
+        return;
+
+    }
+
+
+    if (!data || data.length === 0) {
+
+        blogList.innerHTML = `
+            <div class="empty-blog">
+
+                <div class="empty-blog-icon">
+                    ✦
+                </div>
+
+                <h3>
+                    Пока нет публикаций
+                </h3>
+
+                <p>
+                    Создай первую публикацию выше.
+                </p>
+
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    blogList.innerHTML = "";
 
 
     data.forEach(post => {
 
-        const card =
+        const item =
             document.createElement("div");
 
-        card.className =
-            "admin-blog-post";
+        item.className =
+            "admin-list-item";
 
 
-        /* Дата */
+        const title =
+            document.createElement("h3");
+
+        title.textContent =
+            post.title;
+
 
         const date =
             document.createElement("div");
 
         date.className =
-            "admin-blog-post-date";
+            "admin-list-meta";
 
         date.textContent =
             new Date(
@@ -359,27 +876,11 @@ async function loadBlogPosts() {
             );
 
 
-        /* Заголовок */
-
-        const title =
-            document.createElement("h3");
-
-        title.className =
-            "admin-blog-post-title";
-
-        title.textContent =
-            post.title;
-
-
-        /* Статус */
-
         const status =
-            document.createElement("span");
+            document.createElement("div");
 
         status.className =
-            post.published
-                ? "blog-status published"
-                : "blog-status draft";
+            "admin-list-meta";
 
         status.textContent =
             post.published
@@ -387,61 +888,41 @@ async function loadBlogPosts() {
                 : "Черновик";
 
 
-        /* Текст */
-
-        const text =
-            document.createElement("p");
-
-        text.className =
-            "admin-blog-post-text";
-
-        text.textContent =
-            post.content;
-
-
-        /* Кнопки */
-
         const buttons =
             document.createElement("div");
 
         buttons.className =
-            "admin-blog-buttons";
+            "admin-list-actions";
 
 
-        /* Опубликовать */
+        const publishButton =
+            document.createElement("button");
 
-        if (!post.published) {
+        publishButton.type =
+            "button";
 
-            const publishButton =
-                document.createElement("button");
-
-            publishButton.type =
-                "button";
-
-            publishButton.className =
-                "approve-button";
-
-            publishButton.textContent =
-                "✓ Опубликовать";
+        publishButton.className =
+            "admin-button";
 
 
-            publishButton.addEventListener(
-                "click",
-                () => publishBlogPost(
+        publishButton.textContent =
+            post.published
+                ? "Снять с публикации"
+                : "Опубликовать";
+
+
+        publishButton.addEventListener(
+            "click",
+            function() {
+
+                toggleBlogPublished(
                     post.id,
-                    publishButton
-                )
-            );
+                    !post.published
+                );
 
+            }
+        );
 
-            buttons.appendChild(
-                publishButton
-            );
-
-        }
-
-
-        /* Удалить */
 
         const deleteButton =
             document.createElement("button");
@@ -450,7 +931,7 @@ async function loadBlogPosts() {
             "button";
 
         deleteButton.className =
-            "delete-button";
+            "admin-button admin-button-danger";
 
         deleteButton.textContent =
             "Удалить";
@@ -458,55 +939,50 @@ async function loadBlogPosts() {
 
         deleteButton.addEventListener(
             "click",
-            () => deleteBlogPost(
-                post.id,
-                card,
-                deleteButton
-            )
+            function() {
+
+                deleteBlogPost(
+                    post.id,
+                    post.title
+                );
+
+            }
         );
 
+
+        buttons.appendChild(
+            publishButton
+        );
 
         buttons.appendChild(
             deleteButton
         );
 
 
-        /* Собираем карточку */
+        item.appendChild(title);
 
-        card.appendChild(date);
+        item.appendChild(date);
 
-        card.appendChild(title);
+        item.appendChild(status);
 
-        card.appendChild(status);
-
-        card.appendChild(text);
-
-        card.appendChild(buttons);
+        item.appendChild(buttons);
 
 
-        adminBlogPosts.appendChild(
-            card
-        );
+        blogList.appendChild(item);
 
     });
 
 }
 
 
-/* =========================
-   ПУБЛИКАЦИЯ ПОСТА
-========================= */
+// ==================================================
+// ПУБЛИКАЦИЯ БЛОГА
+// ==================================================
 
-async function publishBlogPost(
+async function toggleBlogPublished(
     postId,
-    button
+    published
 ) {
-
-    button.disabled = true;
-
-    button.textContent =
-        "Публикуем...";
-
 
     const {
         error
@@ -514,7 +990,7 @@ async function publishBlogPost(
         await supabaseClient
             .from("blog_posts")
             .update({
-                published: true
+                published: published
             })
             .eq(
                 "id",
@@ -526,13 +1002,9 @@ async function publishBlogPost(
 
         console.error(error);
 
-        button.disabled = false;
-
-        button.textContent =
-            "✓ Опубликовать";
-
         alert(
-            "Не удалось опубликовать запись."
+            "Не удалось изменить статус публикации: " +
+            error.message
         );
 
         return;
@@ -545,19 +1017,20 @@ async function publishBlogPost(
 }
 
 
-/* =========================
-   УДАЛЕНИЕ ПОСТА
-========================= */
+// ==================================================
+// УДАЛЕНИЕ ПУБЛИКАЦИИ
+// ==================================================
 
 async function deleteBlogPost(
     postId,
-    card,
-    button
+    postTitle
 ) {
 
     const confirmed =
         confirm(
-            "Удалить эту публикацию?"
+            'Удалить публикацию "' +
+            postTitle +
+            '"?'
         );
 
 
@@ -566,12 +1039,6 @@ async function deleteBlogPost(
         return;
 
     }
-
-
-    button.disabled = true;
-
-    button.textContent =
-        "Удаляем...";
 
 
     const {
@@ -590,13 +1057,9 @@ async function deleteBlogPost(
 
         console.error(error);
 
-        button.disabled = false;
-
-        button.textContent =
-            "Удалить";
-
         alert(
-            "Не удалось удалить публикацию."
+            "Не удалось удалить публикацию: " +
+            error.message
         );
 
         return;
@@ -604,23 +1067,36 @@ async function deleteBlogPost(
     }
 
 
-    card.remove();
+    loadBlogPosts();
 
 }
 
 
-/* =========================
-   ОТЗЫВЫ
-========================= */
+// ==================================================
+// ОТЗЫВЫ
+// ==================================================
 
-async function loadPendingReviews() {
+const reviewsList =
+    document.querySelector("#reviewsList");
 
-    pendingReviews.innerHTML = `
 
+// ==================================================
+// ЗАГРУЗКА ОТЗЫВОВ
+// ==================================================
+
+async function loadReviews() {
+
+    if (!reviewsList) {
+
+        return;
+
+    }
+
+
+    reviewsList.innerHTML = `
         <p class="reviews-message">
             Загружаем отзывы...
         </p>
-
     `;
 
 
@@ -631,11 +1107,7 @@ async function loadPendingReviews() {
         await supabaseClient
             .from("reviews")
             .select(
-                "id, name, review_text, created_at, approved"
-            )
-            .eq(
-                "approved",
-                false
+                "id, created_at, name, review_text, approved"
             )
             .order(
                 "created_at",
@@ -649,12 +1121,10 @@ async function loadPendingReviews() {
 
         console.error(error);
 
-        pendingReviews.innerHTML = `
-
-            <p class="admin-message">
+        reviewsList.innerHTML = `
+            <p class="reviews-message">
                 Не удалось загрузить отзывы.
             </p>
-
         `;
 
         return;
@@ -664,24 +1134,22 @@ async function loadPendingReviews() {
 
     if (!data || data.length === 0) {
 
-        pendingReviews.innerHTML = `
+        reviewsList.innerHTML = `
+            <div class="empty-blog">
 
-            <div class="empty-reviews">
-
-                <div class="empty-icon">
-                    ✓
+                <div class="empty-blog-icon">
+                    ✦
                 </div>
 
                 <h3>
-                    Новых отзывов нет
+                    Пока нет отзывов
                 </h3>
 
                 <p>
-                    Все отзывы проверены.
+                    Новые отзывы появятся здесь.
                 </p>
 
             </div>
-
         `;
 
         return;
@@ -689,95 +1157,83 @@ async function loadPendingReviews() {
     }
 
 
-    pendingReviews.innerHTML = "";
+    reviewsList.innerHTML = "";
 
 
     data.forEach(review => {
 
-        const card =
+        const item =
             document.createElement("div");
 
-        card.className =
-            "moderation-review";
-
-
-        const header =
-            document.createElement("div");
-
-        header.className =
-            "moderation-review-header";
-
-
-        const author =
-            document.createElement("div");
-
-        author.className =
-            "moderation-author";
+        item.className =
+            "admin-list-item";
 
 
         const name =
-            document.createElement("strong");
+            document.createElement("h3");
 
         name.textContent =
             review.name;
 
 
-        const date =
-            document.createElement("span");
-
-        date.textContent =
-            new Date(
-                review.created_at
-            ).toLocaleString(
-                "ru-RU"
-            );
-
-
-        author.appendChild(name);
-
-        author.appendChild(date);
-
-        header.appendChild(author);
-
-
         const text =
             document.createElement("p");
 
-        text.className =
-            "moderation-review-text";
-
         text.textContent =
             review.review_text;
+
+
+        const status =
+            document.createElement("div");
+
+        status.className =
+            "admin-list-meta";
+
+        status.textContent =
+            review.approved
+                ? "Опубликован"
+                : "На модерации";
 
 
         const buttons =
             document.createElement("div");
 
         buttons.className =
-            "moderation-buttons";
+            "admin-list-actions";
 
 
-        const approveButton =
-            document.createElement("button");
+        if (!review.approved) {
 
-        approveButton.type =
-            "button";
+            const approveButton =
+                document.createElement("button");
 
-        approveButton.className =
-            "approve-button";
+            approveButton.type =
+                "button";
 
-        approveButton.textContent =
-            "✓ Одобрить";
+            approveButton.className =
+                "admin-button";
+
+            approveButton.textContent =
+                "Одобрить";
 
 
-        approveButton.addEventListener(
-            "click",
-            () => approveReview(
-                review.id,
-                card,
+            approveButton.addEventListener(
+                "click",
+                function() {
+
+                    approveReview(
+                        review.id
+                    );
+
+                }
+            );
+
+
+            buttons.appendChild(
                 approveButton
-            )
-        );
+            );
+
+        }
 
 
         const deleteButton =
@@ -787,7 +1243,7 @@ async function loadPendingReviews() {
             "button";
 
         deleteButton.className =
-            "delete-button";
+            "admin-button admin-button-danger";
 
         deleteButton.textContent =
             "Удалить";
@@ -795,54 +1251,44 @@ async function loadPendingReviews() {
 
         deleteButton.addEventListener(
             "click",
-            () => deleteReview(
-                review.id,
-                card,
-                deleteButton
-            )
+            function() {
+
+                deleteReview(
+                    review.id
+                );
+
+            }
         );
 
-
-        buttons.appendChild(
-            approveButton
-        );
 
         buttons.appendChild(
             deleteButton
         );
 
 
-        card.appendChild(header);
+        item.appendChild(name);
 
-        card.appendChild(text);
+        item.appendChild(text);
 
-        card.appendChild(buttons);
+        item.appendChild(status);
+
+        item.appendChild(buttons);
 
 
-        pendingReviews.appendChild(
-            card
-        );
+        reviewsList.appendChild(item);
 
     });
 
 }
 
 
-/* =========================
-   ОДОБРЕНИЕ ОТЗЫВА
-========================= */
+// ==================================================
+// ОДОБРЕНИЕ ОТЗЫВА
+// ==================================================
 
 async function approveReview(
-    reviewId,
-    card,
-    button
+    reviewId
 ) {
-
-    button.disabled = true;
-
-    button.textContent =
-        "Одобряем...";
-
 
     const {
         error
@@ -862,13 +1308,9 @@ async function approveReview(
 
         console.error(error);
 
-        button.disabled = false;
-
-        button.textContent =
-            "✓ Одобрить";
-
         alert(
-            "Не удалось одобрить отзыв."
+            "Не удалось одобрить отзыв: " +
+            error.message
         );
 
         return;
@@ -876,21 +1318,17 @@ async function approveReview(
     }
 
 
-    card.remove();
-
-    checkEmptyModeration();
+    loadReviews();
 
 }
 
 
-/* =========================
-   УДАЛЕНИЕ ОТЗЫВА
-========================= */
+// ==================================================
+// УДАЛЕНИЕ ОТЗЫВА
+// ==================================================
 
 async function deleteReview(
-    reviewId,
-    card,
-    button
+    reviewId
 ) {
 
     const confirmed =
@@ -904,12 +1342,6 @@ async function deleteReview(
         return;
 
     }
-
-
-    button.disabled = true;
-
-    button.textContent =
-        "Удаляем...";
 
 
     const {
@@ -928,13 +1360,9 @@ async function deleteReview(
 
         console.error(error);
 
-        button.disabled = false;
-
-        button.textContent =
-            "Удалить";
-
         alert(
-            "Не удалось удалить отзыв."
+            "Не удалось удалить отзыв: " +
+            error.message
         );
 
         return;
@@ -942,84 +1370,13 @@ async function deleteReview(
     }
 
 
-    card.remove();
-
-    checkEmptyModeration();
+    loadReviews();
 
 }
 
 
-/* =========================
-   ПУСТОЙ СПИСОК ОТЗЫВОВ
-========================= */
+// ==================================================
+// ЗАПУСК
+// ==================================================
 
-function checkEmptyModeration() {
-
-    if (
-        pendingReviews.children.length === 0
-    ) {
-
-        pendingReviews.innerHTML = `
-
-            <div class="empty-reviews">
-
-                <div class="empty-icon">
-                    ✓
-                </div>
-
-                <h3>
-                    Новых отзывов нет
-                </h3>
-
-                <p>
-                    Все отзывы проверены.
-                </p>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-/* =========================
-   СОБЫТИЯ
-========================= */
-
-if (loginForm) {
-
-    loginForm.addEventListener(
-        "submit",
-        login
-    );
-
-}
-
-
-if (logoutButton) {
-
-    logoutButton.addEventListener(
-        "click",
-        logout
-    );
-
-}
-
-
-if (blogForm) {
-
-    blogForm.addEventListener(
-        "submit",
-        createBlogPost
-    );
-
-}
-
-
-/* =========================
-   ЗАПУСК
-========================= */
-
-checkUser();
+checkSession();
