@@ -8,7 +8,6 @@ const supabaseClient = window.supabase.createClient(
     SUPABASE_KEY
 );
 
-
 // =========================================
 // ЭЛЕМЕНТЫ СТРАНИЦЫ
 // =========================================
