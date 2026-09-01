@@ -120,23 +120,37 @@
 
                 <div class="skill">
                     <span>01</span>
-                    <h3>Думать</h3>
+
+                    <h3>
+                        Думать
+                    </h3>
+
                     <p>
                         Анализировать задачи и искать решения.
                     </p>
                 </div>
 
+
                 <div class="skill">
                     <span>02</span>
-                    <h3>Говорить</h3>
+
+                    <h3>
+                        Говорить
+                    </h3>
+
                     <p>
                         Общаться с людьми и объяснять свои мысли.
                     </p>
                 </div>
 
+
                 <div class="skill">
                     <span>03</span>
-                    <h3>Сперва говорить, потом думать</h3>
+
+                    <h3>
+                        Сперва говорить, потом думать
+                    </h3>
+
                     <p>
                         Иногда импровизировать и находить выход
                         из неожиданных ситуаций.
@@ -160,81 +174,115 @@
 
         <div class="section-content">
 
-            <h2>
-                Что обо мне говорят
-            </h2>
+            <div class="reviews-header">
 
-            <div class="reviews">
+                <div>
 
-                <div class="review">
+                    <h2>
+                        Что обо мне говорят
+                    </h2>
 
-                    <div class="review-mark">
-                        “
-                    </div>
-
-                    <p class="review-text">
-                        Ответственно подходит к поставленным задачам,
-                        спокойно воспринимает замечания и стремится
-                        разобраться в новом.
+                    <p class="reviews-subtitle">
+                        Отзывы людей, которые со мной работали,
+                        учились или просто хорошо меня знают.
                     </p>
-
-                    <div class="review-author">
-                        <strong>
-                            Имя Фамилия
-                        </strong>
-
-                        <span>
-                            Преподаватель / руководитель
-                        </span>
-                    </div>
 
                 </div>
 
+                <button
+                    type="button"
+                    class="review-button"
+                    id="openReviewButton">
+                    Оставить отзыв
+                </button>
 
-                <div class="review">
+            </div>
 
-                    <div class="review-mark">
-                        “
+
+            <!-- Здесь будут появляться одобренные отзывы -->
+
+            <div class="reviews" id="reviewsContainer">
+
+                <p class="reviews-message">
+                    Загружаем отзывы...
+                </p>
+
+            </div>
+
+
+            <!-- Форма добавления отзыва -->
+
+            <div class="review-form-wrapper" id="reviewFormWrapper">
+
+                <div class="review-form">
+
+                    <div class="review-form-header">
+
+                        <h3>
+                            Оставить отзыв
+                        </h3>
+
+                        <button
+                            type="button"
+                            class="review-close"
+                            id="closeReviewButton"
+                            aria-label="Закрыть">
+                            ×
+                        </button>
+
                     </div>
 
-                    <p class="review-text">
-                        Хорошо работает в команде, умеет общаться
-                        с людьми и не боится брать на себя новые задачи.
+
+                    <p class="review-form-description">
+                        Отзыв сначала отправляется на проверку.
+                        После одобрения он появится на сайте.
                     </p>
 
-                    <div class="review-author">
-                        <strong>
-                            Имя Фамилия
-                        </strong>
 
-                        <span>
-                            Коллега / знакомый
-                        </span>
-                    </div>
+                    <form id="reviewForm">
 
-                </div>
+                        <label for="reviewName">
+                            Ваше имя
+                        </label>
+
+                        <input
+                            type="text"
+                            id="reviewName"
+                            name="name"
+                            placeholder="Например, Иван"
+                            minlength="2"
+                            maxlength="50"
+                            required>
 
 
-                <div class="review">
+                        <label for="reviewText">
+                            Ваш отзыв
+                        </label>
 
-                    <div class="review-mark">
-                        “
-                    </div>
+                        <textarea
+                            id="reviewText"
+                            name="review"
+                            placeholder="Напишите несколько слов обо мне..."
+                            minlength="5"
+                            maxlength="500"
+                            rows="6"
+                            required></textarea>
 
-                    <p class="review-text">
-                        Быстро учится и старается доводить начатое
-                        до конца. Всегда готов получить новый опыт.
-                    </p>
 
-                    <div class="review-author">
-                        <strong>
-                            Имя Фамилия
-                        </strong>
+                        <button
+                            type="submit"
+                            class="review-submit"
+                            id="reviewSubmitButton">
+                            Отправить отзыв
+                        </button>
 
-                        <span>
-                            Преподаватель / руководитель
-                        </span>
-                    </div>
+
+                        <p
+                            class="review-form-message"
+                            id="reviewFormMessage">
+                        </p>
+
+                    </form>
 
                 </div>
 
@@ -265,7 +313,9 @@
                 буду рад обсудить детали.
             </p>
 
-            <a href="mailto:gop.2000@mail.ru" class="contact-link">
+            <a
+                href="mailto:gop.2000@mail.ru"
+                class="contact-link">
                 gop.2000@mail.ru
             </a>
 
@@ -285,6 +335,16 @@
     </p>
 
 </footer>
+
+
+<!-- Библиотека Supabase -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- Наш JavaScript -->
+
+<script src="script.js"></script>
 
 </body>
 
