@@ -1,3 +1,47 @@
+/* =========================================================
+   ОСНОВА
+========================================================= */
+
+:root {
+    --accent: #2e9f6e;
+    --accent-light: #e9f7f0;
+    --accent-soft: rgba(46, 159, 110, 0.10);
+    --accent-border: rgba(46, 159, 110, 0.28);
+    --accent-shadow: rgba(46, 159, 110, 0.20);
+
+    --bg: #f5f7f6;
+    --bg-soft: #eef2f0;
+    --surface: #ffffff;
+    --surface-soft: #f8faf9;
+
+    --text: #17201c;
+    --text-secondary: #59645f;
+    --text-muted: #87918c;
+
+    --border: #e1e7e3;
+    --border-soft: rgba(23, 32, 28, 0.08);
+
+    --danger: #c75b5b;
+
+    --radius-small: 9px;
+    --radius-medium: 16px;
+    --radius-large: 22px;
+
+    --shadow-small:
+        0 8px 25px rgba(23, 32, 28, 0.06);
+
+    --shadow-medium:
+        0 18px 50px rgba(23, 32, 28, 0.09);
+
+    --shadow-large:
+        0 30px 80px rgba(23, 32, 28, 0.12);
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -9,75 +53,107 @@ html {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #050c09;
-    color: #edf7f1;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: var(--bg);
+
+    color: var(--text);
+
     line-height: 1.6;
+
     overflow-x: hidden;
 }
 
 body::before {
     content: "";
+
     position: fixed;
-    width: 550px;
-    height: 550px;
-    left: -250px;
-    top: 250px;
-    background: #123f2d;
-    filter: blur(140px);
-    opacity: 0.28;
+
+    width: 520px;
+    height: 520px;
+
+    left: -280px;
+    top: 180px;
+
+    background: var(--accent);
+
+    filter: blur(150px);
+
+    opacity: 0.055;
+
     pointer-events: none;
+
     z-index: 0;
 }
 
 body::after {
     content: "";
+
     position: fixed;
-    width: 500px;
-    height: 500px;
+
+    width: 480px;
+    height: 480px;
+
     right: -250px;
-    top: 100px;
-    background: #174b35;
-    filter: blur(140px);
-    opacity: 0.18;
+    top: 80px;
+
+    background: var(--accent);
+
+    filter: blur(150px);
+
+    opacity: 0.045;
+
     pointer-events: none;
+
     z-index: 0;
 }
 
 
-/* =========================
+/* =========================================================
    ОБЩИЙ КОНТЕЙНЕР
-========================= */
+========================================================= */
 
 .container {
     width: min(1180px, calc(100% - 50px));
+
     margin: 0 auto;
 }
 
 
-/* =========================
+/* =========================================================
    НАВИГАЦИЯ
-========================= */
+========================================================= */
 
 header {
     width: min(1180px, calc(100% - 50px));
-    height: 72px;
+
+    min-height: 72px;
 
     margin: 0 auto;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    gap: 30px;
+
+    border-bottom: 1px solid var(--border);
 
     position: relative;
-    z-index: 10;
 
-    animation: headerAppear 0.7s ease both;
+    z-index: 20;
+
+    animation:
+        headerAppear 0.7s ease both;
 }
 
 @keyframes headerAppear {
+
     from {
         opacity: 0;
         transform: translateY(-12px);
@@ -87,15 +163,17 @@ header {
         opacity: 1;
         transform: translateY(0);
     }
+
 }
 
 
-/* =========================
+/* =========================================================
    ЛОГОТИП
-========================= */
+========================================================= */
 
 .logo {
     display: flex;
+
     align-items: center;
 
     width: 42px;
@@ -120,32 +198,45 @@ header {
 }
 
 .logo:hover img {
-    transform: scale(1.08) rotate(2deg);
+    transform:
+        scale(1.08)
+        rotate(2deg);
 
     filter:
         drop-shadow(
-            0 0 12px rgba(99, 213, 162, 0.35)
+            0 0 14px var(--accent-shadow)
         );
 }
 
 
-/* =========================
+/* =========================================================
    НАВИГАЦИЯ
-========================= */
+========================================================= */
 
 nav {
     display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
     gap: 28px;
+
+    flex: 1;
 }
 
 nav a {
     position: relative;
 
-    color: #a8b6af;
+    color: var(--text-secondary);
 
     text-decoration: none;
 
     font-size: 14px;
+
+    font-weight: 500;
+
+    white-space: nowrap;
 
     transition:
         color 0.25s ease,
@@ -161,17 +252,21 @@ nav a::after {
     bottom: -7px;
 
     width: 0;
-    height: 1px;
+    height: 2px;
 
-    background: #63d5a2;
+    border-radius: 10px;
 
-    transition: width 0.25s ease;
+    background: var(--accent);
+
+    transition:
+        width 0.25s ease;
 }
 
 nav a:hover {
-    color: #63d5a2;
+    color: var(--accent);
 
-    transform: translateY(-1px);
+    transform:
+        translateY(-1px);
 }
 
 nav a:hover::after {
@@ -179,24 +274,265 @@ nav a:hover::after {
 }
 
 
-/* =========================
-   ГЛАВНЫЙ ЭКРАН
-========================= */
+/* =========================================================
+   ВЫБОР ЦВЕТА
+========================================================= */
 
-.hero {
-    min-height: calc(100vh - 72px);
+.theme-picker {
+    position: relative;
+
+    flex-shrink: 0;
+}
+
+.theme-picker-button {
+    height: 40px;
 
     display: flex;
+
     align-items: center;
 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    gap: 8px;
+
+    padding: 0 12px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: var(--surface);
+
+    color: var(--text-secondary);
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 15px rgba(23, 32, 28, 0.04);
+
+    transition:
+        border-color 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+.theme-picker-button:hover {
+    color: var(--accent);
+
+    border-color:
+        var(--accent-border);
+
+    box-shadow:
+        0 8px 25px var(--accent-shadow);
+
+    transform:
+        translateY(-1px);
+}
+
+.theme-current-color {
+    width: 13px;
+    height: 13px;
+
+    display: block;
+
+    border-radius: 50%;
+
+    background: var(--accent);
+
+    box-shadow:
+        0 0 0 3px var(--accent-light);
+}
+
+.theme-picker-arrow {
+    font-size: 13px;
+
+    transition:
+        transform 0.25s ease;
+}
+
+.theme-picker.open
+.theme-picker-arrow {
+    transform:
+        rotate(180deg);
+}
+
+.theme-menu {
+    position: absolute;
+
+    top: calc(100% + 12px);
+
+    right: 0;
+
+    width: 235px;
+
+    padding: 18px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 16px;
+
+    background:
+        rgba(255, 255, 255, 0.96);
+
+    backdrop-filter:
+        blur(15px);
+
+    box-shadow:
+        0 20px 55px rgba(23, 32, 28, 0.14);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        translateY(-8px)
+        scale(0.97);
+
+    transform-origin:
+        top right;
+
+    transition:
+        opacity 0.22s ease,
+        visibility 0.22s ease,
+        transform 0.22s ease;
+}
+
+.theme-picker.open .theme-menu {
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+.theme-menu-title {
+    color: var(--text);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    margin-bottom: 14px;
+}
+
+.theme-colors {
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, 1fr);
+
+    gap: 8px;
+}
+
+.theme-color {
+    width: 27px;
+    height: 27px;
+
+    border:
+        3px solid #ffffff;
+
+    border-radius: 50%;
+
+    background: var(--swatch);
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 0 1px var(--border);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.theme-color:hover {
+    transform:
+        scale(1.13);
+
+    box-shadow:
+        0 0 0 2px var(--swatch);
+}
+
+.theme-color.active {
+    box-shadow:
+        0 0 0 2px var(--swatch),
+        0 4px 12px rgba(23, 32, 28, 0.12);
+}
+
+.theme-custom {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 18px;
+
+    padding-top: 15px;
+
+    border-top:
+        1px solid var(--border);
+}
+
+.theme-custom label {
+    color: var(--text-secondary);
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.theme-custom input {
+    width: 40px;
+    height: 28px;
+
+    padding: 0;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 7px;
+
+    background: transparent;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   ГЛАВНЫЙ ЭКРАН
+========================================================= */
+
+.hero {
+    min-height:
+        calc(100vh - 72px);
+
+    display: flex;
+
+    align-items: center;
+
+    border-bottom:
+        1px solid var(--border);
 
     position: relative;
+
     z-index: 1;
 }
 
 .hero-content {
-    width: min(1180px, calc(100% - 50px));
+    width:
+        min(1180px, calc(100% - 50px));
 
     margin: 0 auto;
 
@@ -214,73 +550,106 @@ nav a:hover::after {
 }
 
 
-/* =========================
+/* =========================================================
    АНИМАЦИЯ ГЕРОЯ
-========================= */
+========================================================= */
 
 .hero .eyebrow {
     animation:
-        heroTextAppear 0.7s ease 0.1s both;
+        heroTextAppear
+        0.7s
+        ease
+        0.1s
+        both;
 }
 
 .hero h1 {
     animation:
-        heroTextAppear 0.7s ease 0.2s both;
+        heroTextAppear
+        0.7s
+        ease
+        0.2s
+        both;
 }
 
 .hero-description {
     animation:
-        heroTextAppear 0.7s ease 0.3s both;
+        heroTextAppear
+        0.7s
+        ease
+        0.3s
+        both;
 }
 
 .hero .button {
     animation:
-        heroTextAppear 0.7s ease 0.4s both;
+        heroTextAppear
+        0.7s
+        ease
+        0.4s
+        both;
 }
 
 .hero-photo {
     animation:
-        heroPhotoAppear 0.9s ease 0.25s both;
+        heroPhotoAppear
+        0.9s
+        ease
+        0.25s
+        both;
 }
 
 @keyframes heroTextAppear {
+
     from {
         opacity: 0;
-        transform: translateY(24px);
+        transform:
+            translateY(24px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform:
+            translateY(0);
     }
+
 }
 
 @keyframes heroPhotoAppear {
+
     from {
         opacity: 0;
-        transform: translateX(35px) scale(0.97);
+
+        transform:
+            translateX(35px)
+            scale(0.97);
     }
 
     to {
         opacity: 1;
-        transform: translateX(0) scale(1);
+
+        transform:
+            translateX(0)
+            scale(1);
     }
+
 }
 
 
-/* =========================
+/* =========================================================
    ТЕКСТ
-========================= */
+========================================================= */
 
 .hero-text {
     min-width: 0;
 }
 
 .eyebrow {
-    color: #63d5a2;
+    color: var(--accent);
 
     font-size: 13px;
-    font-weight: 700;
+
+    font-weight: 800;
 
     letter-spacing: 3px;
 
@@ -288,7 +657,8 @@ nav a:hover::after {
 }
 
 h1 {
-    font-size: clamp(48px, 5vw, 72px);
+    font-size:
+        clamp(48px, 5vw, 72px);
 
     line-height: 1.03;
 
@@ -300,7 +670,7 @@ h1 {
 .hero-description {
     max-width: 560px;
 
-    color: #aebbb4;
+    color: var(--text-secondary);
 
     font-size: 17px;
 
@@ -310,44 +680,54 @@ h1 {
 }
 
 
-/* =========================
+/* =========================================================
    ОСНОВНАЯ КНОПКА
-========================= */
+========================================================= */
 
 .button {
     display: inline-block;
 
     padding: 14px 25px;
 
-    background: #63d5a2;
+    background: var(--accent);
 
-    color: #06100b;
+    color: #ffffff;
 
-    border-radius: 8px;
+    border:
+        1px solid var(--accent);
+
+    border-radius: 10px;
 
     text-decoration: none;
 
     font-size: 14px;
+
     font-weight: 700;
+
+    box-shadow:
+        0 10px 25px var(--accent-shadow);
 
     transition:
         transform 0.25s ease,
         box-shadow 0.25s ease,
-        background 0.25s ease;
+        filter 0.25s ease;
 }
 
 .button:hover {
-    transform: translateY(-3px);
+    transform:
+        translateY(-3px);
+
+    filter:
+        brightness(1.04);
 
     box-shadow:
-        0 12px 30px rgba(99, 213, 162, 0.18),
-        0 0 25px rgba(99, 213, 162, 0.12);
+        0 16px 35px var(--accent-shadow);
 }
 
 
-/* =========================
+/* =========================================================
    ФОТО
-========================= */
+========================================================= */
 
 .hero-photo {
     width: 100%;
@@ -358,13 +738,13 @@ h1 {
 
     overflow: hidden;
 
-    border: 1px solid rgba(99, 213, 162, 0.65);
+    border:
+        1px solid var(--accent-border);
 
-    background: #0a1510;
+    background: var(--surface);
 
     box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.45),
-        0 0 50px rgba(50, 170, 115, 0.08);
+        var(--shadow-large);
 
     transition:
         transform 0.45s ease,
@@ -373,13 +753,15 @@ h1 {
 }
 
 .hero-photo:hover {
-    transform: translateY(-6px);
+    transform:
+        translateY(-6px);
 
-    border-color: rgba(99, 213, 162, 0.9);
+    border-color:
+        var(--accent);
 
     box-shadow:
-        0 35px 90px rgba(0, 0, 0, 0.5),
-        0 0 55px rgba(50, 170, 115, 0.15);
+        0 35px 90px rgba(23, 32, 28, 0.16),
+        0 0 45px var(--accent-shadow);
 }
 
 .hero-photo img {
@@ -395,16 +777,18 @@ h1 {
 }
 
 .hero-photo:hover img {
-    transform: scale(1.025);
+    transform:
+        scale(1.025);
 }
 
 
-/* =========================
+/* =========================================================
    ОСНОВНЫЕ СЕКЦИИ
-========================= */
+========================================================= */
 
 .section {
-    width: min(1180px, calc(100% - 50px));
+    width:
+        min(1180px, calc(100% - 50px));
 
     margin: 0 auto;
 
@@ -412,11 +796,13 @@ h1 {
 
     display: grid;
 
-    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-columns:
+        220px minmax(0, 1fr);
 
     gap: 40px;
 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom:
+        1px solid var(--border);
 
     position: relative;
 
@@ -424,10 +810,11 @@ h1 {
 }
 
 .section-label {
-    color: #63d5a2;
+    color: var(--accent);
 
     font-size: 13px;
-    font-weight: 700;
+
+    font-weight: 800;
 
     letter-spacing: 2px;
 }
@@ -437,7 +824,8 @@ h1 {
 }
 
 h2 {
-    font-size: clamp(36px, 4vw, 54px);
+    font-size:
+        clamp(36px, 4vw, 54px);
 
     line-height: 1.1;
 
@@ -447,7 +835,7 @@ h2 {
 }
 
 .section-content > p {
-    color: #aebbb4;
+    color: var(--text-secondary);
 
     font-size: 17px;
 
@@ -455,14 +843,15 @@ h2 {
 }
 
 
-/* =========================
-   МИКРОАНИМАЦИЯ СЕКЦИЙ
-========================= */
+/* =========================================================
+   МИКРОАНИМАЦИЯ
+========================================================= */
 
 .reveal {
     opacity: 0;
 
-    transform: translateY(25px);
+    transform:
+        translateY(25px);
 
     transition:
         opacity 0.75s ease,
@@ -472,18 +861,20 @@ h2 {
 .reveal.is-visible {
     opacity: 1;
 
-    transform: translateY(0);
+    transform:
+        translateY(0);
 }
 
 
-/* =========================
+/* =========================================================
    НАВЫКИ
-========================= */
+========================================================= */
 
 .skills {
     display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns:
+        repeat(3, 1fr);
 
     gap: 22px;
 
@@ -493,13 +884,19 @@ h2 {
 .skill {
     min-height: 155px;
 
-    padding: 25px;
+    padding: 27px;
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border:
+        1px solid var(--border);
 
-    border-radius: 15px;
+    border-radius:
+        var(--radius-medium);
 
-    background: rgba(255, 255, 255, 0.025);
+    background:
+        var(--surface);
+
+    box-shadow:
+        var(--shadow-small);
 
     transition:
         transform 0.3s ease,
@@ -509,22 +906,27 @@ h2 {
 }
 
 .skill:hover {
-    transform: translateY(-5px);
+    transform:
+        translateY(-6px);
 
-    border-color: rgba(99, 213, 162, 0.4);
+    border-color:
+        var(--accent-border);
 
-    background: rgba(99, 213, 162, 0.035);
+    background:
+        var(--accent-light);
 
     box-shadow:
-        0 18px 45px rgba(0, 0, 0, 0.18);
+        var(--shadow-medium);
 }
 
 .skill span {
     display: block;
 
-    color: #63d5a2;
+    color: var(--accent);
 
     font-size: 30px;
+
+    font-weight: 700;
 
     line-height: 1;
 
@@ -535,7 +937,9 @@ h2 {
 }
 
 .skill:hover span {
-    transform: translateY(-3px) scale(1.05);
+    transform:
+        translateY(-3px)
+        scale(1.05);
 }
 
 .skill h3 {
@@ -545,15 +949,15 @@ h2 {
 }
 
 .skill p {
-    color: #98a69f;
+    color: var(--text-secondary);
 
     font-size: 15px;
 }
 
 
-/* =========================
+/* =========================================================
    ОТЗЫВЫ
-========================= */
+========================================================= */
 
 .reviews-section {
     padding-bottom: 110px;
@@ -576,7 +980,7 @@ h2 {
 }
 
 .reviews-subtitle {
-    color: #8f9d96;
+    color: var(--text-muted);
 
     font-size: 15px;
 
@@ -588,13 +992,15 @@ h2 {
 
     padding: 13px 22px;
 
-    border: 1px solid #63d5a2;
+    border:
+        1px solid var(--accent);
 
-    border-radius: 8px;
+    border-radius: 10px;
 
-    background: transparent;
+    background:
+        var(--surface);
 
-    color: #63d5a2;
+    color: var(--accent);
 
     font-family: inherit;
 
@@ -612,20 +1018,24 @@ h2 {
 }
 
 .review-button:hover {
-    background: #63d5a2;
+    background:
+        var(--accent);
 
-    color: #06100b;
+    color:
+        #ffffff;
 
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 
     box-shadow:
-        0 12px 30px rgba(99, 213, 162, 0.15);
+        0 12px 30px var(--accent-shadow);
 }
 
 .reviews {
     display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns:
+        repeat(3, 1fr);
 
     gap: 22px;
 
@@ -639,11 +1049,21 @@ h2 {
 
     padding: 30px;
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
 
-    border-radius: 18px;
+    flex-direction: column;
 
-    background: rgba(255, 255, 255, 0.025);
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        18px;
+
+    background:
+        var(--surface);
+
+    box-shadow:
+        var(--shadow-small);
 
     transition:
         transform 0.3s ease,
@@ -653,18 +1073,21 @@ h2 {
 }
 
 .review:hover {
-    transform: translateY(-6px);
+    transform:
+        translateY(-6px);
 
-    border-color: rgba(99, 213, 162, 0.45);
+    border-color:
+        var(--accent-border);
 
-    background: rgba(99, 213, 162, 0.035);
+    background:
+        var(--accent-light);
 
     box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.22);
+        var(--shadow-medium);
 }
 
 .review-mark {
-    color: #63d5a2;
+    color: var(--accent);
 
     font-size: 52px;
 
@@ -672,11 +1095,13 @@ h2 {
 
     height: 45px;
 
-    font-family: Georgia, serif;
+    font-family:
+        Georgia,
+        serif;
 }
 
 .review-text {
-    color: #b8c5be;
+    color: var(--text-secondary);
 
     font-size: 16px;
 
@@ -696,21 +1121,22 @@ h2 {
 }
 
 .review-author strong {
-    color: #edf7f1;
+    color: var(--text);
 
     font-size: 15px;
 }
 
 .review-author span {
-    color: #76837d;
+    color: var(--text-muted);
 
     font-size: 13px;
 }
 
 .reviews-message {
-    grid-column: 1 / -1;
+    grid-column:
+        1 / -1;
 
-    color: #76837d;
+    color: var(--text-muted);
 
     font-size: 15px;
 
@@ -718,16 +1144,19 @@ h2 {
 }
 
 
-/* =========================
+/* =========================================================
    ФОРМА ОТЗЫВА
-========================= */
+========================================================= */
 
 .review-form-wrapper {
     display: none;
 
     margin-top: 35px;
 
-    animation: reviewFormAppear 0.3s ease;
+    animation:
+        reviewFormAppear
+        0.3s
+        ease;
 }
 
 .review-form-wrapper.active {
@@ -735,15 +1164,21 @@ h2 {
 }
 
 @keyframes reviewFormAppear {
+
     from {
         opacity: 0;
-        transform: translateY(-10px);
+
+        transform:
+            translateY(-10px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
     }
+
 }
 
 .review-form {
@@ -751,19 +1186,21 @@ h2 {
 
     padding: 35px;
 
-    border: 1px solid rgba(99, 213, 162, 0.28);
+    border:
+        1px solid var(--accent-border);
 
-    border-radius: 18px;
+    border-radius:
+        18px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(99, 213, 162, 0.06),
-            rgba(255, 255, 255, 0.02)
+            var(--accent-light),
+            var(--surface)
         );
 
     box-shadow:
-        0 25px 70px rgba(0, 0, 0, 0.25);
+        var(--shadow-medium);
 }
 
 .review-form-header {
@@ -791,13 +1228,15 @@ h2 {
     align-items: center;
     justify-content: center;
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border:
+        1px solid var(--border);
 
     border-radius: 50%;
 
-    background: transparent;
+    background:
+        var(--surface);
 
-    color: #aebbb4;
+    color: var(--text-secondary);
 
     font-size: 25px;
 
@@ -812,15 +1251,18 @@ h2 {
 }
 
 .review-close:hover {
-    color: #63d5a2;
+    color:
+        var(--accent);
 
-    border-color: #63d5a2;
+    border-color:
+        var(--accent);
 
-    transform: rotate(90deg);
+    transform:
+        rotate(90deg);
 }
 
 .review-form-description {
-    color: #7f8d86;
+    color: var(--text-muted);
 
     font-size: 14px;
 
@@ -832,7 +1274,7 @@ h2 {
 .review-form label {
     display: block;
 
-    color: #c9d5cf;
+    color: var(--text);
 
     font-size: 14px;
 
@@ -851,19 +1293,26 @@ h2 {
 
     margin-bottom: 20px;
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border:
+        1px solid var(--border);
 
-    border-radius: 9px;
+    border-radius:
+        var(--radius-small);
 
     outline: none;
 
-    background: rgba(0, 0, 0, 0.22);
+    background:
+        var(--surface);
 
-    color: #edf7f1;
+    color:
+        var(--text);
 
     font-family: inherit;
 
     font-size: 15px;
+
+    box-shadow:
+        inset 0 1px 2px rgba(23, 32, 28, 0.02);
 
     transition:
         border-color 0.25s ease,
@@ -874,17 +1323,20 @@ h2 {
 
 .review-form input::placeholder,
 .review-form textarea::placeholder {
-    color: #5f6c65;
+    color:
+        #a1aaa5;
 }
 
 .review-form input:focus,
 .review-form textarea:focus {
-    border-color: #63d5a2;
+    border-color:
+        var(--accent);
 
-    background: rgba(99, 213, 162, 0.035);
+    background:
+        var(--surface);
 
     box-shadow:
-        0 0 0 3px rgba(99, 213, 162, 0.08);
+        0 0 0 4px var(--accent-soft);
 }
 
 .review-form textarea {
@@ -900,11 +1352,14 @@ h2 {
 
     border: none;
 
-    border-radius: 9px;
+    border-radius:
+        var(--radius-small);
 
-    background: #63d5a2;
+    background:
+        var(--accent);
 
-    color: #06100b;
+    color:
+        #ffffff;
 
     font-family: inherit;
 
@@ -921,10 +1376,11 @@ h2 {
 }
 
 .review-submit:hover {
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 
     box-shadow:
-        0 12px 30px rgba(99, 213, 162, 0.18);
+        0 12px 30px var(--accent-shadow);
 }
 
 .review-submit:disabled {
@@ -942,7 +1398,8 @@ h2 {
 
     margin-top: 15px;
 
-    color: #d47b7b;
+    color:
+        var(--danger);
 
     font-size: 14px;
 
@@ -950,16 +1407,18 @@ h2 {
 }
 
 .review-form-message.success {
-    color: #63d5a2;
+    color:
+        var(--accent);
 }
 
 
-/* =========================
+/* =========================================================
    КОНТАКТЫ
-========================= */
+========================================================= */
 
 .contact-section {
-    width: min(1180px, calc(100% - 50px));
+    width:
+        min(1180px, calc(100% - 50px));
 
     margin: 0 auto;
 
@@ -967,7 +1426,8 @@ h2 {
 
     display: grid;
 
-    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-columns:
+        220px minmax(0, 1fr);
 
     gap: 40px;
 
@@ -980,8 +1440,9 @@ h2 {
     max-width: 760px;
 }
 
-.contact-content p {
-    color: #aebbb4;
+.contact-content > p {
+    color:
+        var(--text-secondary);
 
     font-size: 17px;
 
@@ -989,13 +1450,15 @@ h2 {
 }
 
 .contact-link {
-    color: #63d5a2;
+    color:
+        var(--accent);
 
     font-size: 19px;
 
     text-decoration: none;
 
-    border-bottom: 1px solid #63d5a2;
+    border-bottom:
+        1px solid var(--accent);
 
     padding-bottom: 3px;
 
@@ -1005,15 +1468,17 @@ h2 {
 }
 
 .contact-link:hover {
-    color: #8de5bd;
+    color:
+        var(--accent);
 
-    border-color: #8de5bd;
+    border-color:
+        transparent;
 }
 
 
-/* =========================
+/* =========================================================
    ФОРМА ОБРАТНОЙ СВЯЗИ
-========================= */
+========================================================= */
 
 .contact-form-wrapper {
     margin-top: 45px;
@@ -1022,19 +1487,17 @@ h2 {
 
     padding: 35px;
 
-    border: 1px solid rgba(99, 213, 162, 0.22);
+    border:
+        1px solid var(--border);
 
-    border-radius: 20px;
+    border-radius:
+        20px;
 
     background:
-        linear-gradient(
-            145deg,
-            rgba(99, 213, 162, 0.055),
-            rgba(255, 255, 255, 0.018)
-        );
+        var(--surface);
 
     box-shadow:
-        0 25px 70px rgba(0, 0, 0, 0.22);
+        var(--shadow-medium);
 
     transition:
         border-color 0.3s ease,
@@ -1043,10 +1506,11 @@ h2 {
 }
 
 .contact-form-wrapper:hover {
-    border-color: rgba(99, 213, 162, 0.32);
+    border-color:
+        var(--accent-border);
 
     box-shadow:
-        0 30px 80px rgba(0, 0, 0, 0.28);
+        var(--shadow-large);
 }
 
 .contact-form-header {
@@ -1054,7 +1518,8 @@ h2 {
 }
 
 .contact-form-header h3 {
-    color: #edf7f1;
+    color:
+        var(--text);
 
     font-size: 25px;
 
@@ -1066,7 +1531,8 @@ h2 {
 }
 
 .contact-form-header p {
-    color: #7f8d86;
+    color:
+        var(--text-muted);
 
     font-size: 14px;
 
@@ -1095,7 +1561,8 @@ h2 {
 .contact-form-field label {
     display: block;
 
-    color: #c9d5cf;
+    color:
+        var(--text);
 
     font-size: 14px;
 
@@ -1112,15 +1579,19 @@ h2 {
 
     padding: 14px 16px;
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border:
+        1px solid var(--border);
 
-    border-radius: 9px;
+    border-radius:
+        var(--radius-small);
 
     outline: none;
 
-    background: rgba(0, 0, 0, 0.22);
+    background:
+        var(--surface-soft);
 
-    color: #edf7f1;
+    color:
+        var(--text);
 
     font-family: inherit;
 
@@ -1135,17 +1606,20 @@ h2 {
 
 .contact-form-field input::placeholder,
 .contact-form-field textarea::placeholder {
-    color: #5f6c65;
+    color:
+        #a1aaa5;
 }
 
 .contact-form-field input:focus,
 .contact-form-field textarea:focus {
-    border-color: #63d5a2;
+    border-color:
+        var(--accent);
 
-    background: rgba(99, 213, 162, 0.035);
+    background:
+        var(--surface);
 
     box-shadow:
-        0 0 0 3px rgba(99, 213, 162, 0.08);
+        0 0 0 4px var(--accent-soft);
 }
 
 .contact-form-field textarea {
@@ -1163,11 +1637,14 @@ h2 {
 
     border: none;
 
-    border-radius: 9px;
+    border-radius:
+        var(--radius-small);
 
-    background: #63d5a2;
+    background:
+        var(--accent);
 
-    color: #06100b;
+    color:
+        #ffffff;
 
     font-family: inherit;
 
@@ -1184,11 +1661,11 @@ h2 {
 }
 
 .contact-submit:hover {
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 
     box-shadow:
-        0 14px 35px rgba(99, 213, 162, 0.2),
-        0 0 25px rgba(99, 213, 162, 0.08);
+        0 14px 35px var(--accent-shadow);
 }
 
 .contact-submit:disabled {
@@ -1206,7 +1683,8 @@ h2 {
 
     margin-top: 15px;
 
-    color: #d47b7b;
+    color:
+        var(--danger);
 
     font-size: 14px;
 
@@ -1214,47 +1692,55 @@ h2 {
 }
 
 .contact-form-message.success {
-    color: #63d5a2;
+    color:
+        var(--accent);
 }
 
 
-/* =========================
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top:
+        1px solid var(--border);
 
     text-align: center;
 
-    padding: 25px 20px;
+    padding:
+        25px 20px;
 
-    color: #76837d;
+    color:
+        var(--text-muted);
 
     font-size: 13px;
+
+    position: relative;
+
+    z-index: 1;
+
+    background:
+        rgba(255, 255, 255, 0.45);
 }
 
 
-/* ==================================================
+/* =========================================================
    АДМИН-ПАНЕЛЬ
-================================================== */
+========================================================= */
 
 .admin-page {
     position: relative;
+
     z-index: 1;
 
     padding-bottom: 80px;
 }
 
-
-/* =========================
-   ЗАГОЛОВОК АДМИНКИ
-========================= */
-
 .admin-header {
     width: 100%;
 
-    padding: 80px 0 35px;
+    padding:
+        80px 0 35px;
 }
 
 .admin-header .section-label {
@@ -1262,7 +1748,8 @@ footer {
 }
 
 .admin-header h1 {
-    font-size: clamp(44px, 5vw, 64px);
+    font-size:
+        clamp(44px, 5vw, 64px);
 
     line-height: 1.05;
 
@@ -1272,15 +1759,11 @@ footer {
 }
 
 .admin-header p {
-    color: #aebbb4;
+    color:
+        var(--text-secondary);
 
     font-size: 17px;
 }
-
-
-/* =========================
-   ВХОД
-========================= */
 
 #loginSection {
     width: 100%;
@@ -1289,7 +1772,8 @@ footer {
 
     display: block;
 
-    padding: 30px 0 100px;
+    padding:
+        30px 0 100px;
 
     border: none;
 }
@@ -1302,19 +1786,9 @@ footer {
     margin: 0 auto;
 }
 
-
-/* =========================
-   ОСНОВНОЕ СОДЕРЖИМОЕ
-========================= */
-
 #adminContent {
     width: 100%;
 }
-
-
-/* =========================
-   ПАНЕЛЬ ВЫХОДА
-========================= */
 
 .admin-toolbar {
     width: 100%;
@@ -1331,17 +1805,22 @@ footer {
 
     margin-bottom: 25px;
 
-    border: 1px solid rgba(99, 213, 162, 0.2);
+    border:
+        1px solid var(--accent-border);
 
-    border-radius: 14px;
+    border-radius:
+        14px;
 
-    background: rgba(99, 213, 162, 0.035);
+    background:
+        var(--accent-light);
 
-    color: #aebbb4;
+    color:
+        var(--text-secondary);
 }
 
 .admin-toolbar strong {
-    color: #63d5a2;
+    color:
+        var(--accent);
 
     font-size: 14px;
 }
@@ -1354,11 +1833,6 @@ footer {
     padding: 11px 20px;
 }
 
-
-/* =========================
-   СЕКЦИИ АДМИНКИ
-========================= */
-
 .admin-section {
     width: 100%;
 
@@ -1370,11 +1844,13 @@ footer {
 
     display: grid;
 
-    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-columns:
+        220px minmax(0, 1fr);
 
     gap: 50px;
 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom:
+        1px solid var(--border);
 
     position: relative;
 
@@ -1384,11 +1860,6 @@ footer {
 .admin-section:last-child {
     border-bottom: none;
 }
-
-
-/* =========================
-   ЗАГОЛОВОК СЕКЦИИ
-========================= */
 
 .admin-section-title {
     min-width: 0;
@@ -1408,11 +1879,6 @@ footer {
     margin-bottom: 0;
 }
 
-
-/* =========================
-   КАРТОЧКА АДМИНКИ
-========================= */
-
 .admin-card {
     width: 100%;
 
@@ -1420,28 +1886,22 @@ footer {
 
     padding: 35px;
 
-    border: 1px solid rgba(99, 213, 162, 0.28);
+    border:
+        1px solid var(--border);
 
-    border-radius: 18px;
+    border-radius:
+        18px;
 
     background:
-        linear-gradient(
-            145deg,
-            rgba(99, 213, 162, 0.06),
-            rgba(255, 255, 255, 0.02)
-        );
+        var(--surface);
 
     box-shadow:
-        0 25px 70px rgba(0, 0, 0, 0.25);
+        var(--shadow-medium);
 }
 
-
-/* =========================
-   ОПИСАНИЕ
-========================= */
-
 .admin-description {
-    color: #8f9d96;
+    color:
+        var(--text-muted);
 
     font-size: 15px;
 
@@ -1450,15 +1910,11 @@ footer {
     margin-bottom: 25px;
 }
 
-
-/* =========================
-   ПОЛЯ АДМИНКИ
-========================= */
-
 .admin-card label {
     display: block;
 
-    color: #c9d5cf;
+    color:
+        var(--text);
 
     font-size: 14px;
 
@@ -1480,15 +1936,19 @@ footer {
 
     margin-bottom: 22px;
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border:
+        1px solid var(--border);
 
-    border-radius: 9px;
+    border-radius:
+        var(--radius-small);
 
     outline: none;
 
-    background: rgba(0, 0, 0, 0.22);
+    background:
+        var(--surface-soft);
 
-    color: #edf7f1;
+    color:
+        var(--text);
 
     font-family: inherit;
 
@@ -1502,17 +1962,20 @@ footer {
 
 .admin-card input::placeholder,
 .admin-card textarea::placeholder {
-    color: #5f6c65;
+    color:
+        #a1aaa5;
 }
 
 .admin-card input:focus,
 .admin-card textarea:focus {
-    border-color: #63d5a2;
+    border-color:
+        var(--accent);
 
-    background: rgba(99, 213, 162, 0.035);
+    background:
+        var(--surface);
 
     box-shadow:
-        0 0 0 3px rgba(99, 213, 162, 0.08);
+        0 0 0 4px var(--accent-soft);
 }
 
 .admin-card textarea {
@@ -1523,23 +1986,22 @@ footer {
     line-height: 1.6;
 }
 
-
-/* =========================
-   КНОПКИ АДМИНКИ
-========================= */
-
 .admin-button {
     width: 100%;
 
     padding: 14px 22px;
 
-    border: none;
+    border:
+        1px solid var(--accent);
 
-    border-radius: 9px;
+    border-radius:
+        var(--radius-small);
 
-    background: #63d5a2;
+    background:
+        var(--accent);
 
-    color: #06100b;
+    color:
+        #ffffff;
 
     font-family: inherit;
 
@@ -1556,65 +2018,67 @@ footer {
 }
 
 .admin-button:hover {
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 
     box-shadow:
-        0 12px 30px rgba(99, 213, 162, 0.18);
+        0 12px 30px var(--accent-shadow);
 }
 
 .admin-button-secondary {
-    background: transparent;
+    background:
+        transparent;
 
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border:
+        1px solid var(--border);
 
-    color: #aebbb4;
+    color:
+        var(--text-secondary);
 }
 
 .admin-button-secondary:hover {
-    border-color: #d47b7b;
+    border-color:
+        var(--danger);
 
-    color: #d47b7b;
+    color:
+        var(--danger);
 
-    background: transparent;
+    background:
+        transparent;
 
     box-shadow: none;
 }
 
 .admin-button-danger {
-    background: transparent;
+    background:
+        transparent;
 
-    border: 1px solid rgba(212, 123, 123, 0.55);
+    border:
+        1px solid rgba(199, 91, 91, 0.45);
 
-    color: #d47b7b;
+    color:
+        var(--danger);
 }
 
 .admin-button-danger:hover {
-    background: rgba(212, 123, 123, 0.08);
+    background:
+        rgba(199, 91, 91, 0.06);
 
     box-shadow: none;
 }
-
-
-/* =========================
-   СООБЩЕНИЯ
-========================= */
 
 .admin-message {
     min-height: 24px;
 
     margin-top: 15px;
 
-    color: #d47b7b;
+    color:
+        var(--danger);
 
     font-size: 14px;
 
     text-align: center;
 }
-
-
-/* =========================
-   ОПЦИИ ФОРМЫ
-========================= */
 
 .blog-form-options {
     display: flex;
@@ -1637,7 +2101,8 @@ footer {
 
     margin: 0 !important;
 
-    color: #aebbb4 !important;
+    color:
+        var(--text-secondary) !important;
 
     font-size: 14px !important;
 
@@ -1654,13 +2119,15 @@ footer {
 
     padding: 0 !important;
 
-    accent-color: #63d5a2;
+    accent-color:
+        var(--accent);
 
     cursor: pointer;
 }
 
 .checkbox-label span {
-    color: #aebbb4;
+    color:
+        var(--text-secondary);
 }
 
 .blog-form-options .admin-button {
@@ -1670,9 +2137,9 @@ footer {
 }
 
 
-/* ==================================================
+/* =========================================================
    СПИСКИ АДМИНКИ
-================================================== */
+========================================================= */
 
 .admin-list {
     width: 100%;
@@ -1694,11 +2161,6 @@ footer {
     max-width: 850px;
 }
 
-
-/* =========================
-   КАРТОЧКА ЭЛЕМЕНТА
-========================= */
-
 .admin-list-item {
     width: 100%;
 
@@ -1708,11 +2170,17 @@ footer {
 
     margin: 0;
 
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border:
+        1px solid var(--border);
 
-    border-radius: 16px;
+    border-radius:
+        16px;
 
-    background: rgba(255, 255, 255, 0.025);
+    background:
+        var(--surface);
+
+    box-shadow:
+        var(--shadow-small);
 
     transition:
         transform 0.25s ease,
@@ -1721,15 +2189,19 @@ footer {
 }
 
 .admin-list-item:hover {
-    border-color: rgba(99, 213, 162, 0.35);
+    border-color:
+        var(--accent-border);
 
-    background: rgba(99, 213, 162, 0.03);
+    background:
+        var(--accent-light);
 
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 }
 
 .admin-list-item h3 {
-    color: #edf7f1;
+    color:
+        var(--text);
 
     font-size: 21px;
 
@@ -1739,7 +2211,8 @@ footer {
 }
 
 .admin-list-item p {
-    color: #8f9d96;
+    color:
+        var(--text-secondary);
 
     font-size: 14px;
 
@@ -1755,7 +2228,8 @@ footer {
 
     margin-bottom: 5px;
 
-    color: #63d5a2;
+    color:
+        var(--accent);
 
     font-size: 12px;
 
@@ -1763,11 +2237,6 @@ footer {
 
     letter-spacing: 0.5px;
 }
-
-
-/* =========================
-   КНОПКИ ВНУТРИ КАРТОЧКИ
-========================= */
 
 .admin-list-actions {
     width: 100%;
@@ -1792,31 +2261,34 @@ footer {
     white-space: normal;
 }
 
-
-/* Если кнопок две */
-
 .admin-list-actions:has(.admin-button:nth-child(2)):not(:has(.admin-button:nth-child(3))) {
     grid-template-columns:
         repeat(2, minmax(0, 1fr));
 }
 
 
-/* =========================
+/* =========================================================
    ПУСТЫЕ СПИСКИ
-========================= */
+========================================================= */
 
 .empty-blog {
     width: 100%;
 
     padding: 60px 30px;
 
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border:
+        1px solid var(--border);
 
-    border-radius: 18px;
+    border-radius:
+        18px;
 
-    background: rgba(255, 255, 255, 0.02);
+    background:
+        var(--surface);
 
     text-align: center;
+
+    box-shadow:
+        var(--shadow-small);
 }
 
 .empty-blog-icon {
@@ -1828,13 +2300,16 @@ footer {
     align-items: center;
     justify-content: center;
 
-    margin: 0 auto 20px;
+    margin:
+        0 auto 20px;
 
-    border: 1px solid rgba(99, 213, 162, 0.4);
+    border:
+        1px solid var(--accent-border);
 
     border-radius: 50%;
 
-    color: #63d5a2;
+    color:
+        var(--accent);
 
     font-size: 25px;
 }
@@ -1846,32 +2321,37 @@ footer {
 }
 
 .empty-blog p {
-    color: #76837d;
+    color:
+        var(--text-muted);
 
     font-size: 14px;
 }
 
 
-/* ==================================================
+/* =========================================================
    БЛОГ
-================================================== */
+========================================================= */
 
 .blog-section {
-    width: min(1180px, calc(100% - 50px));
+    width:
+        min(1180px, calc(100% - 50px));
 
     margin: 0 auto;
 
-    min-height: calc(100vh - 145px);
+    min-height:
+        calc(100vh - 145px);
 
     padding: 100px 0;
 
     display: grid;
 
-    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-columns:
+        220px minmax(0, 1fr);
 
     gap: 40px;
 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom:
+        1px solid var(--border);
 
     position: relative;
 
@@ -1893,7 +2373,8 @@ footer {
 .blog-subtitle {
     max-width: 680px;
 
-    color: #aebbb4;
+    color:
+        var(--text-secondary);
 
     font-size: 17px;
 
@@ -1911,11 +2392,17 @@ footer {
 .blog-post {
     padding: 32px;
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border:
+        1px solid var(--border);
 
-    border-radius: 18px;
+    border-radius:
+        18px;
 
-    background: rgba(255, 255, 255, 0.025);
+    background:
+        var(--surface);
+
+    box-shadow:
+        var(--shadow-small);
 
     transition:
         transform 0.3s ease,
@@ -1925,18 +2412,22 @@ footer {
 }
 
 .blog-post:hover {
-    transform: translateY(-5px);
+    transform:
+        translateY(-5px);
 
-    border-color: rgba(99, 213, 162, 0.4);
+    border-color:
+        var(--accent-border);
 
-    background: rgba(99, 213, 162, 0.035);
+    background:
+        var(--accent-light);
 
     box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.22);
+        var(--shadow-medium);
 }
 
 .blog-post-date {
-    color: #63d5a2;
+    color:
+        var(--accent);
 
     font-size: 12px;
 
@@ -1950,7 +2441,8 @@ footer {
 }
 
 .blog-post-title {
-    color: #edf7f1;
+    color:
+        var(--text);
 
     font-size: 30px;
 
@@ -1962,7 +2454,8 @@ footer {
 }
 
 .blog-post-content {
-    color: #aebbb4;
+    color:
+        var(--text-secondary);
 
     font-size: 16px;
 
@@ -1978,9 +2471,9 @@ footer {
 }
 
 
-/* ==================================================
+/* =========================================================
    КАРТОЧКИ ПРОЕКТОВ
-================================================== */
+========================================================= */
 
 .projects-page-list {
     display: grid;
@@ -2004,16 +2497,17 @@ footer {
 
     overflow: hidden;
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border:
+        1px solid var(--border);
 
-    border-radius: 20px;
+    border-radius:
+        20px;
 
     background:
-        linear-gradient(
-            145deg,
-            rgba(99, 213, 162, 0.045),
-            rgba(255, 255, 255, 0.02)
-        );
+        var(--surface);
+
+    box-shadow:
+        var(--shadow-small);
 
     transition:
         transform 0.3s ease,
@@ -2023,12 +2517,14 @@ footer {
 }
 
 .project-card:hover {
-    transform: translateY(-6px);
+    transform:
+        translateY(-6px);
 
-    border-color: rgba(99, 213, 162, 0.45);
+    border-color:
+        var(--accent-border);
 
     box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.28);
+        var(--shadow-medium);
 }
 
 .project-image {
@@ -2040,14 +2536,16 @@ footer {
 
     object-fit: cover;
 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom:
+        1px solid var(--border);
 
     transition:
         transform 0.6s ease;
 }
 
 .project-card:hover .project-image {
-    transform: scale(1.025);
+    transform:
+        scale(1.025);
 }
 
 .project-card-content {
@@ -2065,7 +2563,8 @@ footer {
 .project-category {
     margin-bottom: 13px;
 
-    color: #63d5a2;
+    color:
+        var(--accent);
 
     font-size: 11px;
 
@@ -2079,7 +2578,8 @@ footer {
 .project-card h3 {
     margin-bottom: 13px;
 
-    color: #edf7f1;
+    color:
+        var(--text);
 
     font-size: 27px;
 
@@ -2091,7 +2591,8 @@ footer {
 .project-short-description {
     margin-bottom: 12px;
 
-    color: #aebbb4;
+    color:
+        var(--text-secondary);
 
     font-size: 16px;
 
@@ -2101,7 +2602,8 @@ footer {
 .project-description {
     margin-bottom: 25px;
 
-    color: #7f8d86;
+    color:
+        var(--text-muted);
 
     font-size: 14px;
 
@@ -2117,9 +2619,18 @@ footer {
 }
 
 
-/* ==================================================
+/* =========================================================
    АДАПТАЦИЯ
-================================================== */
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    nav {
+        gap: 20px;
+    }
+
+}
+
 
 @media (max-width: 950px) {
 
@@ -2140,7 +2651,8 @@ footer {
 
     .skills,
     .reviews {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
 
     .admin-section {
@@ -2161,54 +2673,102 @@ footer {
     }
 
     .projects-page-list {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
+
 }
 
+
+@media (max-width: 800px) {
+
+    header {
+        flex-wrap: wrap;
+    }
+
+    nav {
+        order: 3;
+
+        flex-basis: 100%;
+
+        padding-bottom: 5px;
+    }
+
+}
+
+
+/* =========================================================
+   МОБИЛЬНАЯ ВЕРСИЯ
+========================================================= */
 
 @media (max-width: 700px) {
 
     header {
-        width: calc(100% - 30px);
+        width:
+            calc(100% - 30px);
 
         height: auto;
 
-        padding: 20px 0;
+        padding:
+            18px 0;
 
-        flex-direction: column;
+        flex-direction: row;
+
+        flex-wrap: wrap;
 
         gap: 18px;
     }
 
     nav {
-        gap: 20px;
+        gap: 18px;
 
         flex-wrap: wrap;
 
         justify-content: center;
+
+        order: 3;
+
+        width: 100%;
+    }
+
+    .theme-picker {
+        margin-left: auto;
+    }
+
+    .theme-picker-text {
+        display: none;
+    }
+
+    .theme-picker-button {
+        padding:
+            0 10px;
     }
 
     .container {
-        width: calc(100% - 30px);
+        width:
+            calc(100% - 30px);
     }
 
 
     /* =========================
        ГЛАВНЫЙ ЭКРАН
-    ========================= */
+    ========================== */
 
     .hero {
         min-height: auto;
     }
 
     .hero-content {
-        width: calc(100% - 30px);
+        width:
+            calc(100% - 30px);
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
 
         gap: 45px;
 
-        padding: 65px 0;
+        padding:
+            65px 0;
     }
 
     .hero-photo {
@@ -2224,32 +2784,38 @@ footer {
 
     /* =========================
        СЕКЦИИ
-    ========================= */
+    ========================== */
 
     .section,
     .contact-section {
-        width: calc(100% - 30px);
+        width:
+            calc(100% - 30px);
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
 
         gap: 25px;
 
-        padding: 75px 0;
+        padding:
+            75px 0;
     }
 
     .reviews {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
 
 
     /* =========================
        ОТЗЫВЫ
-    ========================= */
+    ========================== */
 
     .reviews-header {
-        align-items: flex-start;
+        align-items:
+            flex-start;
 
-        flex-direction: column;
+        flex-direction:
+            column;
     }
 
     .review-button {
@@ -2263,16 +2829,19 @@ footer {
 
     /* =========================
        КОНТАКТНАЯ ФОРМА
-    ========================= */
+    ========================== */
 
     .contact-form-wrapper {
-        margin-top: 35px;
+        margin-top:
+            35px;
 
-        padding: 25px;
+        padding:
+            25px;
     }
 
     .contact-form-row {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
 
         gap: 0;
     }
@@ -2284,10 +2853,11 @@ footer {
 
     /* =========================
        АДМИНКА
-    ========================= */
+    ========================== */
 
     .admin-header {
-        padding: 60px 0 25px;
+        padding:
+            60px 0 25px;
     }
 
     .admin-header h1 {
@@ -2297,13 +2867,16 @@ footer {
     }
 
     #loginSection {
-        padding: 25px 0 70px;
+        padding:
+            25px 0 70px;
     }
 
     .admin-toolbar {
-        flex-direction: column;
+        flex-direction:
+            column;
 
-        align-items: stretch;
+        align-items:
+            stretch;
     }
 
     .admin-toolbar .admin-button {
@@ -2313,11 +2886,13 @@ footer {
     .admin-section {
         width: 100%;
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
 
         gap: 25px;
 
-        padding: 55px 0;
+        padding:
+            55px 0;
     }
 
     .admin-section-title h2 {
@@ -2329,13 +2904,16 @@ footer {
     }
 
     .blog-form-options {
-        flex-direction: column;
+        flex-direction:
+            column;
 
-        align-items: stretch;
+        align-items:
+            stretch;
     }
 
     .checkbox-label {
-        margin-bottom: 5px !important;
+        margin-bottom:
+            5px !important;
     }
 
     .blog-form-options .admin-button {
@@ -2347,7 +2925,8 @@ footer {
     .admin-list-actions {
         display: flex;
 
-        flex-direction: column;
+        flex-direction:
+            column;
 
         gap: 10px;
     }
@@ -2361,16 +2940,19 @@ footer {
 
     /* =========================
        БЛОГ
-    ========================= */
+    ========================== */
 
     .blog-section {
-        width: calc(100% - 30px);
+        width:
+            calc(100% - 30px);
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
 
         gap: 25px;
 
-        padding: 75px 0;
+        padding:
+            75px 0;
     }
 
     .blog-post {
@@ -2388,10 +2970,11 @@ footer {
 
     /* =========================
        ПРОЕКТЫ
-    ========================= */
+    ========================== */
 
     .projects-page-list {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
 
         gap: 20px;
     }
@@ -2411,18 +2994,19 @@ footer {
     .project-card h3 {
         font-size: 24px;
     }
+
 }
 
+
+/* =========================================================
+   МАЛЕНЬКИЕ ТЕЛЕФОНЫ
+========================================================= */
 
 @media (max-width: 500px) {
 
     .logo {
         width: 38px;
         height: 38px;
-
-        text-align: center;
-
-        font-size: 15px;
     }
 
     .logo img {
@@ -2475,12 +3059,19 @@ footer {
     .admin-list-item {
         padding: 22px;
     }
+
+    .theme-menu {
+        right: -5px;
+
+        width: 220px;
+    }
+
 }
 
 
-/* ==================================================
-   УМЕНЬШЕНИЕ АНИМАЦИЙ ЕСЛИ ПОЛЬЗОВАТЕЛЬ ЭТО ВКЛЮЧИЛ
-================================================== */
+/* =========================================================
+   УМЕНЬШЕНИЕ АНИМАЦИЙ
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -2491,9 +3082,14 @@ footer {
     *,
     *::before,
     *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.01ms !important;
     }
 
     .reveal {
@@ -2501,4 +3097,5 @@ footer {
 
         transform: none;
     }
+
 }
