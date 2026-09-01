@@ -42,6 +42,7 @@ async function checkSession() {
         error
     } = await supabaseClient.auth.getSession();
 
+
     if (error) {
 
         console.error(error);
@@ -49,6 +50,7 @@ async function checkSession() {
         return;
 
     }
+
 
     if (data.session) {
 
@@ -76,6 +78,7 @@ function showLogin() {
 
     }
 
+
     if (adminContent) {
 
         adminContent.style.display =
@@ -99,6 +102,7 @@ function showAdmin() {
 
     }
 
+
     if (adminContent) {
 
         adminContent.style.display =
@@ -106,8 +110,11 @@ function showAdmin() {
 
     }
 
+
     loadProjects();
+
     loadBlogPosts();
+
     loadReviews();
 
 }
@@ -125,22 +132,35 @@ if (loginForm) {
 
             event.preventDefault();
 
+
             const email =
-                document.querySelector("#email").value.trim();
+                document
+                    .querySelector("#email")
+                    .value
+                    .trim();
+
 
             const password =
-                document.querySelector("#password").value;
+                document
+                    .querySelector("#password")
+                    .value;
+
 
             loginMessage.textContent =
                 "Выполняется вход...";
+
 
             const {
                 error
             } =
                 await supabaseClient.auth.signInWithPassword({
+
                     email: email,
+
                     password: password
+
                 });
+
 
             if (error) {
 
@@ -153,6 +173,7 @@ if (loginForm) {
                 return;
 
             }
+
 
             loginMessage.textContent =
                 "";
@@ -200,7 +221,220 @@ const projectsList =
 
 
 // ==================================================
-// СОЗДАНИЕ ПРОЕКТА
+// РЕЖИМ РЕДАКТИРОВАНИЯ
+// ==================================================
+
+let editingProjectId = null;
+
+
+// ==================================================
+// КНОПКА ОТМЕНЫ РЕДАКТИРОВАНИЯ
+// ==================================================
+
+let cancelEditButton = null;
+
+
+function createCancelEditButton() {
+
+    if (!projectForm) {
+
+        return;
+
+    }
+
+
+    if (cancelEditButton) {
+
+        return;
+
+    }
+
+
+    cancelEditButton =
+        document.createElement("button");
+
+
+    cancelEditButton.type =
+        "button";
+
+
+    cancelEditButton.className =
+        "admin-button admin-button-secondary";
+
+
+    cancelEditButton.textContent =
+        "Отмена";
+
+
+    cancelEditButton.style.display =
+        "none";
+
+
+    cancelEditButton.addEventListener(
+        "click",
+        function() {
+
+            cancelProjectEdit();
+
+        }
+    );
+
+
+    const submitButton =
+        projectForm.querySelector(
+            'button[type="submit"]'
+        );
+
+
+    if (submitButton) {
+
+        submitButton.parentNode.insertBefore(
+            cancelEditButton,
+            submitButton
+        );
+
+    }
+
+}
+
+
+createCancelEditButton();
+
+
+// ==================================================
+// НАЧАТЬ РЕДАКТИРОВАНИЕ
+// ==================================================
+
+function editProject(project) {
+
+    editingProjectId =
+        project.id;
+
+
+    document
+        .querySelector("#projectTitle")
+        .value =
+        project.title || "";
+
+
+    document
+        .querySelector("#projectCategory")
+        .value =
+        project.category || "";
+
+
+    document
+        .querySelector("#projectShortDescription")
+        .value =
+        project.short_description || "";
+
+
+    document
+        .querySelector("#projectDescription")
+        .value =
+        project.description || "";
+
+
+    document
+        .querySelector("#projectUrl")
+        .value =
+        project.project_url || "";
+
+
+    document
+        .querySelector("#projectImage")
+        .value =
+        project.image_url || "";
+
+
+    document
+        .querySelector("#projectPublished")
+        .checked =
+        project.published === true;
+
+
+    const submitButton =
+        projectForm.querySelector(
+            'button[type="submit"]'
+        );
+
+
+    if (submitButton) {
+
+        submitButton.textContent =
+            "Сохранить изменения";
+
+    }
+
+
+    if (cancelEditButton) {
+
+        cancelEditButton.style.display =
+            "inline-flex";
+
+    }
+
+
+    projectMessage.textContent =
+        "Редактирование проекта: " +
+        (project.title || "");
+
+
+    projectMessage.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+
+
+// ==================================================
+// ОТМЕНА РЕДАКТИРОВАНИЯ
+// ==================================================
+
+function cancelProjectEdit() {
+
+    editingProjectId =
+        null;
+
+
+    if (projectForm) {
+
+        projectForm.reset();
+
+    }
+
+
+    const submitButton =
+        projectForm.querySelector(
+            'button[type="submit"]'
+        );
+
+
+    if (submitButton) {
+
+        submitButton.textContent =
+            "Создать проект";
+
+    }
+
+
+    if (cancelEditButton) {
+
+        cancelEditButton.style.display =
+            "none";
+
+    }
+
+
+    projectMessage.textContent =
+        "";
+
+}
+
+
+// ==================================================
+// СОЗДАНИЕ / РЕДАКТИРОВАНИЕ ПРОЕКТА
 // ==================================================
 
 if (projectForm) {
@@ -211,8 +445,11 @@ if (projectForm) {
 
             event.preventDefault();
 
+
             projectMessage.textContent =
-                "Создаём проект...";
+                editingProjectId
+                    ? "Сохраняем изменения..."
+                    : "Создаём проект...";
 
 
             const title =
@@ -263,6 +500,83 @@ if (projectForm) {
                     .checked;
 
 
+            const projectData = {
+
+                title: title,
+
+                category: category,
+
+                short_description:
+                    shortDescription,
+
+                description:
+                    description,
+
+                project_url:
+                    projectUrl || null,
+
+                image_url:
+                    imageUrl || null,
+
+                published:
+                    published
+
+            };
+
+
+            // ======================================
+            // РЕДАКТИРОВАНИЕ
+            // ======================================
+
+            if (editingProjectId) {
+
+                const {
+                    error
+                } =
+                    await supabaseClient
+                        .from("projects")
+                        .update(projectData)
+                        .eq(
+                            "id",
+                            editingProjectId
+                        );
+
+
+                if (error) {
+
+                    console.error(error);
+
+                    projectMessage.textContent =
+                        "Не удалось сохранить изменения: " +
+                        error.message;
+
+                    return;
+
+                }
+
+
+                projectMessage.textContent =
+                    "Изменения сохранены.";
+
+
+                cancelProjectEdit();
+
+
+                projectMessage.textContent =
+                    "Изменения сохранены.";
+
+
+                loadProjects();
+
+                return;
+
+            }
+
+
+            // ======================================
+            // СОЗДАНИЕ НОВОГО ПРОЕКТА
+            // ======================================
+
             const {
                 data,
                 error
@@ -270,20 +584,7 @@ if (projectForm) {
                 await supabaseClient
                     .from("projects")
                     .insert([
-                        {
-                            title: title,
-                            category: category,
-                            short_description:
-                                shortDescription,
-                            description:
-                                description,
-                            project_url:
-                                projectUrl || null,
-                            image_url:
-                                imageUrl || null,
-                            published:
-                                published
-                        }
+                        projectData
                     ])
                     .select();
 
@@ -401,6 +702,7 @@ async function loadProjects() {
         const item =
             document.createElement("div");
 
+
         item.className =
             "admin-list-item";
 
@@ -411,6 +713,7 @@ async function loadProjects() {
 
         const title =
             document.createElement("h3");
+
 
         title.textContent =
             project.title;
@@ -423,8 +726,10 @@ async function loadProjects() {
         const category =
             document.createElement("div");
 
+
         category.className =
             "admin-list-meta";
+
 
         category.textContent =
             project.category ||
@@ -437,6 +742,7 @@ async function loadProjects() {
 
         const status =
             document.createElement("div");
+
 
         status.className =
             "admin-list-meta";
@@ -462,6 +768,7 @@ async function loadProjects() {
         const description =
             document.createElement("p");
 
+
         description.textContent =
             project.short_description ||
             "";
@@ -474,15 +781,54 @@ async function loadProjects() {
         const buttons =
             document.createElement("div");
 
+
         buttons.className =
             "admin-list-actions";
 
 
+        // ------------------------------------------
+        // КНОПКА РЕДАКТИРОВАНИЯ
+        // ------------------------------------------
+
+        const editButton =
+            document.createElement("button");
+
+
+        editButton.type =
+            "button";
+
+
+        editButton.className =
+            "admin-button";
+
+
+        editButton.textContent =
+            "Изменить";
+
+
+        editButton.addEventListener(
+            "click",
+            function() {
+
+                editProject(
+                    project
+                );
+
+            }
+        );
+
+
+        // ------------------------------------------
+        // КНОПКА ПУБЛИКАЦИИ
+        // ------------------------------------------
+
         const publishButton =
             document.createElement("button");
 
+
         publishButton.type =
             "button";
+
 
         publishButton.className =
             "admin-button";
@@ -514,14 +860,21 @@ async function loadProjects() {
         );
 
 
+        // ------------------------------------------
+        // КНОПКА УДАЛЕНИЯ
+        // ------------------------------------------
+
         const deleteButton =
             document.createElement("button");
+
 
         deleteButton.type =
             "button";
 
+
         deleteButton.className =
             "admin-button admin-button-danger";
+
 
         deleteButton.textContent =
             "Удалить";
@@ -541,8 +894,14 @@ async function loadProjects() {
 
 
         buttons.appendChild(
+            editButton
+        );
+
+
+        buttons.appendChild(
             publishButton
         );
+
 
         buttons.appendChild(
             deleteButton
@@ -550,21 +909,37 @@ async function loadProjects() {
 
 
         // ------------------------------------------
-        // Собираем карточку
+        // СОБИРАЕМ КАРТОЧКУ
         // ------------------------------------------
 
-        item.appendChild(title);
-
-        item.appendChild(category);
-
-        item.appendChild(status);
-
-        item.appendChild(description);
-
-        item.appendChild(buttons);
+        item.appendChild(
+            title
+        );
 
 
-        projectsList.appendChild(item);
+        item.appendChild(
+            category
+        );
+
+
+        item.appendChild(
+            status
+        );
+
+
+        item.appendChild(
+            description
+        );
+
+
+        item.appendChild(
+            buttons
+        );
+
+
+        projectsList.appendChild(
+            item
+        );
 
     });
 
@@ -659,6 +1034,16 @@ async function deleteProject(
         );
 
         return;
+
+    }
+
+
+    if (
+        editingProjectId ===
+        projectId
+    ) {
+
+        cancelProjectEdit();
 
     }
 
@@ -846,12 +1231,14 @@ async function loadBlogPosts() {
         const item =
             document.createElement("div");
 
+
         item.className =
             "admin-list-item";
 
 
         const title =
             document.createElement("h3");
+
 
         title.textContent =
             post.title;
@@ -860,8 +1247,10 @@ async function loadBlogPosts() {
         const date =
             document.createElement("div");
 
+
         date.className =
             "admin-list-meta";
+
 
         date.textContent =
             new Date(
@@ -879,8 +1268,10 @@ async function loadBlogPosts() {
         const status =
             document.createElement("div");
 
+
         status.className =
             "admin-list-meta";
+
 
         status.textContent =
             post.published
@@ -891,6 +1282,7 @@ async function loadBlogPosts() {
         const buttons =
             document.createElement("div");
 
+
         buttons.className =
             "admin-list-actions";
 
@@ -898,8 +1290,10 @@ async function loadBlogPosts() {
         const publishButton =
             document.createElement("button");
 
+
         publishButton.type =
             "button";
+
 
         publishButton.className =
             "admin-button";
@@ -927,11 +1321,14 @@ async function loadBlogPosts() {
         const deleteButton =
             document.createElement("button");
 
+
         deleteButton.type =
             "button";
 
+
         deleteButton.className =
             "admin-button admin-button-danger";
+
 
         deleteButton.textContent =
             "Удалить";
@@ -954,21 +1351,35 @@ async function loadBlogPosts() {
             publishButton
         );
 
+
         buttons.appendChild(
             deleteButton
         );
 
 
-        item.appendChild(title);
-
-        item.appendChild(date);
-
-        item.appendChild(status);
-
-        item.appendChild(buttons);
+        item.appendChild(
+            title
+        );
 
 
-        blogList.appendChild(item);
+        item.appendChild(
+            date
+        );
+
+
+        item.appendChild(
+            status
+        );
+
+
+        item.appendChild(
+            buttons
+        );
+
+
+        blogList.appendChild(
+            item
+        );
 
     });
 
@@ -1165,12 +1576,14 @@ async function loadReviews() {
         const item =
             document.createElement("div");
 
+
         item.className =
             "admin-list-item";
 
 
         const name =
             document.createElement("h3");
+
 
         name.textContent =
             review.name;
@@ -1179,6 +1592,7 @@ async function loadReviews() {
         const text =
             document.createElement("p");
 
+
         text.textContent =
             review.review_text;
 
@@ -1186,8 +1600,10 @@ async function loadReviews() {
         const status =
             document.createElement("div");
 
+
         status.className =
             "admin-list-meta";
+
 
         status.textContent =
             review.approved
@@ -1198,6 +1614,7 @@ async function loadReviews() {
         const buttons =
             document.createElement("div");
 
+
         buttons.className =
             "admin-list-actions";
 
@@ -1207,11 +1624,14 @@ async function loadReviews() {
             const approveButton =
                 document.createElement("button");
 
+
             approveButton.type =
                 "button";
 
+
             approveButton.className =
                 "admin-button";
+
 
             approveButton.textContent =
                 "Одобрить";
@@ -1239,11 +1659,14 @@ async function loadReviews() {
         const deleteButton =
             document.createElement("button");
 
+
         deleteButton.type =
             "button";
 
+
         deleteButton.className =
             "admin-button admin-button-danger";
+
 
         deleteButton.textContent =
             "Удалить";
@@ -1266,16 +1689,29 @@ async function loadReviews() {
         );
 
 
-        item.appendChild(name);
-
-        item.appendChild(text);
-
-        item.appendChild(status);
-
-        item.appendChild(buttons);
+        item.appendChild(
+            name
+        );
 
 
-        reviewsList.appendChild(item);
+        item.appendChild(
+            text
+        );
+
+
+        item.appendChild(
+            status
+        );
+
+
+        item.appendChild(
+            buttons
+        );
+
+
+        reviewsList.appendChild(
+            item
+        );
 
     });
 
