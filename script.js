@@ -14,7 +14,8 @@ const supabaseClient = window.supabase.createClient(
 
 async function loadReviews() {
 
-    const reviewsContainer = document.querySelector("#reviewsContainer");
+    const reviewsContainer =
+        document.querySelector("#reviewsContainer");
 
     if (!reviewsContainer) {
         return;
@@ -32,15 +33,21 @@ async function loadReviews() {
 
     if (error) {
 
-        console.error("Ошибка загрузки отзывов:", error);
+        console.error(
+            "Ошибка загрузки отзывов:",
+            error
+        );
 
         reviewsContainer.innerHTML = "";
 
-        const message = document.createElement("p");
+        const message =
+            document.createElement("p");
 
-        message.className = "reviews-message";
+        message.className =
+            "reviews-message";
 
-        message.textContent = "Не удалось загрузить отзывы.";
+        message.textContent =
+            "Не удалось загрузить отзывы.";
 
         reviewsContainer.appendChild(message);
 
@@ -54,11 +61,14 @@ async function loadReviews() {
 
     if (!data || data.length === 0) {
 
-        const message = document.createElement("p");
+        const message =
+            document.createElement("p");
 
-        message.className = "reviews-message";
+        message.className =
+            "reviews-message";
 
-        message.textContent = "Отзывов пока нет. Будьте первым!";
+        message.textContent =
+            "Отзывов пока нет. Будьте первым!";
 
         reviewsContainer.appendChild(message);
 
@@ -72,40 +82,54 @@ async function loadReviews() {
 
     data.forEach(review => {
 
-        const reviewElement = document.createElement("div");
+        const reviewElement =
+            document.createElement("div");
 
-        reviewElement.className = "review";
+        reviewElement.className =
+            "review";
 
 
-        const mark = document.createElement("div");
+        const mark =
+            document.createElement("div");
 
-        mark.className = "review-mark";
+        mark.className =
+            "review-mark";
 
         mark.textContent = "“";
 
 
-        const text = document.createElement("p");
+        const text =
+            document.createElement("p");
 
-        text.className = "review-text";
+        text.className =
+            "review-text";
 
-        text.textContent = review.review_text;
-
-
-        const author = document.createElement("div");
-
-        author.className = "review-author";
+        text.textContent =
+            review.review_text;
 
 
-        const name = document.createElement("strong");
+        const author =
+            document.createElement("div");
 
-        name.textContent = review.name;
+        author.className =
+            "review-author";
 
 
-        const date = document.createElement("span");
+        const name =
+            document.createElement("strong");
 
-        const reviewDate = new Date(review.created_at);
+        name.textContent =
+            review.name;
 
-        date.textContent = reviewDate.toLocaleDateString("ru-RU");
+
+        const date =
+            document.createElement("span");
+
+        const reviewDate =
+            new Date(review.created_at);
+
+        date.textContent =
+            reviewDate.toLocaleDateString("ru-RU");
 
 
         author.appendChild(name);
@@ -120,7 +144,9 @@ async function loadReviews() {
         reviewElement.appendChild(author);
 
 
-        reviewsContainer.appendChild(reviewElement);
+        reviewsContainer.appendChild(
+            reviewElement
+        );
 
     });
 
@@ -128,12 +154,15 @@ async function loadReviews() {
 
 
 // =========================================
-// ОТКРЫТИЕ ФОРМЫ
+// ОТКРЫТИЕ ФОРМЫ ОТЗЫВА
 // =========================================
 
 function openReviewForm() {
 
-    const formWrapper = document.querySelector("#reviewFormWrapper");
+    const formWrapper =
+        document.querySelector(
+            "#reviewFormWrapper"
+        );
 
     if (!formWrapper) {
         return;
@@ -141,7 +170,11 @@ function openReviewForm() {
 
     formWrapper.classList.add("active");
 
-    const nameInput = document.querySelector("#reviewName");
+
+    const nameInput =
+        document.querySelector(
+            "#reviewName"
+        );
 
     if (nameInput) {
         nameInput.focus();
@@ -151,12 +184,15 @@ function openReviewForm() {
 
 
 // =========================================
-// ЗАКРЫТИЕ ФОРМЫ
+// ЗАКРЫТИЕ ФОРМЫ ОТЗЫВА
 // =========================================
 
 function closeReviewForm() {
 
-    const formWrapper = document.querySelector("#reviewFormWrapper");
+    const formWrapper =
+        document.querySelector(
+            "#reviewFormWrapper"
+        );
 
     if (!formWrapper) {
         return;
@@ -176,18 +212,32 @@ async function submitReview(event) {
     event.preventDefault();
 
 
-    const nameInput = document.querySelector("#reviewName");
+    const nameInput =
+        document.querySelector(
+            "#reviewName"
+        );
 
-    const textInput = document.querySelector("#reviewText");
+    const textInput =
+        document.querySelector(
+            "#reviewText"
+        );
 
-    const submitButton = document.querySelector("#reviewSubmitButton");
+    const submitButton =
+        document.querySelector(
+            "#reviewSubmitButton"
+        );
 
-    const message = document.querySelector("#reviewFormMessage");
+    const message =
+        document.querySelector(
+            "#reviewFormMessage"
+        );
 
 
-    const name = nameInput.value.trim();
+    const name =
+        nameInput.value.trim();
 
-    const reviewText = textInput.value.trim();
+    const reviewText =
+        textInput.value.trim();
 
 
     // =========================================
@@ -196,7 +246,12 @@ async function submitReview(event) {
 
     if (name.length < 2) {
 
-        message.textContent = "Введите имя.";
+        message.textContent =
+            "Введите имя.";
+
+        message.classList.remove(
+            "success"
+        );
 
         return;
     }
@@ -204,7 +259,12 @@ async function submitReview(event) {
 
     if (name.length > 50) {
 
-        message.textContent = "Имя слишком длинное.";
+        message.textContent =
+            "Имя слишком длинное.";
+
+        message.classList.remove(
+            "success"
+        );
 
         return;
     }
@@ -212,7 +272,12 @@ async function submitReview(event) {
 
     if (reviewText.length < 5) {
 
-        message.textContent = "Напишите немного подробнее.";
+        message.textContent =
+            "Напишите немного подробнее.";
+
+        message.classList.remove(
+            "success"
+        );
 
         return;
     }
@@ -220,50 +285,65 @@ async function submitReview(event) {
 
     if (reviewText.length > 500) {
 
-        message.textContent = "Отзыв слишком длинный.";
+        message.textContent =
+            "Отзыв слишком длинный.";
+
+        message.classList.remove(
+            "success"
+        );
 
         return;
     }
 
 
     // =========================================
-    // БЛОКИРУЕМ КНОПКУ НА ВРЕМЯ ОТПРАВКИ
+    // БЛОКИРУЕМ КНОПКУ
     // =========================================
 
     submitButton.disabled = true;
 
-    submitButton.textContent = "Отправляем...";
+    submitButton.textContent =
+        "Отправляем...";
 
     message.textContent = "";
+
+    message.classList.remove(
+        "success"
+    );
 
 
     // =========================================
     // ОТПРАВЛЯЕМ В SUPABASE
     // =========================================
 
-    const { error } = await supabaseClient
-        .from("reviews")
-        .insert({
-            name: name,
-            review_text: reviewText,
-            approved: false
-        });
+    const { error } =
+        await supabaseClient
+            .from("reviews")
+            .insert({
+                name: name,
+                review_text: reviewText,
+                approved: false
+            });
 
 
     // =========================================
-    // ЕСЛИ ПРОИЗОШЛА ОШИБКА
+    // ОШИБКА
     // =========================================
 
     if (error) {
 
-        console.error("Ошибка отправки отзыва:", error);
+        console.error(
+            "Ошибка отправки отзыва:",
+            error
+        );
 
         message.textContent =
             "Не удалось отправить отзыв. Попробуйте ещё раз.";
 
         submitButton.disabled = false;
 
-        submitButton.textContent = "Отправить отзыв";
+        submitButton.textContent =
+            "Отправить отзыв";
 
         return;
     }
@@ -276,7 +356,9 @@ async function submitReview(event) {
     message.textContent =
         "Спасибо! Отзыв отправлен на проверку.";
 
-    message.classList.add("success");
+    message.classList.add(
+        "success"
+    );
 
 
     nameInput.value = "";
@@ -286,65 +368,340 @@ async function submitReview(event) {
 
     submitButton.disabled = false;
 
-    submitButton.textContent = "Отправить отзыв";
+    submitButton.textContent =
+        "Отправить отзыв";
 
 }
 
 
 // =========================================
-// ЗАПУСК ПОСЛЕ ЗАГРУЗКИ СТРАНИЦЫ
+// ОТПРАВКА СООБЩЕНИЯ
 // =========================================
 
-document.addEventListener("DOMContentLoaded", function () {
+async function submitContactMessage(event) {
+
+    event.preventDefault();
 
 
-    // Загружаем отзывы
-
-    loadReviews();
-
-
-    // Кнопка «Оставить отзыв»
-
-    const openButton =
-        document.querySelector("#openReviewButton");
-
-    if (openButton) {
-
-        openButton.addEventListener(
-            "click",
-            openReviewForm
+    const nameInput =
+        document.querySelector(
+            "#contactName"
         );
 
+    const emailInput =
+        document.querySelector(
+            "#contactEmail"
+        );
+
+    const subjectInput =
+        document.querySelector(
+            "#contactSubject"
+        );
+
+    const messageInput =
+        document.querySelector(
+            "#contactMessage"
+        );
+
+    const submitButton =
+        document.querySelector(
+            "#contactSubmitButton"
+        );
+
+    const formMessage =
+        document.querySelector(
+            "#contactFormMessage"
+        );
+
+
+    if (
+        !nameInput ||
+        !emailInput ||
+        !messageInput ||
+        !submitButton ||
+        !formMessage
+    ) {
+        return;
     }
 
 
-    // Кнопка закрытия
+    const name =
+        nameInput.value.trim();
 
-    const closeButton =
-        document.querySelector("#closeReviewButton");
+    const email =
+        emailInput.value.trim();
 
-    if (closeButton) {
+    const subject =
+        subjectInput
+            ? subjectInput.value.trim()
+            : "";
 
-        closeButton.addEventListener(
-            "click",
-            closeReviewForm
+    const message =
+        messageInput.value.trim();
+
+
+    // =========================================
+    // ПРОВЕРКА ИМЕНИ
+    // =========================================
+
+    if (name.length < 2) {
+
+        formMessage.textContent =
+            "Введите ваше имя.";
+
+        formMessage.classList.remove(
+            "success"
         );
 
+        return;
     }
 
 
-    // Форма
+    if (name.length > 100) {
 
-    const reviewForm =
-        document.querySelector("#reviewForm");
+        formMessage.textContent =
+            "Имя слишком длинное.";
 
-    if (reviewForm) {
-
-        reviewForm.addEventListener(
-            "submit",
-            submitReview
+        formMessage.classList.remove(
+            "success"
         );
 
+        return;
     }
 
-});
+
+    // =========================================
+    // ПРОВЕРКА E-MAIL
+    // =========================================
+
+    const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+    if (!emailPattern.test(email)) {
+
+        formMessage.textContent =
+            "Введите корректный e-mail.";
+
+        formMessage.classList.remove(
+            "success"
+        );
+
+        return;
+    }
+
+
+    // =========================================
+    // ПРОВЕРКА ТЕМЫ
+    // =========================================
+
+    if (subject.length > 200) {
+
+        formMessage.textContent =
+            "Тема слишком длинная.";
+
+        formMessage.classList.remove(
+            "success"
+        );
+
+        return;
+    }
+
+
+    // =========================================
+    // ПРОВЕРКА СООБЩЕНИЯ
+    // =========================================
+
+    if (message.length < 5) {
+
+        formMessage.textContent =
+            "Напишите немного подробнее.";
+
+        formMessage.classList.remove(
+            "success"
+        );
+
+        return;
+    }
+
+
+    if (message.length > 3000) {
+
+        formMessage.textContent =
+            "Сообщение слишком длинное.";
+
+        formMessage.classList.remove(
+            "success"
+        );
+
+        return;
+    }
+
+
+    // =========================================
+    // НАЧИНАЕМ ОТПРАВКУ
+    // =========================================
+
+    submitButton.disabled = true;
+
+    submitButton.textContent =
+        "Отправляем...";
+
+    formMessage.textContent = "";
+
+    formMessage.classList.remove(
+        "success"
+    );
+
+
+    // =========================================
+    // СОХРАНЯЕМ СООБЩЕНИЕ
+    // =========================================
+
+    const { error } =
+        await supabaseClient
+            .from("messages")
+            .insert({
+                name: name,
+                email: email,
+                subject: subject || null,
+                message: message,
+                is_read: false
+            });
+
+
+    // =========================================
+    // ОШИБКА
+    // =========================================
+
+    if (error) {
+
+        console.error(
+            "Ошибка отправки сообщения:",
+            error
+        );
+
+        formMessage.textContent =
+            "Не удалось отправить сообщение. Попробуйте ещё раз.";
+
+        submitButton.disabled = false;
+
+        submitButton.textContent =
+            "Отправить сообщение";
+
+        return;
+    }
+
+
+    // =========================================
+    // УСПЕШНАЯ ОТПРАВКА
+    // =========================================
+
+    formMessage.textContent =
+        "Сообщение успешно отправлено! Я свяжусь с вами.";
+
+    formMessage.classList.add(
+        "success"
+    );
+
+
+    nameInput.value = "";
+
+    emailInput.value = "";
+
+    if (subjectInput) {
+        subjectInput.value = "";
+    }
+
+    messageInput.value = "";
+
+
+    submitButton.disabled = false;
+
+    submitButton.textContent =
+        "Отправить сообщение";
+
+}
+
+
+// =========================================
+// ЗАПУСК ПОСЛЕ ЗАГРУЗКИ
+// =========================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        // =====================================
+        // ОТЗЫВЫ
+        // =====================================
+
+        loadReviews();
+
+
+        const openButton =
+            document.querySelector(
+                "#openReviewButton"
+            );
+
+        if (openButton) {
+
+            openButton.addEventListener(
+                "click",
+                openReviewForm
+            );
+
+        }
+
+
+        const closeButton =
+            document.querySelector(
+                "#closeReviewButton"
+            );
+
+        if (closeButton) {
+
+            closeButton.addEventListener(
+                "click",
+                closeReviewForm
+            );
+
+        }
+
+
+        const reviewForm =
+            document.querySelector(
+                "#reviewForm"
+            );
+
+        if (reviewForm) {
+
+            reviewForm.addEventListener(
+                "submit",
+                submitReview
+            );
+
+        }
+
+
+        // =====================================
+        // ФОРМА ОБРАТНОЙ СВЯЗИ
+        // =====================================
+
+        const contactForm =
+            document.querySelector(
+                "#contactForm"
+            );
+
+        if (contactForm) {
+
+            contactForm.addEventListener(
+                "submit",
+                submitContactMessage
+            );
+
+        }
+
+    }
+);
