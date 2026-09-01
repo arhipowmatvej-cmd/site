@@ -85,6 +85,7 @@ nav a:hover {
     color: #63d5a2;
 }
 
+
 /* =========================
    ГЛАВНЫЙ ЭКРАН
 ========================= */
@@ -245,6 +246,7 @@ h1 {
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 
     position: relative;
+
     z-index: 1;
 }
 
@@ -519,9 +521,6 @@ h2 {
    ФОРМА ОТЗЫВА
 ========================= */
 
-
-/* По умолчанию форма полностью скрыта */
-
 .review-form-wrapper {
     display: none;
 
@@ -530,13 +529,9 @@ h2 {
     animation: reviewFormAppear 0.3s ease;
 }
 
-
-/* Когда JavaScript добавляет active — форма появляется */
-
 .review-form-wrapper.active {
     display: block;
 }
-
 
 @keyframes reviewFormAppear {
 
@@ -551,9 +546,6 @@ h2 {
     }
 
 }
-
-
-/* Сам блок формы */
 
 .review-form {
     max-width: 700px;
@@ -575,9 +567,6 @@ h2 {
         0 25px 70px rgba(0, 0, 0, 0.25);
 }
 
-
-/* Заголовок формы */
-
 .review-form-header {
     display: flex;
 
@@ -593,9 +582,6 @@ h2 {
 
     letter-spacing: -0.5px;
 }
-
-
-/* Крестик */
 
 .review-close {
     width: 36px;
@@ -631,9 +617,6 @@ h2 {
     transform: rotate(90deg);
 }
 
-
-/* Описание формы */
-
 .review-form-description {
     color: #7f8d86;
 
@@ -643,9 +626,6 @@ h2 {
 
     margin-bottom: 25px;
 }
-
-
-/* Подписи */
 
 .review-form label {
     display: block;
@@ -658,9 +638,6 @@ h2 {
 
     margin-bottom: 8px;
 }
-
-
-/* Поля */
 
 .review-form input,
 .review-form textarea {
@@ -710,9 +687,6 @@ h2 {
     min-height: 140px;
 }
 
-
-/* Кнопка отправки */
-
 .review-submit {
     width: 100%;
 
@@ -753,9 +727,6 @@ h2 {
 
     box-shadow: none;
 }
-
-
-/* Сообщение после отправки */
 
 .review-form-message {
     min-height: 24px;
@@ -1001,6 +972,7 @@ footer {
     }
 
 }
+
 
 /* =========================
    ПАНЕЛЬ МОДЕРАЦИИ
@@ -1446,6 +1418,7 @@ footer {
 
 }
 
+
 /* =========================
    БЛОГ
 ========================= */
@@ -1668,6 +1641,7 @@ footer {
 
 }
 
+
 /* =========================
    УПРАВЛЕНИЕ БЛОГОМ
 ========================= */
@@ -1690,6 +1664,11 @@ footer {
     color: #edf7f1;
 }
 
+
+/* =========================
+   ФОРМА НОВОЙ ПУБЛИКАЦИИ
+========================= */
+
 .admin-blog form {
     padding: 30px;
 
@@ -1700,6 +1679,72 @@ footer {
     background: rgba(255, 255, 255, 0.025);
 }
 
+
+/* Подписи полей */
+
+.admin-blog form > label {
+    display: block;
+
+    color: #c9d5cf;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+
+/* Поле заголовка */
+
+.admin-blog input[type="text"] {
+    width: 100%;
+
+    display: block;
+
+    padding: 14px 16px;
+
+    margin-bottom: 22px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius: 9px;
+
+    outline: none;
+
+    background: rgba(0, 0, 0, 0.22);
+
+    color: #edf7f1;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    transition: 0.25s ease;
+}
+
+
+/* Placeholder заголовка */
+
+.admin-blog input[type="text"]::placeholder {
+    color: #5f6c65;
+}
+
+
+/* Фокус заголовка */
+
+.admin-blog input[type="text"]:focus {
+    border-color: #63d5a2;
+
+    background: rgba(99, 213, 162, 0.035);
+
+    box-shadow:
+        0 0 0 3px rgba(99, 213, 162, 0.08);
+}
+
+
+/* Текст публикации */
+
 .admin-blog textarea {
     width: 100%;
 
@@ -1707,9 +1752,11 @@ footer {
 
     resize: vertical;
 
+    display: block;
+
     padding: 16px;
 
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 
     border: 1px solid rgba(255, 255, 255, 0.12);
 
@@ -1726,11 +1773,33 @@ footer {
     line-height: 1.6;
 
     outline: none;
+
+    transition: 0.25s ease;
 }
 
-.admin-blog textarea:focus {
-    border-color: rgba(99, 213, 162, 0.55);
+
+/* Placeholder текста */
+
+.admin-blog textarea::placeholder {
+    color: #5f6c65;
 }
+
+
+/* Фокус текста */
+
+.admin-blog textarea:focus {
+    border-color: #63d5a2;
+
+    background: rgba(99, 213, 162, 0.035);
+
+    box-shadow:
+        0 0 0 3px rgba(99, 213, 162, 0.08);
+}
+
+
+/* =========================
+   ОПЦИИ ПУБЛИКАЦИИ
+========================= */
 
 .blog-form-options {
     display: flex;
@@ -1744,6 +1813,9 @@ footer {
     margin-top: 5px;
 }
 
+
+/* Чекбокс */
+
 .publish-checkbox {
     display: flex;
 
@@ -1756,6 +1828,8 @@ footer {
     cursor: pointer;
 
     font-size: 14px;
+
+    margin: 0;
 }
 
 .publish-checkbox input {
@@ -1768,6 +1842,15 @@ footer {
     accent-color: #63d5a2;
 
     cursor: pointer;
+}
+
+
+/* Кнопка публикации */
+
+.blog-form-options .admin-button {
+    width: auto;
+
+    min-width: 250px;
 }
 
 
@@ -1913,7 +1996,7 @@ footer {
 
 
 /* =========================
-   АДАПТАЦИЯ
+   АДАПТАЦИЯ БЛОГА В АДМИНКЕ
 ========================= */
 
 @media (max-width: 700px) {
@@ -1944,6 +2027,8 @@ footer {
 
     .blog-form-options .admin-button {
         width: 100%;
+
+        min-width: 0;
     }
 
     .admin-blog-post {
