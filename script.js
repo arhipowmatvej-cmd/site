@@ -86,7 +86,7 @@ async function loadReviews() {
             document.createElement("div");
 
         reviewElement.className =
-            "review";
+            "review scroll-animate";
 
 
         const mark =
@@ -149,6 +149,11 @@ async function loadReviews() {
         );
 
     });
+
+
+    // После добавления отзывов
+    // подключаем анимацию появления
+    initScrollAnimations();
 
 }
 
@@ -625,6 +630,95 @@ async function submitContactMessage(event) {
 
 
 // =========================================
+// МИКРОАНИМАЦИИ ПРИ ПРОКРУТКЕ
+// =========================================
+
+function initScrollAnimations() {
+
+    const elements =
+        document.querySelectorAll(
+            ".section, .contact-section, .blog-post, .project-card, .skill, .reviews-header, .contact-form-wrapper"
+        );
+
+
+    if (!elements.length) {
+        return;
+    }
+
+
+    // Если браузер не поддерживает
+    // IntersectionObserver —
+    // просто показываем элементы.
+
+    if (!("IntersectionObserver" in window)) {
+
+        elements.forEach(element => {
+            element.classList.add("visible");
+        });
+
+        return;
+    }
+
+
+    const observer =
+        new IntersectionObserver(
+            function (entries) {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add(
+                            "scroll-animate"
+                        );
+
+                        requestAnimationFrame(
+                            function () {
+
+                                entry.target.classList.add(
+                                    "visible"
+                                );
+
+                            }
+                        );
+
+
+                        observer.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.12,
+
+                rootMargin:
+                    "0px 0px -40px 0px"
+            }
+        );
+
+
+    elements.forEach(
+        element => {
+
+            element.classList.add(
+                "scroll-animate"
+            );
+
+            observer.observe(
+                element
+            );
+
+        }
+    );
+
+}
+
+
+// =========================================
 // ЗАПУСК ПОСЛЕ ЗАГРУЗКИ
 // =========================================
 
@@ -702,6 +796,13 @@ document.addEventListener(
             );
 
         }
+
+
+        // =====================================
+        // МИКРОАНИМАЦИИ
+        // =====================================
+
+        initScrollAnimations();
 
     }
 );
