@@ -5,29 +5,30 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <title>Блог — Матвей Архипов</title>
+    <title>Админ-панель — Матвей Архипов</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css">
 
 </head>
 
-
 <body>
-
 
 <header>
 
     <div class="logo">
-        Матвей Архипов
+        Модерация
     </div>
-
 
     <nav>
 
         <a href="index.html">
-            Главная
+            На сайт
         </a>
 
         <a href="blog.html">
@@ -39,57 +40,291 @@
 </header>
 
 
-
 <main>
 
-
-    <section class="blog-section">
-
+    <section class="admin-section">
 
         <div class="section-label">
-            БЛОГ
+            ПАНЕЛЬ АДМИНИСТРАТОРА
         </div>
 
 
-        <div class="blog-content">
+        <div class="admin-content">
 
 
-            <div class="blog-header">
+            <!-- =========================
+                 ВХОД
+            ========================== -->
 
-                <div>
+            <div
+                id="loginBlock"
+                class="admin-card">
 
-                    <h1>
-                        Блог
-                    </h1>
+                <h1>
+                    Вход в админ-панель
+                </h1>
 
-                    <p class="blog-subtitle">
-                        Здесь я публикую заметки, наблюдения,
-                        проекты и материалы, которыми хочу поделиться.
+                <p class="admin-description">
+                    Войдите с помощью аккаунта администратора,
+                    чтобы управлять отзывами и публикациями.
+                </p>
+
+
+                <form id="loginForm">
+
+                    <label for="adminEmail">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="adminEmail"
+                        placeholder="Ваш email"
+                        required>
+
+
+                    <label for="adminPassword">
+                        Пароль
+                    </label>
+
+                    <input
+                        type="password"
+                        id="adminPassword"
+                        placeholder="Ваш пароль"
+                        required>
+
+
+                    <button
+                        type="submit"
+                        class="admin-button">
+
+                        Войти
+
+                    </button>
+
+
+                    <p
+                        id="loginMessage"
+                        class="admin-message">
                     </p>
+
+                </form>
+
+            </div>
+
+
+
+            <!-- =========================
+                 АДМИН-ПАНЕЛЬ
+            ========================== -->
+
+            <div
+                id="moderationBlock"
+                class="moderation-block"
+                style="display: none;">
+
+
+                <div class="moderation-header">
+
+                    <div>
+
+                        <h1>
+                            Админ-панель
+                        </h1>
+
+                        <p class="admin-description">
+                            Управление отзывами и публикациями.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="logoutButton"
+                        class="logout-button">
+
+                        Выйти
+
+                    </button>
 
                 </div>
 
+
+
+                <!-- =========================
+                     БЛОГ
+                ========================== -->
+
+                <div class="admin-blog">
+
+                    <div class="admin-block-title">
+
+                        <div>
+
+                            <div class="section-label">
+                                БЛОГ
+                            </div>
+
+                            <h2>
+                                Новая публикация
+                            </h2>
+
+                            <p class="admin-description">
+                                Создайте запись и решите,
+                                публиковать её сразу или сохранить
+                                как черновик.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <form id="blogForm">
+
+
+                        <label for="blogTitle">
+                            Заголовок
+                        </label>
+
+                        <input
+                            type="text"
+                            id="blogTitle"
+                            placeholder="Введите заголовок публикации"
+                            maxlength="200"
+                            required>
+
+
+                        <label for="blogContent">
+                            Текст публикации
+                        </label>
+
+                        <textarea
+                            id="blogContent"
+                            rows="12"
+                            placeholder="Введите текст публикации..."
+                            required></textarea>
+
+
+                        <div class="blog-form-options">
+
+                            <label class="publish-checkbox">
+
+                                <input
+                                    type="checkbox"
+                                    id="blogPublished">
+
+                                <span>
+                                    Опубликовать сразу
+                                </span>
+
+                            </label>
+
+
+                            <button
+                                type="submit"
+                                class="admin-button">
+
+                                Добавить публикацию
+
+                            </button>
+
+                        </div>
+
+
+                        <p
+                            id="blogMessage"
+                            class="admin-message">
+                        </p>
+
+                    </form>
+
+                </div>
+
+
+
+                <!-- =========================
+                     ПУБЛИКАЦИИ
+                ========================== -->
+
+                <div class="admin-blog-list">
+
+                    <div class="admin-block-title">
+
+                        <div>
+
+                            <div class="section-label">
+                                УПРАВЛЕНИЕ
+                            </div>
+
+                            <h2>
+                                Публикации
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div id="adminBlogPosts">
+
+                        <p class="reviews-message">
+                            Загружаем публикации...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =========================
+                     ОТЗЫВЫ
+                ========================== -->
+
+                <div class="admin-reviews">
+
+                    <div class="admin-block-title">
+
+                        <div>
+
+                            <div class="section-label">
+                                ОТЗЫВЫ
+                            </div>
+
+                            <h2>
+                                Отзывы
+                            </h2>
+
+                            <p class="admin-description">
+                                Здесь находятся отзывы,
+                                которые ожидают проверки.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div id="pendingReviews">
+
+                        <p class="reviews-message">
+                            Загружаем отзывы...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
             </div>
-
-
-            <div
-                id="blogPosts"
-                class="blog-posts">
-
-                <p class="reviews-message">
-                    Загружаем публикации...
-                </p>
-
-            </div>
-
 
         </div>
 
     </section>
 
-
 </main>
-
 
 
 <footer>
@@ -102,14 +337,9 @@
 
 
 
-<!-- Supabase -->
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
-<!-- Логика блога -->
-
-<script src="blog.js"></script>
+<script src="admin.js"></script>
 
 
 </body>
