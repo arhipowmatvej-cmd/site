@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Модерация отзывов — Матвей Архипов</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        Модерация отзывов
+    </div>
+
+    <nav>
+        <a href="index.html">На сайт</a>
+    </nav>
+
+</header>
+
+
+<main>
+
+    <section class="admin-section">
+
+        <div class="section-label">
+            ПАНЕЛЬ АДМИНИСТРАТОРА
+        </div>
+
+        <div class="admin-content">
+
+            <!-- Вход -->
+
+            <div id="loginBlock" class="admin-card">
+
+                <h1>
+                    Вход в модерацию
+                </h1>
+
+                <p class="admin-description">
+                    Войдите с помощью аккаунта администратора,
+                    чтобы управлять отзывами.
+                </p>
+
+
+                <form id="loginForm">
+
+                    <label for="adminEmail">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="adminEmail"
+                        placeholder="Ваш email"
+                        required>
+
+
+                    <label for="adminPassword">
+                        Пароль
+                    </label>
+
+                    <input
+                        type="password"
+                        id="adminPassword"
+                        placeholder="Ваш пароль"
+                        required>
+
+
+                    <button
+                        type="submit"
+                        class="admin-button">
+                        Войти
+                    </button>
+
+
+                    <p
+                        id="loginMessage"
+                        class="admin-message">
+                    </p>
+
+                </form>
+
+            </div>
+
+
+            <!-- Панель отзывов -->
+
+            <div
+                id="moderationBlock"
+                class="moderation-block"
+                style="display: none;">
+
+                <div class="moderation-header">
+
+                    <div>
+
+                        <h1>
+                            Отзывы
+                        </h1>
+
+                        <p class="admin-description">
+                            Здесь находятся отзывы, которые ожидают проверки.
+                        </p>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        id="logoutButton"
+                        class="logout-button">
+                        Выйти
+                    </button>
+
+                </div>
+
+
+                <div id="pendingReviews">
+
+                    <p class="reviews-message">
+                        Загружаем отзывы...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 Матвей Архипов
+    </p>
+
+</footer>
+
+
+<!-- Supabase -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- Логика панели -->
+
+<script src="admin.js"></script>
+
+</body>
+
+</html>
