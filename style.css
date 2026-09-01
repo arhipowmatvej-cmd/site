@@ -1446,3 +1446,225 @@ footer {
     }
 
 }
+
+/* =========================
+   БЛОГ
+========================= */
+
+.blog-section {
+    width: min(1180px, calc(100% - 50px));
+
+    margin: 0 auto;
+
+    min-height: calc(100vh - 145px);
+
+    padding: 100px 0;
+
+    display: grid;
+
+    grid-template-columns: 220px minmax(0, 1fr);
+
+    gap: 40px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    position: relative;
+
+    z-index: 1;
+}
+
+.blog-content {
+    max-width: 900px;
+}
+
+.blog-header {
+    margin-bottom: 45px;
+}
+
+.blog-header h1 {
+    margin-bottom: 20px;
+}
+
+.blog-subtitle {
+    max-width: 680px;
+
+    color: #aebbb4;
+
+    font-size: 17px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================
+   СПИСОК СТАТЕЙ
+========================= */
+
+.blog-posts {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 25px;
+}
+
+
+/* =========================
+   КАРТОЧКА СТАТЬИ
+========================= */
+
+.blog-post {
+    padding: 32px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    transition: 0.3s ease;
+}
+
+.blog-post:hover {
+    transform: translateY(-5px);
+
+    border-color: rgba(99, 213, 162, 0.4);
+
+    background: rgba(99, 213, 162, 0.035);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.22);
+}
+
+
+/* Дата */
+
+.blog-post-date {
+    color: #63d5a2;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 15px;
+}
+
+
+/* Заголовок */
+
+.blog-post-title {
+    color: #edf7f1;
+
+    font-size: 30px;
+
+    line-height: 1.2;
+
+    letter-spacing: -1px;
+
+    margin-bottom: 20px;
+}
+
+
+/* Текст */
+
+.blog-post-content {
+    color: #aebbb4;
+
+    font-size: 16px;
+
+    line-height: 1.75;
+}
+
+.blog-post-content p {
+    margin-bottom: 15px;
+}
+
+.blog-post-content p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =========================
+   НЕТ ПУБЛИКАЦИЙ
+========================= */
+
+.empty-blog {
+    padding: 70px 30px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.02);
+
+    text-align: center;
+}
+
+.empty-blog-icon {
+    width: 58px;
+
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin: 0 auto 20px;
+
+    border: 1px solid rgba(99, 213, 162, 0.4);
+
+    border-radius: 50%;
+
+    color: #63d5a2;
+
+    font-size: 25px;
+}
+
+.empty-blog h3 {
+    font-size: 21px;
+
+    margin-bottom: 7px;
+}
+
+.empty-blog p {
+    color: #76837d;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   АДАПТАЦИЯ БЛОГА
+========================= */
+
+@media (max-width: 700px) {
+
+    .blog-section {
+        width: calc(100% - 30px);
+
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+
+        padding: 75px 0;
+    }
+
+    .blog-post {
+        padding: 25px;
+    }
+
+    .blog-post-title {
+        font-size: 25px;
+    }
+
+    .blog-post-content {
+        font-size: 15px;
+    }
+
+}
