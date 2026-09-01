@@ -835,9 +835,9 @@ footer {
 }
 
 
-/* =========================
-   ПАНЕЛЬ АДМИНИСТРАТОРА
-========================= */
+/* ==================================================
+   АДМИН-ПАНЕЛЬ
+================================================== */
 
 .admin-page {
     position: relative;
@@ -847,7 +847,9 @@ footer {
 }
 
 
-/* Верхний заголовок */
+/* =========================
+   ЗАГОЛОВОК АДМИНКИ
+========================= */
 
 .admin-header {
     width: 100%;
@@ -876,7 +878,9 @@ footer {
 }
 
 
-/* Панель входа */
+/* =========================
+   ВХОД
+========================= */
 
 #loginSection {
     width: 100%;
@@ -899,14 +903,18 @@ footer {
 }
 
 
-/* Основное содержимое */
+/* =========================
+   ОСНОВНОЕ СОДЕРЖИМОЕ
+========================= */
 
 #adminContent {
     width: 100%;
 }
 
 
-/* Панель выхода */
+/* =========================
+   ПАНЕЛЬ ВЫХОДА
+========================= */
 
 .admin-toolbar {
     width: 100%;
@@ -938,9 +946,6 @@ footer {
     font-size: 14px;
 }
 
-
-/* Кнопка выхода */
-
 .admin-toolbar .admin-button {
     width: auto;
 
@@ -950,7 +955,9 @@ footer {
 }
 
 
-/* Обычная секция админки */
+/* =========================
+   СЕКЦИИ АДМИНКИ
+========================= */
 
 .admin-section {
     width: 100%;
@@ -979,7 +986,9 @@ footer {
 }
 
 
-/* Заголовок секции */
+/* =========================
+   ЗАГОЛОВОК СЕКЦИИ
+========================= */
 
 .admin-section-title {
     min-width: 0;
@@ -1000,7 +1009,9 @@ footer {
 }
 
 
-/* Карточка */
+/* =========================
+   КАРТОЧКА АДМИНКИ
+========================= */
 
 .admin-card {
     width: 100%;
@@ -1206,9 +1217,6 @@ footer {
     margin-top: 8px;
 }
 
-
-/* Новый checkbox-label из admin.html */
-
 .checkbox-label {
     display: flex !important;
 
@@ -1244,9 +1252,6 @@ footer {
     color: #aebbb4;
 }
 
-
-/* Кнопка создания */
-
 .blog-form-options .admin-button {
     width: auto;
 
@@ -1254,20 +1259,48 @@ footer {
 }
 
 
-/* =========================
-   СПИСКИ
-========================= */
+/* ==================================================
+   СПИСКИ АДМИНКИ
+================================================== */
 
 .admin-list {
     width: 100%;
 
     max-width: 850px;
+
+    min-width: 0;
 }
 
+
+/*
+   ВАЖНО:
+   Проекты в админке всегда идут одной колонкой.
+   Это исправляет проблему с узкими карточками.
+*/
+
+.admin-list#projectsList {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+    width: 100%;
+
+    max-width: 850px;
+}
+
+
+/* Карточка элемента */
+
 .admin-list-item {
+    width: 100%;
+
+    min-width: 0;
+
     padding: 28px;
 
-    margin-bottom: 18px;
+    margin: 0;
 
     border: 1px solid rgba(255, 255, 255, 0.1);
 
@@ -1275,7 +1308,10 @@ footer {
 
     background: rgba(255, 255, 255, 0.025);
 
-    transition: 0.25s ease;
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
 }
 
 .admin-list-item:hover {
@@ -1322,8 +1358,18 @@ footer {
     letter-spacing: 0.5px;
 }
 
+
+/* =========================
+   КНОПКИ ВНУТРИ КАРТОЧКИ
+========================= */
+
 .admin-list-actions {
-    display: flex;
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
     gap: 10px;
 
@@ -1331,9 +1377,21 @@ footer {
 }
 
 .admin-list-actions .admin-button {
-    width: auto;
+    width: 100%;
 
-    min-width: 150px;
+    min-width: 0;
+
+    padding: 13px 14px;
+
+    white-space: normal;
+}
+
+
+/* Если кнопок две */
+
+.admin-list-actions:has(.admin-button:nth-child(2)):not(:has(.admin-button:nth-child(3))) {
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 }
 
 
@@ -1342,6 +1400,8 @@ footer {
 ========================= */
 
 .empty-blog {
+    width: 100%;
+
     padding: 60px 30px;
 
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1386,9 +1446,9 @@ footer {
 }
 
 
-/* =========================
+/* ==================================================
    БЛОГ
-========================= */
+================================================== */
 
 .blog-section {
     width: min(1180px, calc(100% - 50px));
@@ -1508,280 +1568,25 @@ footer {
 }
 
 
-/* =========================
-   АДАПТАЦИЯ
-========================= */
+/* ==================================================
+   КАРТОЧКИ ПРОЕКТОВ НА СТРАНИЦЕ ПРОЕКТОВ
+================================================== */
 
-@media (max-width: 950px) {
+/*
+   Здесь специально используется класс,
+   а не #projectsList.
 
-    .hero-content {
-        grid-template-columns: 1fr 0.9fr;
+   Поэтому этот стиль НЕ влияет на админку.
+*/
 
-        gap: 45px;
-    }
+.projects-page-list {
+    display: grid;
 
-    .hero-photo {
-        height: 400px;
-    }
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
-    h1 {
-        font-size: 52px;
-    }
-
-    .skills,
-    .reviews {
-        grid-template-columns: 1fr;
-    }
-
-    .admin-section {
-        grid-template-columns: 180px minmax(0, 1fr);
-
-        gap: 30px;
-    }
-
+    gap: 25px;
 }
-
-
-@media (max-width: 700px) {
-
-    header {
-        width: calc(100% - 30px);
-
-        height: auto;
-
-        padding: 20px 0;
-
-        flex-direction: column;
-
-        gap: 18px;
-    }
-
-    nav {
-        gap: 20px;
-
-        flex-wrap: wrap;
-
-        justify-content: center;
-    }
-
-
-    .container {
-        width: calc(100% - 30px);
-    }
-
-
-    .hero {
-        min-height: auto;
-    }
-
-    .hero-content {
-        width: calc(100% - 30px);
-
-        grid-template-columns: 1fr;
-
-        gap: 45px;
-
-        padding: 65px 0;
-    }
-
-    .hero-photo {
-        height: 380px;
-    }
-
-    h1 {
-        font-size: 46px;
-
-        letter-spacing: -2px;
-    }
-
-
-    .section,
-    .contact-section {
-        width: calc(100% - 30px);
-
-        grid-template-columns: 1fr;
-
-        gap: 25px;
-
-        padding: 75px 0;
-    }
-
-
-    .reviews {
-        grid-template-columns: 1fr;
-    }
-
-
-    .reviews-header {
-        align-items: flex-start;
-
-        flex-direction: column;
-    }
-
-    .review-button {
-        width: 100%;
-    }
-
-    .review-form {
-        padding: 25px;
-    }
-
-
-    /* Админка */
-
-    .admin-header {
-        padding: 60px 0 25px;
-    }
-
-    .admin-header h1 {
-        font-size: 42px;
-
-        letter-spacing: -2px;
-    }
-
-    #loginSection {
-        padding: 25px 0 70px;
-    }
-
-    .admin-toolbar {
-        flex-direction: column;
-
-        align-items: stretch;
-    }
-
-    .admin-toolbar .admin-button {
-        width: 100%;
-    }
-
-    .admin-section {
-        width: 100%;
-
-        grid-template-columns: 1fr;
-
-        gap: 25px;
-
-        padding: 55px 0;
-    }
-
-    .admin-section-title h2 {
-        font-size: 32px;
-    }
-
-    .admin-card {
-        padding: 25px;
-    }
-
-    .blog-form-options {
-        flex-direction: column;
-
-        align-items: stretch;
-    }
-
-    .checkbox-label {
-        margin-bottom: 5px !important;
-    }
-
-    .blog-form-options .admin-button {
-        width: 100%;
-
-        min-width: 0;
-    }
-
-    .admin-list-actions {
-        flex-direction: column;
-    }
-
-    .admin-list-actions .admin-button {
-        width: 100%;
-    }
-
-
-    /* Блог */
-
-    .blog-section {
-        width: calc(100% - 30px);
-
-        grid-template-columns: 1fr;
-
-        gap: 25px;
-
-        padding: 75px 0;
-    }
-
-    .blog-post {
-        padding: 25px;
-    }
-
-    .blog-post-title {
-        font-size: 25px;
-    }
-
-    .blog-post-content {
-        font-size: 15px;
-    }
-
-}
-
-
-@media (max-width: 500px) {
-
-    .logo {
-        width: 38px;
-        height: 38px;
-
-        text-align: center;
-
-        font-size: 15px;
-    }
-
-    .logo img {
-        width: 38px;
-        height: 38px;
-    }
-
-    nav a {
-        font-size: 12px;
-    }
-
-    h1 {
-        font-size: 39px;
-    }
-
-    .hero-description {
-        font-size: 16px;
-    }
-
-    .hero-photo {
-        height: 320px;
-    }
-
-    .review {
-        min-height: 250px;
-
-        padding: 25px;
-    }
-
-    .review-form {
-        padding: 20px;
-    }
-
-    .review-form-header h3 {
-        font-size: 21px;
-    }
-
-    .admin-header h1 {
-        font-size: 36px;
-    }
-
-    .admin-card {
-        padding: 20px;
-    }
-
-}
-
-/* =========================
-   КАРТОЧКИ ПРОЕКТОВ
-========================= */
 
 .project-card {
     position: relative;
@@ -1812,7 +1617,6 @@ footer {
         border-color 0.3s ease,
         box-shadow 0.3s ease;
 }
-
 
 .project-card:hover {
     transform: translateY(-6px);
@@ -1934,20 +1738,6 @@ footer {
 
 
 /* =========================
-   НЕСКОЛЬКО ПРОЕКТОВ
-========================= */
-
-#projectsList {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 25px;
-}
-
-
-/* =========================
    ЕСЛИ У ПРОЕКТА НЕТ КАРТИНКИ
 ========================= */
 
@@ -1956,13 +1746,265 @@ footer {
 }
 
 
-/* =========================
-   ТЕЛЕФОН
-========================= */
+/* ==================================================
+   АДАПТАЦИЯ
+================================================== */
+
+@media (max-width: 950px) {
+
+    .hero-content {
+        grid-template-columns:
+            1fr 0.9fr;
+
+        gap: 45px;
+    }
+
+    .hero-photo {
+        height: 400px;
+    }
+
+    h1 {
+        font-size: 52px;
+    }
+
+    .skills,
+    .reviews {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-section {
+        grid-template-columns:
+            180px minmax(0, 1fr);
+
+        gap: 30px;
+    }
+
+    .admin-list-actions {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-list-actions:has(.admin-button:nth-child(3)) {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .projects-page-list {
+        grid-template-columns: 1fr;
+    }
+}
+
 
 @media (max-width: 700px) {
 
-    #projectsList {
+    header {
+        width: calc(100% - 30px);
+
+        height: auto;
+
+        padding: 20px 0;
+
+        flex-direction: column;
+
+        gap: 18px;
+    }
+
+    nav {
+        gap: 20px;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+    }
+
+    .container {
+        width: calc(100% - 30px);
+    }
+
+
+    /* =========================
+       ГЛАВНЫЙ ЭКРАН
+    ========================= */
+
+    .hero {
+        min-height: auto;
+    }
+
+    .hero-content {
+        width: calc(100% - 30px);
+
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+
+        padding: 65px 0;
+    }
+
+    .hero-photo {
+        height: 380px;
+    }
+
+    h1 {
+        font-size: 46px;
+
+        letter-spacing: -2px;
+    }
+
+
+    /* =========================
+       СЕКЦИИ
+    ========================= */
+
+    .section,
+    .contact-section {
+        width: calc(100% - 30px);
+
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+
+        padding: 75px 0;
+    }
+
+    .reviews {
+        grid-template-columns: 1fr;
+    }
+
+
+    /* =========================
+       ОТЗЫВЫ
+    ========================= */
+
+    .reviews-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .review-button {
+        width: 100%;
+    }
+
+    .review-form {
+        padding: 25px;
+    }
+
+
+    /* =========================
+       АДМИНКА
+    ========================= */
+
+    .admin-header {
+        padding: 60px 0 25px;
+    }
+
+    .admin-header h1 {
+        font-size: 42px;
+
+        letter-spacing: -2px;
+    }
+
+    #loginSection {
+        padding: 25px 0 70px;
+    }
+
+    .admin-toolbar {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .admin-toolbar .admin-button {
+        width: 100%;
+    }
+
+    .admin-section {
+        width: 100%;
+
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+
+        padding: 55px 0;
+    }
+
+    .admin-section-title h2 {
+        font-size: 32px;
+    }
+
+    .admin-card {
+        padding: 25px;
+    }
+
+    .blog-form-options {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .checkbox-label {
+        margin-bottom: 5px !important;
+    }
+
+    .blog-form-options .admin-button {
+        width: 100%;
+
+        min-width: 0;
+    }
+
+
+    /*
+       На телефоне кнопки проекта
+       идут друг под другом.
+    */
+
+    .admin-list-actions {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+    .admin-list-actions .admin-button {
+        width: 100%;
+
+        min-width: 0;
+    }
+
+
+    /* =========================
+       БЛОГ
+    ========================= */
+
+    .blog-section {
+        width: calc(100% - 30px);
+
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+
+        padding: 75px 0;
+    }
+
+    .blog-post {
+        padding: 25px;
+    }
+
+    .blog-post-title {
+        font-size: 25px;
+    }
+
+    .blog-post-content {
+        font-size: 15px;
+    }
+
+
+    /* =========================
+       ПРОЕКТЫ
+    ========================= */
+
+    .projects-page-list {
         grid-template-columns: 1fr;
 
         gap: 20px;
@@ -1983,5 +2025,64 @@ footer {
     .project-card h3 {
         font-size: 24px;
     }
+}
 
+
+@media (max-width: 500px) {
+
+    .logo {
+        width: 38px;
+        height: 38px;
+
+        text-align: center;
+
+        font-size: 15px;
+    }
+
+    .logo img {
+        width: 38px;
+        height: 38px;
+    }
+
+    nav a {
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: 39px;
+    }
+
+    .hero-description {
+        font-size: 16px;
+    }
+
+    .hero-photo {
+        height: 320px;
+    }
+
+    .review {
+        min-height: 250px;
+
+        padding: 25px;
+    }
+
+    .review-form {
+        padding: 20px;
+    }
+
+    .review-form-header h3 {
+        font-size: 21px;
+    }
+
+    .admin-header h1 {
+        font-size: 36px;
+    }
+
+    .admin-card {
+        padding: 20px;
+    }
+
+    .admin-list-item {
+        padding: 22px;
+    }
 }
