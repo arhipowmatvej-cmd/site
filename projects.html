@@ -2,6 +2,7 @@
 <html lang="ru">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -15,9 +16,32 @@
         rel="stylesheet"
         href="style.css"
     >
+
+    <script>
+        (function () {
+
+            const savedTheme =
+                localStorage.getItem("siteTheme");
+
+            const theme =
+                savedTheme === "light"
+                    ? "light"
+                    : "dark";
+
+            document.documentElement
+                .setAttribute(
+                    "data-theme",
+                    theme
+                );
+
+        })();
+    </script>
+
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -25,11 +49,14 @@
         href="index.html"
         class="logo"
     >
+
         <img
             src="ChatGPT%20Image%202%20сент.%202026%20г.%2C%2001_43_15.png"
             alt="Матвей Архипов"
         >
+
     </a>
+
 
     <nav>
 
@@ -59,7 +86,36 @@
 
     </nav>
 
+
+    <div class="theme-picker">
+
+        <button
+            type="button"
+            id="themePickerButton"
+            aria-expanded="false"
+            aria-label="Выбрать тему"
+        >
+
+            <span class="theme-picker-text">
+                Тёмная тема
+            </span>
+
+            <span class="theme-picker-arrow">
+                ☀
+            </span>
+
+        </button>
+
+
+        <div
+            id="themeMenu"
+            class="theme-menu"
+        ></div>
+
+    </div>
+
 </header>
+
 
 
 <main>
@@ -109,6 +165,7 @@
 </main>
 
 
+
 <footer>
 
     <p>
@@ -118,9 +175,13 @@
 </footer>
 
 
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script src="script.js"></script>
+
 <script src="projects.js"></script>
+
 
 </body>
 
