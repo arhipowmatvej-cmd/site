@@ -7,15 +7,38 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0">
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Блог — Матвей Архипов</title>
 
     <link
         rel="stylesheet"
-        href="style.css">
+        href="style.css"
+    >
+
+    <script>
+        (function () {
+
+            const savedTheme =
+                localStorage.getItem("siteTheme");
+
+            const theme =
+                savedTheme === "light"
+                    ? "light"
+                    : "dark";
+
+            document.documentElement
+                .setAttribute(
+                    "data-theme",
+                    theme
+                );
+
+        })();
+    </script>
 
 </head>
+
 
 <body>
 
@@ -24,11 +47,13 @@
 
     <a
         href="index.html"
-        class="logo">
+        class="logo"
+    >
 
         <img
             src="logo-site.png"
-            alt="Матвей Архипов">
+            alt="Матвей Архипов"
+        >
 
     </a>
 
@@ -49,6 +74,34 @@
 
     </nav>
 
+
+    <div class="theme-picker">
+
+        <button
+            type="button"
+            id="themePickerButton"
+            aria-expanded="false"
+            aria-label="Выбрать тему"
+        >
+
+            <span class="theme-picker-text">
+                Тёмная тема
+            </span>
+
+            <span class="theme-picker-arrow">
+                ☀
+            </span>
+
+        </button>
+
+
+        <div
+            id="themeMenu"
+            class="theme-menu"
+        ></div>
+
+    </div>
+
 </header>
 
 
@@ -57,14 +110,12 @@
 
     <section class="blog-section">
 
-
         <div class="section-label">
             БЛОГ
         </div>
 
 
         <div class="blog-content">
-
 
             <div class="blog-header">
 
@@ -84,17 +135,16 @@
             </div>
 
 
-
             <div
                 id="blogPosts"
-                class="blog-posts">
+                class="blog-posts"
+            >
 
                 <p class="reviews-message">
                     Загружаем публикации...
                 </p>
 
             </div>
-
 
         </div>
 
@@ -115,6 +165,8 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="script.js"></script>
 
 <script src="blog.js"></script>
 
