@@ -73,11 +73,36 @@ header {
     z-index: 10;
 }
 
+
+/* ЛОГОТИП */
+
 .logo {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    text-decoration: none;
 }
+
+.logo img {
+    display: block;
+
+    width: 42px;
+    height: 42px;
+
+    object-fit: contain;
+
+    transition: 0.25s ease;
+}
+
+.logo:hover img {
+    transform: scale(1.08);
+}
+
 
 nav {
     display: flex;
@@ -1701,9 +1726,17 @@ footer {
 @media (max-width: 500px) {
 
     .logo {
+        width: 38px;
+        height: 38px;
+
         text-align: center;
 
         font-size: 15px;
+    }
+
+    .logo img {
+        width: 38px;
+        height: 38px;
     }
 
     nav a {
