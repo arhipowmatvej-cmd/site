@@ -109,7 +109,9 @@ nav a:hover {
 
     display: grid;
 
-    grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+    grid-template-columns:
+        minmax(0, 0.9fr)
+        minmax(420px, 1.1fr);
 
     align-items: center;
 
@@ -162,7 +164,7 @@ h1 {
 
 
 /* =========================
-   КНОПКА
+   ОСНОВНАЯ КНОПКА
 ========================= */
 
 .button {
@@ -179,7 +181,6 @@ h1 {
     text-decoration: none;
 
     font-size: 14px;
-
     font-weight: 700;
 
     transition: 0.25s ease;
@@ -188,7 +189,8 @@ h1 {
 .button:hover {
     transform: translateY(-3px);
 
-    box-shadow: 0 12px 30px rgba(99, 213, 162, 0.18);
+    box-shadow:
+        0 12px 30px rgba(99, 213, 162, 0.18);
 }
 
 
@@ -251,7 +253,6 @@ h1 {
     color: #63d5a2;
 
     font-size: 13px;
-
     font-weight: 700;
 
     letter-spacing: 2px;
@@ -349,6 +350,74 @@ h2 {
     padding-bottom: 110px;
 }
 
+
+/* Заголовок отзывов */
+
+.reviews-header {
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 35px;
+}
+
+.reviews-header h2 {
+    margin-bottom: 10px;
+}
+
+.reviews-subtitle {
+    color: #8f9d96;
+
+    font-size: 15px;
+
+    max-width: 620px;
+}
+
+
+/* Кнопка «Оставить отзыв» */
+
+.review-button {
+    flex-shrink: 0;
+
+    padding: 13px 22px;
+
+    border: 1px solid #63d5a2;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #63d5a2;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.review-button:hover {
+    background: #63d5a2;
+
+    color: #06100b;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(99, 213, 162, 0.15);
+}
+
+
+/* Сетка отзывов */
+
 .reviews {
     display: grid;
 
@@ -356,8 +425,11 @@ h2 {
 
     gap: 22px;
 
-    margin-top: 42px;
+    margin-top: 30px;
 }
+
+
+/* Карточка отзыва */
 
 .review {
     position: relative;
@@ -382,7 +454,8 @@ h2 {
 
     background: rgba(99, 213, 162, 0.035);
 
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.22);
 }
 
 .review-mark {
@@ -430,6 +503,278 @@ h2 {
 }
 
 
+/* Сообщение «отзывов пока нет» */
+
+.reviews-message {
+    grid-column: 1 / -1;
+
+    color: #76837d;
+
+    font-size: 15px;
+
+    padding: 25px 0;
+}
+
+
+/* =========================
+   ФОРМА ОТЗЫВА
+========================= */
+
+
+/* По умолчанию форма полностью скрыта */
+
+.review-form-wrapper {
+    display: none;
+
+    margin-top: 35px;
+
+    animation: reviewFormAppear 0.3s ease;
+}
+
+
+/* Когда JavaScript добавляет active — форма появляется */
+
+.review-form-wrapper.active {
+    display: block;
+}
+
+
+@keyframes reviewFormAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* Сам блок формы */
+
+.review-form {
+    max-width: 700px;
+
+    padding: 35px;
+
+    border: 1px solid rgba(99, 213, 162, 0.28);
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(99, 213, 162, 0.06),
+            rgba(255, 255, 255, 0.02)
+        );
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.25);
+}
+
+
+/* Заголовок формы */
+
+.review-form-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+}
+
+.review-form-header h3 {
+    font-size: 25px;
+
+    letter-spacing: -0.5px;
+}
+
+
+/* Крестик */
+
+.review-close {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #aebbb4;
+
+    font-size: 25px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.review-close:hover {
+    color: #63d5a2;
+
+    border-color: #63d5a2;
+
+    transform: rotate(90deg);
+}
+
+
+/* Описание формы */
+
+.review-form-description {
+    color: #7f8d86;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin-bottom: 25px;
+}
+
+
+/* Подписи */
+
+.review-form label {
+    display: block;
+
+    color: #c9d5cf;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+
+/* Поля */
+
+.review-form input,
+.review-form textarea {
+    width: 100%;
+
+    display: block;
+
+    padding: 14px 16px;
+
+    margin-bottom: 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius: 9px;
+
+    outline: none;
+
+    background: rgba(0, 0, 0, 0.22);
+
+    color: #edf7f1;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    transition: 0.25s ease;
+}
+
+.review-form input::placeholder,
+.review-form textarea::placeholder {
+    color: #5f6c65;
+}
+
+.review-form input:focus,
+.review-form textarea:focus {
+    border-color: #63d5a2;
+
+    background: rgba(99, 213, 162, 0.035);
+
+    box-shadow:
+        0 0 0 3px rgba(99, 213, 162, 0.08);
+}
+
+.review-form textarea {
+    resize: vertical;
+
+    min-height: 140px;
+}
+
+
+/* Кнопка отправки */
+
+.review-submit {
+    width: 100%;
+
+    padding: 14px 22px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #63d5a2;
+
+    color: #06100b;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.review-submit:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(99, 213, 162, 0.18);
+}
+
+.review-submit:disabled {
+    opacity: 0.55;
+
+    cursor: wait;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* Сообщение после отправки */
+
+.review-form-message {
+    min-height: 24px;
+
+    margin-top: 15px;
+
+    color: #d47b7b;
+
+    font-size: 14px;
+
+    text-align: center;
+}
+
+.review-form-message.success {
+    color: #63d5a2;
+}
+
+
 /* =========================
    КОНТАКТЫ
 ========================= */
@@ -448,6 +793,7 @@ h2 {
     gap: 40px;
 
     position: relative;
+
     z-index: 1;
 }
 
@@ -523,6 +869,7 @@ footer {
     .reviews {
         grid-template-columns: 1fr;
     }
+
 }
 
 
@@ -552,6 +899,7 @@ footer {
         justify-content: center;
     }
 
+
     .hero {
         min-height: auto;
     }
@@ -576,6 +924,7 @@ footer {
         letter-spacing: -2px;
     }
 
+
     .section,
     .contact-section {
         width: calc(100% - 30px);
@@ -587,8 +936,24 @@ footer {
         padding: 75px 0;
     }
 
+
     .reviews {
         grid-template-columns: 1fr;
+    }
+
+
+    .reviews-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .review-button {
+        width: 100%;
+    }
+
+    .review-form {
+        padding: 25px;
     }
 
 }
@@ -626,6 +991,14 @@ footer {
         min-height: 250px;
 
         padding: 25px;
+    }
+
+    .review-form {
+        padding: 20px;
+    }
+
+    .review-form-header h3 {
+        font-size: 21px;
     }
 
 }
