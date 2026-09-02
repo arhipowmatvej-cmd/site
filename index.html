@@ -1,751 +1,342 @@
 <!DOCTYPE html>
-
 <html lang="ru">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-    <title>Матвей Архипов — студент-гидролог</title>
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem("siteTheme");
+            const theme = savedTheme === "light" ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
 
-    <link
-        rel="stylesheet"
-        href="style.css">
+    <title>Матвей Архипов</title>
 
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
+<header class="site-header">
+    <div class="container header-inner">
 
-<!-- =========================
-     НАВИГАЦИЯ
-========================= -->
-
-<header>
-
-    <a
-        href="index.html"
-        class="logo">
-
-        <img
-            src="logo-site.png"
-            alt="Матвей Архипов">
-
-    </a>
-
-
-    <nav>
-
-        <a href="index.html#about">
-            Обо мне
+        <a href="index.html" class="logo">
+            <img src="logo-site.png" alt="Матвей Архипов">
         </a>
 
-        <a href="index.html#skills">
-            Навыки
-        </a>
+        <nav class="main-nav">
+            <a href="index.html">Главная</a>
+            <a href="#about">Обо мне</a>
+            <a href="#skills">Навыки</a>
+            <a href="projects.html">Проекты</a>
+            <a href="blog.html">Блог</a>
+            <a href="#reviews">Отзывы</a>
+            <a href="#contacts">Контакты</a>
+        </nav>
 
-        <a href="index.html#reviews">
-            Отзывы
-        </a>
+        <div class="theme-picker">
+            <button
+                type="button"
+                id="themePickerButton"
+                aria-expanded="false"
+                aria-label="Выбрать тему"
+            >
+                <span class="theme-picker-text">Тёмная тема</span>
+                <span class="theme-picker-arrow">☀</span>
+            </button>
 
-        <a href="index.html#contacts">
-            Контакты
-        </a>
-
-        <a href="projects.html">
-            Проекты
-        </a>
-
-        <a href="blog.html">
-            Блог
-        </a>
-
-    </nav>
-
-
-    <!-- =========================
-         ВЫБОР ЦВЕТА
-    ========================== -->
-
-    <div class="theme-picker">
-
-        <button
-            type="button"
-            class="theme-picker-button"
-            id="themePickerButton"
-            aria-label="Выбрать цвет сайта"
-            aria-expanded="false">
-
-            <span
-                class="theme-current-color"
-                id="themeCurrentColor">
-            </span>
-
-            <span class="theme-picker-text">
-                Цвет
-            </span>
-
-            <span class="theme-picker-arrow">
-                ▾
-            </span>
-
-        </button>
-
-
-        <div
-            class="theme-menu"
-            id="themeMenu">
-
-
-            <div class="theme-menu-title">
-                Цвет акцента
-            </div>
-
-
-            <div class="theme-colors">
-
-
-                <button
-                    type="button"
-                    class="theme-color"
-                    data-theme-color="#2e9f6e"
-                    style="--swatch: #2e9f6e"
-                    aria-label="Зелёный">
-                </button>
-
-
-                <button
-                    type="button"
-                    class="theme-color"
-                    data-theme-color="#3284d6"
-                    style="--swatch: #3284d6"
-                    aria-label="Синий">
-                </button>
-
-
-                <button
-                    type="button"
-                    class="theme-color"
-                    data-theme-color="#7657d9"
-                    style="--swatch: #7657d9"
-                    aria-label="Фиолетовый">
-                </button>
-
-
-                <button
-                    type="button"
-                    class="theme-color"
-                    data-theme-color="#d88932"
-                    style="--swatch: #d88932"
-                    aria-label="Оранжевый">
-                </button>
-
-
-                <button
-                    type="button"
-                    class="theme-color"
-                    data-theme-color="#d65353"
-                    style="--swatch: #d65353"
-                    aria-label="Красный">
-                </button>
-
-
-                <button
-                    type="button"
-                    class="theme-color"
-                    data-theme-color="#168f91"
-                    style="--swatch: #168f91"
-                    aria-label="Бирюзовый">
-                </button>
-
-
-            </div>
-
-
-            <div class="theme-custom">
-
-                <label for="customThemeColor">
-                    Свой цвет
-                </label>
-
-                <input
-                    type="color"
-                    id="customThemeColor"
-                    value="#2e9f6e">
-
-            </div>
-
-
+            <div id="themeMenu" class="theme-menu"></div>
         </div>
 
     </div>
-
 </header>
 
 
-
-<!-- =========================
-     ГЛАВНЫЙ ЭКРАН
-========================= -->
-
 <main>
 
-
+    <!-- HERO -->
     <section class="hero">
+        <div class="container hero-inner">
 
-
-        <div class="hero-content">
-
-
-            <div class="hero-text">
-
-
-                <p class="eyebrow">
-                    САЙТ ДЛЯ ПОИСКА РАБОТЫ
-                </p>
-
+            <div class="hero-content">
+                <p class="hero-label">ПОРТФОЛИО</p>
 
                 <h1>
-                    Привет, я Матвей, студент-гидролог
+                    Матвей<br>
+                    <span>Архипов</span>
                 </h1>
 
-
                 <p class="hero-description">
-                    Ищу работу, стажировку или возможность получить
-                    практический опыт. Готов учиться, развиваться
-                    и не боюсь новых задач.
+                    Специалист, который любит разбираться в задачах,
+                    создавать полезные решения и развиваться вместе
+                    с современными технологиями.
                 </p>
 
+                <div class="hero-buttons">
+                    <a href="#contacts" class="button button-primary">
+                        Связаться со мной
+                    </a>
 
-                <a
-                    href="#about"
-                    class="button">
-
-                    Узнать обо мне
-
-                </a>
-
-
+                    <a href="projects.html" class="button button-secondary">
+                        Смотреть проекты
+                    </a>
+                </div>
             </div>
-
-
 
             <div class="hero-photo">
-
-                <img
-                    src="photo_2023-01-19_23-58-45.jpg"
-                    alt="Фото Матвея">
-
+                <div class="hero-photo-frame">
+                    <img src="photo.jpg" alt="Матвей Архипов">
+                </div>
             </div>
 
-
         </div>
-
-
     </section>
 
 
-
-    <!-- =========================
-         ОБО МНЕ
-    ========================== -->
-
-    <section
-        id="about"
-        class="section">
-
-
-        <div class="section-label">
-            01 — ОБО МНЕ
-        </div>
-
-
-        <div class="section-content">
-
-
-            <h2>
-                Немного обо мне
-            </h2>
-
-
-            <p>
-                Я студент-гидролог, который находится в поиске
-                работы и возможностей для профессионального развития.
-            </p>
-
-
-            <p>
-                Хочу получить реальный опыт, попробовать себя
-                в новых задачах и найти команду, в которой смогу
-                быть полезен и постепенно развиваться как специалист.
-            </p>
-
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =========================
-         НАВЫКИ
-    ========================== -->
-
-    <section
-        id="skills"
-        class="section">
-
-
-        <div class="section-label">
-            02 — НАВЫКИ
-        </div>
-
-
-        <div class="section-content">
-
-
-            <h2>
-                Что я умею
-            </h2>
-
-
-            <div class="skills">
-
-
-                <div class="skill">
-
-                    <span>
-                        01
-                    </span>
-
-                    <h3>
-                        Думать
-                    </h3>
-
-                    <p>
-                        Анализировать задачи и искать решения.
-                    </p>
-
-                </div>
-
-
-
-                <div class="skill">
-
-                    <span>
-                        02
-                    </span>
-
-                    <h3>
-                        Говорить
-                    </h3>
-
-                    <p>
-                        Общаться с людьми и объяснять свои мысли.
-                    </p>
-
-                </div>
-
-
-
-                <div class="skill">
-
-                    <span>
-                        03
-                    </span>
-
-                    <h3>
-                        Сперва говорить, потом думать
-                    </h3>
-
-                    <p>
-                        Иногда импровизировать и находить выход
-                        из неожиданных ситуаций.
-                    </p>
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =========================
-         ОТЗЫВЫ
-    ========================== -->
-
-    <section
-        id="reviews"
-        class="section reviews-section">
-
-
-        <div class="section-label">
-            03 — ОТЗЫВЫ
-        </div>
-
-
-        <div class="section-content">
-
-
-            <div class="reviews-header">
-
-
+    <!-- ABOUT -->
+    <section id="about" class="section">
+        <div class="container">
+
+            <div class="section-heading">
+                <span class="section-number">01</span>
                 <div>
+                    <p class="section-label">ОБО МНЕ</p>
+                    <h2>Немного обо мне</h2>
+                </div>
+            </div>
 
-                    <h2>
-                        Что обо мне говорят
-                    </h2>
+            <div class="about-content">
 
-
-                    <p class="reviews-subtitle">
-                        Отзывы людей, которые со мной работали,
-                        учились или просто хорошо меня знают.
+                <div class="about-text">
+                    <p>
+                        Меня зовут Матвей Архипов. Я интересуюсь современными
+                        технологиями, разработкой программного обеспечения
+                        и созданием цифровых проектов.
                     </p>
 
+                    <p>
+                        Мне нравится изучать новые инструменты, самостоятельно
+                        находить решения и превращать идеи в работающие проекты.
+                    </p>
+
+                    <p>
+                        Сейчас я продолжаю развиваться и получать практический
+                        опыт, создавая собственные проекты и изучая новые
+                        технологии.
+                    </p>
                 </div>
 
-
-                <button
-                    type="button"
-                    class="review-button"
-                    id="openReviewButton">
-
-                    Оставить отзыв
-
-                </button>
-
-
             </div>
 
+        </div>
+    </section>
 
 
-            <div
-                class="reviews"
-                id="reviewsContainer">
+    <!-- SKILLS -->
+    <section id="skills" class="section section-alt">
+        <div class="container">
 
-                <p class="reviews-message">
-                    Загружаем отзывы...
-                </p>
-
+            <div class="section-heading">
+                <span class="section-number">02</span>
+                <div>
+                    <p class="section-label">НАВЫКИ</p>
+                    <h2>Что я умею</h2>
+                </div>
             </div>
 
+            <div class="skills-grid">
 
-
-            <!-- ФОРМА ОТЗЫВА -->
-
-            <div
-                class="review-form-wrapper"
-                id="reviewFormWrapper">
-
-
-                <div class="review-form">
-
-
-                    <div class="review-form-header">
-
-
-                        <h3>
-                            Оставить отзыв
-                        </h3>
-
-
-                        <button
-                            type="button"
-                            class="review-close"
-                            id="closeReviewButton"
-                            aria-label="Закрыть">
-
-                            ×
-
-                        </button>
-
-
-                    </div>
-
-
-                    <p class="review-form-description">
-                        Отзыв сначала отправляется на проверку.
-                        После одобрения он появится на сайте.
+                <div class="skill-card">
+                    <span class="skill-number">01</span>
+                    <h3>Программирование</h3>
+                    <p>
+                        Изучение C++ и создание прикладных программ.
                     </p>
+                </div>
+
+                <div class="skill-card">
+                    <span class="skill-number">02</span>
+                    <h3>Web-разработка</h3>
+                    <p>
+                        Создание современных сайтов и работа с HTML, CSS и JavaScript.
+                    </p>
+                </div>
+
+                <div class="skill-card">
+                    <span class="skill-number">03</span>
+                    <h3>Работа с базами данных</h3>
+                    <p>
+                        Использование современных облачных баз данных
+                        и серверных сервисов.
+                    </p>
+                </div>
+
+                <div class="skill-card">
+                    <span class="skill-number">04</span>
+                    <h3>Самостоятельное обучение</h3>
+                    <p>
+                        Быстрое освоение новых инструментов и технологий
+                        на практике.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
 
 
-                    <form id="reviewForm">
+    <!-- REVIEWS -->
+    <section id="reviews" class="section">
+        <div class="container">
 
+            <div class="section-heading">
+                <span class="section-number">03</span>
+                <div>
+                    <p class="section-label">ОТЗЫВЫ</p>
+                    <h2>Отзывы</h2>
+                </div>
+            </div>
 
-                        <label for="reviewName">
-                            Ваше имя
-                        </label>
+            <div id="reviewsList" class="reviews-list">
+                <p class="loading-text">Загружаем отзывы...</p>
+            </div>
 
+            <div class="review-form-wrapper">
 
+                <h3>Оставить отзыв</h3>
+
+                <form id="reviewForm" class="review-form">
+
+                    <div class="form-group">
+                        <label for="reviewName">Ваше имя</label>
                         <input
                             type="text"
                             id="reviewName"
                             name="name"
-                            placeholder="Например, Иван"
-                            minlength="2"
-                            maxlength="50"
-                            required>
+                            placeholder="Введите имя"
+                            required
+                        >
+                    </div>
 
-
-                        <label for="reviewText">
-                            Ваш отзыв
-                        </label>
-
-
+                    <div class="form-group">
+                        <label for="reviewText">Отзыв</label>
                         <textarea
                             id="reviewText"
                             name="review"
-                            placeholder="Напишите несколько слов обо мне..."
-                            minlength="5"
-                            maxlength="500"
-                            rows="6"
-                            required></textarea>
-
-
-                        <button
-                            type="submit"
-                            class="review-submit"
-                            id="reviewSubmitButton">
-
-                            Отправить отзыв
-
-                        </button>
-
-
-                        <p
-                            class="review-form-message"
-                            id="reviewFormMessage">
-                        </p>
-
-
-                    </form>
-
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =========================
-         КОНТАКТЫ
-    ========================== -->
-
-    <section
-        id="contacts"
-        class="contact-section">
-
-
-        <div class="section-label">
-            04 — КОНТАКТЫ
-        </div>
-
-
-        <div class="contact-content">
-
-
-            <h2>
-                Давайте общаться.
-            </h2>
-
-
-            <p>
-                Если у вас есть интересное предложение,
-                вакансия или возможность для сотрудничества —
-                буду рад обсудить детали.
-            </p>
-
-
-            <a
-                href="mailto:gop.2000@mail.ru"
-                class="contact-link">
-
-                gop.2000@mail.ru
-
-            </a>
-
-
-
-            <!-- =========================
-                 ФОРМА ОБРАТНОЙ СВЯЗИ
-            ========================== -->
-
-            <div class="contact-form-wrapper">
-
-
-                <div class="contact-form-header">
-
-                    <h3>
-                        Написать мне
-                    </h3>
-
-                    <p>
-                        Есть предложение или вопрос?
-                        Оставьте сообщение прямо здесь.
-                    </p>
-
-                </div>
-
-
-                <form
-                    id="contactForm"
-                    class="contact-form">
-
-
-                    <div class="contact-form-row">
-
-
-                        <div class="contact-form-field">
-
-                            <label for="contactName">
-                                Ваше имя
-                            </label>
-
-                            <input
-                                type="text"
-                                id="contactName"
-                                name="name"
-                                placeholder="Например, Иван"
-                                minlength="2"
-                                maxlength="100"
-                                required>
-
-                        </div>
-
-
-
-                        <div class="contact-form-field">
-
-                            <label for="contactEmail">
-                                E-mail
-                            </label>
-
-                            <input
-                                type="email"
-                                id="contactEmail"
-                                name="email"
-                                placeholder="example@mail.ru"
-                                maxlength="200"
-                                required>
-
-                        </div>
-
-
+                            rows="5"
+                            placeholder="Напишите ваш отзыв"
+                            required
+                        ></textarea>
                     </div>
 
-
-
-                    <div class="contact-form-field">
-
-                        <label for="contactSubject">
-                            Тема
-                        </label>
-
-                        <input
-                            type="text"
-                            id="contactSubject"
-                            name="subject"
-                            placeholder="Например, предложение о работе"
-                            maxlength="200">
-
-                    </div>
-
-
-
-                    <div class="contact-form-field">
-
-                        <label for="contactMessage">
-                            Сообщение
-                        </label>
-
-                        <textarea
-                            id="contactMessage"
-                            name="message"
-                            placeholder="Напишите ваше сообщение..."
-                            minlength="5"
-                            maxlength="3000"
-                            rows="7"
-                            required></textarea>
-
-                    </div>
-
-
-
-                    <button
-                        type="submit"
-                        class="contact-submit"
-                        id="contactSubmitButton">
-
-                        Отправить сообщение
-
+                    <button type="submit" class="button button-primary">
+                        Отправить отзыв
                     </button>
 
-
-
-                    <p
-                        class="contact-form-message"
-                        id="contactFormMessage">
-                    </p>
-
+                    <p id="reviewMessage" class="form-message"></p>
 
                 </form>
 
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- CONTACTS -->
+    <section id="contacts" class="section section-alt">
+        <div class="container">
+
+            <div class="section-heading">
+                <span class="section-number">04</span>
+                <div>
+                    <p class="section-label">КОНТАКТЫ</p>
+                    <h2>Связаться со мной</h2>
+                </div>
+            </div>
+
+            <div class="contacts-content">
+
+                <div class="contacts-text">
+                    <p>
+                        Если у вас есть предложение, вопрос или интересный
+                        проект — буду рад обсудить его.
+                    </p>
+                </div>
+
+                <form id="contactForm" class="contact-form">
+
+                    <div class="form-group">
+                        <label for="contactName">Имя</label>
+                        <input
+                            type="text"
+                            id="contactName"
+                            name="name"
+                            placeholder="Ваше имя"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactEmail">Email</label>
+                        <input
+                            type="email"
+                            id="contactEmail"
+                            name="email"
+                            placeholder="your@email.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactMessage">Сообщение</label>
+                        <textarea
+                            id="contactMessage"
+                            name="message"
+                            rows="6"
+                            placeholder="Ваше сообщение"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="button button-primary">
+                        Отправить сообщение
+                    </button>
+
+                    <p id="contactFormMessage" class="form-message"></p>
+
+                </form>
 
             </div>
 
-
         </div>
-
-
     </section>
-
 
 </main>
 
 
+<footer class="site-footer">
+    <div class="container footer-inner">
 
-<!-- =========================
-     FOOTER
-========================= -->
+        <p>
+            © 2026 Матвей Архипов
+        </p>
 
-<footer>
+        <a href="admin.html">
+            Администрирование
+        </a>
 
-    <p>
-        © 2026 Матвей НАЙДИТЕ МНЕ УЖЕ РАБОТУ ПОЖАЛУЙСТА
-    </p>
-
+    </div>
 </footer>
 
 
-
-<!-- =========================
-     SUPABASE
-========================= -->
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script src="script.js"></script>
 
-
 </body>
-
 </html>
