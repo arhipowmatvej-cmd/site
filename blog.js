@@ -1,13 +1,3 @@
-const SUPABASE_URL = "https://cqhhshrabncntkcnkrym.supabase.co";
-
-const SUPABASE_KEY = "sb_publishable_jC2L087LA9OKoEslfgEH8Q_4WjciDSW";
-
-
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
-
 // =========================================
 // ЭЛЕМЕНТЫ СТРАНИЦЫ
 // =========================================
@@ -33,11 +23,18 @@ async function loadBlogPosts() {
         data,
         error
     } = await supabaseClient
+
         .from("blog_posts")
+
         .select(
             "id, title, content, created_at"
         )
-        .eq("published", true)
+
+        .eq(
+            "published",
+            true
+        )
+
         .order(
             "created_at",
             {
@@ -48,7 +45,10 @@ async function loadBlogPosts() {
 
     if (error) {
 
-        console.error(error);
+        console.error(
+            "Ошибка загрузки публикаций:",
+            error
+        );
 
         blogPosts.innerHTML = `
             <p class="reviews-message">
@@ -92,6 +92,7 @@ async function loadBlogPosts() {
         const article =
             document.createElement("article");
 
+
         article.className =
             "blog-post";
 
@@ -103,8 +104,10 @@ async function loadBlogPosts() {
         const date =
             document.createElement("div");
 
+
         date.className =
             "blog-post-date";
+
 
         date.textContent =
             new Date(
@@ -126,8 +129,10 @@ async function loadBlogPosts() {
         const title =
             document.createElement("h2");
 
+
         title.className =
             "blog-post-title";
+
 
         title.textContent =
             post.title;
@@ -139,6 +144,7 @@ async function loadBlogPosts() {
 
         const content =
             document.createElement("div");
+
 
         content.className =
             "blog-post-content";
@@ -157,25 +163,29 @@ async function loadBlogPosts() {
             post.content.split(/\n\s*\n/);
 
 
-        paragraphs.forEach(paragraphText => {
+        paragraphs.forEach(
+            paragraphText => {
 
-            const paragraph =
-                document.createElement("p");
+                const paragraph =
+                    document.createElement("p");
 
-            paragraph.textContent =
-                paragraphText.trim();
 
-            if (
-                paragraph.textContent
-            ) {
+                paragraph.textContent =
+                    paragraphText.trim();
 
-                content.appendChild(
-                    paragraph
-                );
+
+                if (
+                    paragraph.textContent
+                ) {
+
+                    content.appendChild(
+                        paragraph
+                    );
+
+                }
 
             }
-
-        });
+        );
 
 
         // =================================
@@ -187,7 +197,6 @@ async function loadBlogPosts() {
         article.appendChild(title);
 
         article.appendChild(content);
-
 
         blogPosts.appendChild(article);
 
