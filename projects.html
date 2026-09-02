@@ -1,112 +1,194 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-
-    <script>
-        (function () {
-            const savedTheme = localStorage.getItem("siteTheme");
-            const theme = savedTheme === "light" ? "light" : "dark";
-            document.documentElement.setAttribute("data-theme", theme);
-        })();
-    </script>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Проекты — Матвей Архипов</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="icon"
+        href="favicon.ico"
+        type="image/x-icon"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <script>
+        (function () {
+
+            const savedTheme =
+                localStorage.getItem("siteTheme");
+
+            const theme =
+                savedTheme === "light"
+                    ? "light"
+                    : "dark";
+
+            document.documentElement
+                .setAttribute(
+                    "data-theme",
+                    theme
+                );
+
+        })();
+    </script>
+
 </head>
+
 
 <body>
 
-<header class="site-header">
-    <div class="container header-inner">
 
-        <a href="index.html" class="logo">
-            <img src="logo-site.png" alt="Матвей Архипов">
+<header>
+
+    <a
+        href="index.html"
+        class="logo"
+    >
+
+        <img
+            src="ChatGPT%20Image%202%20сент.%202026%20г.%2C%2001_43_15.png"
+            alt="Матвей Архипов"
+        >
+
+    </a>
+
+
+    <nav>
+
+        <a href="index.html#about">
+            Обо мне
         </a>
 
-        <nav class="main-nav">
-            <a href="index.html">Главная</a>
-            <a href="index.html#about">Обо мне</a>
-            <a href="index.html#skills">Навыки</a>
-            <a href="projects.html" class="active">Проекты</a>
-            <a href="blog.html">Блог</a>
-            <a href="index.html#reviews">Отзывы</a>
-            <a href="index.html#contacts">Контакты</a>
-        </nav>
+        <a href="index.html#skills">
+            Навыки
+        </a>
 
-        <div class="theme-picker">
+        <a href="index.html#reviews">
+            Отзывы
+        </a>
 
-            <button
-                type="button"
-                id="themePickerButton"
-                aria-expanded="false"
-                aria-label="Выбрать тему"
-            >
-                <span class="theme-picker-text">Тёмная тема</span>
-                <span class="theme-picker-arrow">☀</span>
-            </button>
+        <a href="index.html#contacts">
+            Контакты
+        </a>
 
-            <div id="themeMenu" class="theme-menu"></div>
+        <a href="projects.html">
+            Проекты
+        </a>
 
-        </div>
+        <a href="blog.html">
+            Блог
+        </a>
+
+    </nav>
+
+
+    <div class="theme-picker">
+
+        <button
+            type="button"
+            id="themePickerButton"
+            aria-expanded="false"
+            aria-label="Выбрать тему"
+        >
+
+            <span class="theme-picker-text">
+                Тёмная тема
+            </span>
+
+            <span class="theme-picker-arrow">
+                ☀
+            </span>
+
+        </button>
+
+
+        <div
+            id="themeMenu"
+            class="theme-menu"
+        ></div>
 
     </div>
+
 </header>
+
 
 
 <main>
 
-    <section class="page-hero">
-        <div class="container">
+    <section class="blog-section">
 
-            <p class="hero-label">ПОРТФОЛИО</p>
-
-            <h1>Мои проекты</h1>
-
-            <p>
-                Здесь собраны проекты, над которыми я работал
-                или которые создавал в процессе обучения и развития.
-            </p>
-
+        <div class="section-label">
+            ПРОЕКТЫ
         </div>
-    </section>
 
 
-    <section class="section">
-        <div class="container">
+        <div class="blog-content">
 
-            <div id="projectsList" class="projects-grid">
-                <p class="loading-text">Загружаем проекты...</p>
+            <div class="blog-header">
+
+                <div>
+
+                    <h1>
+                        Проекты
+                    </h1>
+
+                    <p class="blog-subtitle">
+                        Здесь представлены мои проекты,
+                        разработки и практические работы.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="projectsList"
+                class="blog-posts"
+            >
+
+                <p class="reviews-message">
+                    Загружаем проекты...
+                </p>
+
             </div>
 
         </div>
+
     </section>
 
 </main>
 
 
-<footer class="site-footer">
-    <div class="container footer-inner">
 
-        <p>
-            © 2026 Матвей Архипов
-        </p>
+<footer>
 
-        <a href="admin.html">
-            Администрирование
-        </a>
+    <p>
+        © 2026 Матвей Архипов
+    </p>
 
-    </div>
 </footer>
 
 
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="script.js"></script>
+
 <script src="projects.js"></script>
 
+
 </body>
+
 </html>
